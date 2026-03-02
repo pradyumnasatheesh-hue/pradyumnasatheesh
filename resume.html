@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pradyumna Satheesh — Resume</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* Cursor */
+    body { cursor: none; }
+    #dot {
+      position: fixed; width: 10px; height: 10px;
+      background: #e05a0c; border-radius: 50%;
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%, -50%);
+    }
+    #ring {
+      position: fixed; width: 32px; height: 32px;
+      border: 1.5px solid #e05a0c; border-radius: 50%;
+      pointer-events: none; z-index: 9998;
+      transform: translate(-50%, -50%); opacity: 0.4;
+    }
+
+    :root {
+      --white: #ffffff;
+      --off: #f5f4f1;
+      --ink: #0d0d0d;
+      --mid: #3a3a3a;
+      --muted: #888;
+      --faint: #d8d8d8;
+      --orange: #e05a0c;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--ink);
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* ── PRINT BUTTON ── */
+    .print-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--ink);
+      padding: 10px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .print-bar span {
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      font-family: 'Instrument Sans', sans-serif;
+    }
+    .print-bar-actions { display: flex; gap: 12px; }
+    .btn-print {
+      background: var(--orange);
+      color: white;
+      border: none;
+      padding: 7px 20px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      cursor: none;
+      border-radius: 2px;
+      transition: opacity 0.2s;
+    }
+    .btn-print:hover { opacity: 0.85; }
+    .btn-back {
+      background: transparent;
+      color: rgba(255,255,255,0.5);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 7px 20px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      cursor: none;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .btn-back:hover { color: white; border-color: rgba(255,255,255,0.4); }
+
+    /* ── PAGE ── */
+    .page {
+      max-width: 900px;
+      margin: 60px auto 80px;
+      padding: 64px 64px 80px;
+      background: var(--white);
+    }
+
+    /* ── HEADER ── */
+    .resume-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 40px;
+      padding-bottom: 32px;
+      border-bottom: 2px solid var(--ink);
+      margin-bottom: 40px;
+    }
+
+    .resume-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 56px;
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+      color: var(--ink);
+    }
+    .resume-name span { color: var(--orange); }
+
+    .resume-title {
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 10px;
+      font-style: italic;
+    }
+
+    .resume-contact {
+      text-align: right;
+    }
+    .resume-contact p {
+      font-size: 13px;
+      color: var(--mid);
+      line-height: 1.8;
+    }
+    .resume-contact a {
+      color: var(--orange);
+      text-decoration: none;
+    }
+    .resume-contact a:hover { text-decoration: underline; }
+    .seeking {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--orange);
+      border: 1px solid var(--orange);
+      padding: 4px 12px;
+      border-radius: 2px;
+    }
+
+    /* ── SECTIONS ── */
+    .resume-body {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 0 40px;
+    }
+
+    .section-label {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--orange);
+      padding-top: 36px;
+      position: sticky;
+      top: 60px;
+    }
+
+    .section-content {
+      padding-top: 28px;
+      border-top: 1px solid var(--faint);
+    }
+
+    /* ── EXPERIENCE ── */
+    .job { margin-bottom: 28px; }
+    .job:last-child { margin-bottom: 0; }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 4px;
+    }
+    .job-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+    .job-dates {
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .job-company {
+      font-size: 13px;
+      color: var(--orange);
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+    .job-company span {
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .bullets { list-style: none; padding: 0; }
+    .bullets li {
+      font-size: 13.5px;
+      color: var(--mid);
+      line-height: 1.65;
+      padding-left: 16px;
+      position: relative;
+      margin-bottom: 5px;
+    }
+    .bullets li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--orange);
+      font-weight: 700;
+    }
+    .bullets li strong { color: var(--ink); font-weight: 600; }
+
+    /* ── EDUCATION ── */
+    .edu-item { margin-bottom: 16px; }
+    .edu-item:last-child { margin-bottom: 0; }
+    .edu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+    }
+    .edu-degree {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--ink);
+    }
+    .edu-school {
+      font-size: 13px;
+      color: var(--mid);
+      margin-top: 2px;
+    }
+
+    /* ── PROJECTS ── */
+    .project-item { margin-bottom: 20px; }
+    .project-item:last-child { margin-bottom: 0; }
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 4px;
+    }
+    .project-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--ink);
+    }
+    .project-tags {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 4px;
+      letter-spacing: 0.03em;
+    }
+    .project-desc {
+      font-size: 13px;
+      color: var(--mid);
+      line-height: 1.65;
+    }
+    .project-link {
+      font-size: 12px;
+      color: var(--orange);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* ── SKILLS ── */
+    .skills-list { display: flex; flex-direction: column; gap: 10px; }
+    .skill-row { font-size: 13px; line-height: 1.6; color: var(--mid); }
+    .skill-row strong { color: var(--ink); font-weight: 600; }
+
+    /* ── SECTION DIVIDER ROW ── */
+    .section-row {
+      display: contents;
+    }
+
+    /* ── PRINT STYLES ── */
+    @media print {
+      body { cursor: auto; background: white; }
+      #dot, #ring, .print-bar { display: none !important; }
+      .page { margin: 0; padding: 24px 32px; max-width: 100%; }
+      .resume-name { font-size: 40px; }
+      .section-label { position: static; }
+    }
+
+    @media (max-width: 700px) {
+      .page { padding: 32px 24px; margin: 50px auto 40px; }
+      .resume-header { grid-template-columns: 1fr; }
+      .resume-contact { text-align: left; }
+      .resume-body { grid-template-columns: 1fr; }
+      .section-label { padding-top: 28px; position: static; }
+      .section-content { border-top: none; padding-top: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="dot"></div>
+<div id="ring"></div>
+
+<!-- Print bar -->
+<div class="print-bar">
+  <span>Pradyumna Satheesh — Resume</span>
+  <div class="print-bar-actions">
+    <a href="index.html" class="btn-back">← Portfolio</a>
+    <button class="btn-print" onclick="window.print()">Download PDF ↓</button>
+  </div>
+</div>
+
+<!-- Resume -->
+<div class="page">
+
+  <!-- Header -->
+  <div class="resume-header">
+    <div>
+      <div class="resume-name">Pradyumna<br><span>Satheesh</span></div>
+      <div class="resume-title">UX Researcher · Product Designer · Service Designer</div>
+    </div>
+    <div class="resume-contact">
+      <p>+1 (812) 322-6669</p>
+      <p>pradyumnasatheesh@gmail.com</p>
+      <p><a href="https://pradyumnasatheesh.com">pradyumnasatheesh.com</a></p>
+      <p><a href="https://linkedin.com/in/pradyumnasatheesh">linkedin.com/in/pradyumnasatheesh</a></p>
+      <p>Bloomington, IN, USA</p>
+      <div class="seeking">Open to Summer 2025 Internships</div>
+    </div>
+  </div>
+
+  <!-- Body grid -->
+  <div class="resume-body">
+
+    <!-- EDUCATION -->
+    <div class="section-label">Education</div>
+    <div class="section-content">
+      <div class="edu-item">
+        <div class="edu-header">
+          <div class="edu-degree">MS — Human-Computer Interaction</div>
+          <div class="job-dates">Expected May 2026</div>
+        </div>
+        <div class="edu-school">Indiana University, Luddy School of Informatics — Bloomington, IN</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-header">
+          <div class="edu-degree">BDes — Product Design</div>
+          <div class="job-dates">July 2022</div>
+        </div>
+        <div class="edu-school">Jawaharlal Nehru Architecture & Fine Arts University — Hyderabad, India</div>
+      </div>
+    </div>
+
+    <!-- EXPERIENCE -->
+    <div class="section-label">Experience</div>
+    <div class="section-content">
+
+      <div class="job">
+        <div class="job-header">
+          <div class="job-title">Service Designer</div>
+          <div class="job-dates">Jul 2024 – Jan 2025</div>
+        </div>
+        <div class="job-company">Dots by Ooloi Labs <span>· Remote</span></div>
+        <ul class="bullets">
+          <li>Owned the MAD Storytelling Initiative end-to-end — from discovery workshops to a live platform serving <strong>2,000+ volunteers across 50+ chapters in India</strong></li>
+          <li>Configured platform from scratch: user roles, batch registration, AI annotation, regional meta-tagging, and WhatsApp chatbot for qualitative story collection at scale</li>
+          <li>Stress tested all client-facing features pre-launch — zero critical issues at go-live</li>
+          <li>Led competitive benchmarking of Dovetail, NVivo, MaxQDA — framework adopted by founders to prioritize product roadmap</li>
+          <li>Facilitated client discovery workshops; owned full research ops pipeline from needs assessment through dev handoff</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-header">
+          <div class="job-title">Design Researcher</div>
+          <div class="job-dates">Jul 2022 – Jun 2024</div>
+        </div>
+        <div class="job-company">BLG Group <span>· Bengaluru, India</span></div>
+        <ul class="bullets">
+          <li>Conducted daily market visits across <strong>40+ manufacturing sites</strong> — user feedback, product positioning, design opportunities for automotive tools</li>
+          <li>Executed <strong>100+ research studies</strong>: usability testing, contextual interviews, ethnographic field studies with manufacturing personnel</li>
+          <li>Translated mechanical workflow research into product insights — <strong>150% efficiency increase</strong> in motor coil designs, <strong>43% increase in sales</strong></li>
+          <li>Delivered prototypes with real-time feedback loops — <strong>60% reduction in product rejections</strong>; managed budgets for 200% cost savings</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- PROJECTS -->
+    <div class="section-label">Projects</div>
+    <div class="section-content">
+
+      <div class="project-item">
+        <div class="project-header">
+          <div class="project-name">MAD Storytelling Initiative — Dots by Ooloi Labs</div>
+          <div class="job-dates">2024–25</div>
+        </div>
+        <div class="project-tags">Service Design · AI Product · Research Ops</div>
+        <div class="project-desc">Configured and launched an AI-powered qualitative research platform for Make A Difference (MAD), serving 2,000+ volunteers across 50+ chapters in India. Owned discovery, platform setup, stress testing, and go-live. <a href="https://pradyumnasatheesh.com/dots-case-study.html" class="project-link">Case study ↗</a></div>
+      </div>
+
+      <div class="project-item">
+        <div class="project-header">
+          <div class="project-name">Equity-Centered Design Research — Informal Food Systems</div>
+          <div class="job-dates">2022</div>
+        </div>
+        <div class="project-tags">Ethnographic Research · HCD · Equity Design · Service Design</div>
+        <div class="project-desc">Self-initiated field research across 50+ vendor sites examining chemical migration from printed packaging. Mapped supply chains, analyzed unit economics (₹0.10–0.13/plate), designed manufacturing-friendly sustainable packaging for women's SHG production. <a href="https://pradyumnasatheesh.com" class="project-link">Case study ↗</a></div>
+      </div>
+
+      <div class="project-item">
+        <div class="project-header">
+          <div class="project-name">Designing Trust in Agentic AI — Speculative UX Research for Enterprise CRM</div>
+          <div class="job-dates">In Progress</div>
+        </div>
+        <div class="project-tags">Speculative Design · Agentic AI · Enterprise UX · Salesforce Einstein</div>
+        <div class="project-desc">A speculative UX research study examining how enterprise sales reps build (or lose) trust in AI agents making autonomous decisions within CRM workflows. Explores human-AI handoff, explainability, and control design for non-technical users — framed around Salesforce Einstein as the research context.</div>
+      </div>
+
+    </div>
+
+    <!-- SKILLS -->
+    <div class="section-label">Skills</div>
+    <div class="section-content">
+      <div class="skills-list">
+        <div class="skill-row"><strong>Research:</strong> Ethnographic Research, Usability Testing, Contextual Interviews, Field Studies, Mixed Methods, Competitive Analysis, Heuristic Evaluation, Journey Mapping, Service Blueprints, Affinity Mapping, A/B Testing, Card Sorting</div>
+        <div class="skill-row"><strong>Design:</strong> Figma, Framer, Miro, Adobe Creative Suite, CMF Design, Systems Design, Interaction Design, Wireframing, Prototyping, Service Design, Information Architecture, UCD</div>
+        <div class="skill-row"><strong>Research Tools:</strong> Dovetail, NVivo, MaxQDA, Qualtrics, UserTesting, Lookback, Optimal Workshop, Google Analytics, Tableau</div>
+        <div class="skill-row"><strong>Technical:</strong> HTML, CSS, AI-assisted research workflows</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Cursor
+  var dot = document.getElementById('dot');
+  var ring = document.getElementById('ring');
+  var mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', function(e) { mx = e.clientX; my = e.clientY; });
+  function cursorLoop() {
+    dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(cursorLoop);
+  }
+  cursorLoop();
+</script>
+</body>
+</html>
