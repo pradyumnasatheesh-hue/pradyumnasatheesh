@@ -154,6 +154,12 @@ nav.scrolled{padding:14px 28px;top:14px;width:calc(100% - 80px);max-width:880px;
 .featured-project:hover{border-color:var(--accent);box-shadow:0 16px 48px var(--accent-glow)}
 .featured-label{position:absolute;top:20px;right:20px;font-family:var(--hand);font-size:.8rem;color:var(--accent);font-weight:400;opacity:.7}
 .featured-image{width:100%;aspect-ratio:4/3;border-radius:16px;background:var(--border);display:flex;align-items:center;justify-content:center;transition:transform .3s;transform-style:preserve-3d;position:relative;overflow:hidden}
+  .project-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 .featured-project:hover .featured-image{background:#DDDDD8}
 .featured-image .card-sketch{width:80px;height:80px;opacity:.2}
 .featured-content .project-num{font-size:5rem;font-weight:200;letter-spacing:-.06em}
@@ -284,7 +290,7 @@ nav.scrolled{padding:14px 28px;top:14px;width:calc(100% - 80px);max-width:880px;
   <h2 class="section-title reveal"><span style="position:relative;display:inline">Real problems<svg class="hand-underline" viewBox="0 0 120 12" fill="none"><path d="M2 8 C20 2, 40 12, 60 6 C80 0, 100 10, 118 4" stroke="#E8663C" stroke-width="2.5" stroke-linecap="round" opacity=".5"/></svg></span>, strategic solutions</h2>
   <a href="iucat-case-study.html" style="text-decoration:none;color:inherit;display:block"><div class="featured-project reveal">
     <span class="featured-label">~ my favorite one ~</span>
-    <div class="featured-image"><svg class="card-sketch" viewBox="0 0 80 80" fill="none" stroke="#141413" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="16" width="12" height="48" rx="2" stroke-dasharray="3 3"/><rect x="26" y="24" width="12" height="40" rx="2" stroke-dasharray="3 3"/><rect x="42" y="12" width="12" height="52" rx="2" stroke-dasharray="3 3"/><circle cx="64" cy="32" r="10" stroke-dasharray="3 3"/><path d="M72 40 L78 46"/></svg></div>
+    <div class="featured-image"><img src="images/thumbnail_iucat.png" alt="IUCAT Redesign Mockup" class="project-thumb"></div>
     <div class="featured-content"><div class="project-num" data-num="01">00</div><p class="project-client">IU Libraries x HCI/d</p><div class="card-hand-note" style="margin-top:0;margin-bottom:8px;opacity:.6">when 100,000 students can't find the 'save' button...</div><h3 class="project-name">Redesigning How Indiana University Discovers Its Library</h3><p class="project-desc">End-to-end ownership across research, design, and the Rivet design system. 3 librarian interviews, 8+ systems benchmarked, 5 major features shipped, 100K+ users impacted across nine campuses.</p><div class="project-tags"><span class="project-tag-item">UX Research</span><span class="project-tag-item">Information Architecture</span><span class="project-tag-item">Accessibility</span><span class="project-tag-item">Rivet DS</span></div><div class="card-hand-note">read case study &#8594;</div></div>
   </div></a>
   <div class="project-cards">
