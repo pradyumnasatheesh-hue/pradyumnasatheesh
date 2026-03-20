@@ -154,11 +154,28 @@ nav.scrolled{padding:14px 28px;top:14px;width:calc(100% - 80px);max-width:880px;
 .featured-project:hover{border-color:var(--accent);box-shadow:0 16px 48px var(--accent-glow)}
 .featured-label{position:absolute;top:20px;right:20px;font-family:var(--hand);font-size:.8rem;color:var(--accent);font-weight:400;opacity:.7}
 .featured-image{width:100%;aspect-ratio:4/3;border-radius:16px;background:var(--border);display:flex;align-items:center;justify-content:center;transition:transform .3s;transform-style:preserve-3d;position:relative;overflow:hidden}
-  .project-thumb {
+  /* --- ADD THIS TO MAKE THE IMAGE POP --- */
+.project-thumb {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  border-radius: 12px; /* Matches the inner card feel */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Subtle shadow on the image itself */
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+}
+
+/* THE DIFFERENTIATOR: Lifts and brightens on hover */
+.featured-project:hover .project-thumb {
+  transform: scale(1.04) translateY(-10px) rotate(-1deg); 
+  filter: brightness(1.05) saturate(1.1);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2); /* Deep shadow when floating */
+}
+
+/* This makes the container hold the zoom perfectly */
+.featured-image {
+  overflow: hidden;
+  perspective: 1000px; /* Adds a bit of 3D depth */
 }
 .featured-project:hover .featured-image{background:#DDDDD8}
 .featured-image .card-sketch{width:80px;height:80px;opacity:.2}
