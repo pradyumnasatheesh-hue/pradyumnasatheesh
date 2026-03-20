@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>IUCAT Case Study — pradyumna.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400;1,9..40,500;1,9..40,600;1,9..40,700&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+/* ========== CSS VARIABLES ========== */
+:root {
+  --bg: #FFFFFF;
+  --fg: #141413;
+  --fg-muted: #868681;
+  --accent: #E8663C;
+  --accent-hover: #D4572F;
+  --accent-light: #FEF3EF;
+  --card-bg: #F5F5F3;
+  --border: #E5E5E0;
+}
+[data-theme="dark"] {
+  --bg: #111110;
+  --fg: #F0EFEB;
+  --fg-muted: #8A8983;
+  --accent: #E8663C;
+  --accent-hover: #F07A52;
+  --card-bg: #1C1C1A;
+  --border: #2A2A27;
+}
+
+/* ========== RESET & BASE ========== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.6;
+  transition: background 0.4s, color 0.4s;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+/* ========== NAVIGATION ========== */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 18px 40px;
+  display: flex; justify-content: space-between; align-items: center;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  background: transparent;
+}
+.nav.scrolled {
+  top: 14px;
+  left: 50%; transform: translateX(-50%);
+  max-width: 880px; width: calc(100% - 40px);
+  padding: 12px 28px;
+  background: color-mix(in srgb, var(--bg) 75%, transparent);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+}
+.nav-logo {
+  font-size: 1.1rem; font-weight: 700; letter-spacing: -0.03em;
+}
+.nav-logo span { color: var(--accent); }
+.nav-right { display: flex; align-items: center; gap: 10px; }
+.nav-pill {
+  padding: 7px 18px; border-radius: 100px;
+  border: 1.5px solid var(--border);
+  font-size: 0.82rem; font-weight: 500; letter-spacing: 0.01em;
+  background: transparent; color: var(--fg); cursor: pointer;
+  transition: all 0.3s;
+}
+.nav-pill:hover {
+  background: var(--fg); color: var(--bg);
+  font-style: italic;
+}
+.theme-toggle {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: transparent; color: var(--fg); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.3s;
+}
+.theme-toggle:hover { border-color: var(--accent); }
+.theme-toggle svg { width: 18px; height: 18px; }
+
+/* ========== LAYOUT ========== */
+.case-study { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+.narrow { max-width: 760px; margin-left: auto; margin-right: auto; }
+.full-bleed { max-width: 100vw; margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); padding: 0; }
+
+/* ========== HERO ========== */
+.hero {
+  padding-top: 140px; padding-bottom: 80px;
+}
+.back-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.86rem; font-weight: 500; color: var(--fg-muted);
+  margin-bottom: 32px; transition: color 0.3s;
+}
+.back-link:hover { color: var(--accent); }
+.back-link svg { width: 16px; height: 16px; }
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--accent-light); color: var(--accent);
+  padding: 6px 16px; border-radius: 100px;
+  font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+[data-theme="dark"] .hero-badge { background: rgba(232,102,60,0.12); }
+
+.sponsor-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--card-bg); color: var(--fg-muted);
+  padding: 6px 16px; border-radius: 100px;
+  font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  border: 1px solid var(--border);
+}
+
+.hero-title {
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight: 700; letter-spacing: -0.04em;
+  line-height: 1.1; margin-bottom: 20px;
+  max-width: 800px;
+}
+.underline-word {
+  position: relative; display: inline-block;
+}
+.underline-word::after {
+  content: ''; position: absolute; bottom: -6px; left: 0; width: 100%;
+  height: 12px;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 8 Q30 2 60 7 Q90 12 118 4' fill='none' stroke='%23E8663C' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center;
+  background-size: 100% 100%;
+  opacity: 0.5;
+}
+.hero-subtitle {
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  color: var(--fg-muted); font-weight: 400;
+  max-width: 620px; line-height: 1.65;
+  margin-bottom: 36px;
+}
+.hero-hook {
+  font-family: 'Pacifico', cursive;
+  font-size: 0.9rem; font-weight: 400;
+  color: var(--accent); opacity: 0.6;
+  margin-bottom: 28px;
+  display: block;
+}
+
+/* Meta pills */
+.meta-pills {
+  display: flex; flex-wrap: wrap; gap: 12px;
+  margin-bottom: 20px;
+}
+.meta-pill {
+  display: flex; flex-direction: column; gap: 2px;
+  padding: 14px 22px;
+  background: var(--card-bg);
+  border-radius: 14px;
+  min-width: 140px;
+}
+.meta-pill-label {
+  font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--accent);
+}
+.meta-pill-value {
+  font-size: 0.88rem; font-weight: 500;
+  color: var(--fg);
+}
+
+/* ========== TLDR SECTION ========== */
+.tldr-section {
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 36px 40px;
+  margin-bottom: 80px;
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.tldr-section::before {
+  content: '';
+  position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+  background: var(--accent);
+  border-radius: 4px 0 0 4px;
+}
+.tldr-label {
+  font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.tldr-content {
+  font-size: 0.95rem; color: var(--fg); line-height: 1.7;
+}
+.tldr-content strong { font-weight: 600; }
+.tldr-stats {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 20px; margin-top: 24px;
+  padding-top: 24px; border-top: 1px solid var(--border);
+}
+.tldr-stat-num {
+  font-size: 1.8rem; font-weight: 700; color: var(--accent);
+  letter-spacing: -0.04em; line-height: 1;
+}
+.tldr-stat-label {
+  font-size: 0.72rem; color: var(--fg-muted); font-weight: 500;
+  margin-top: 4px;
+}
+
+/* ========== SECTIONS ========== */
+.section {
+  margin-bottom: 80px;
+}
+.section-label {
+  font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 14px;
+}
+.section-title {
+  font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+  font-weight: 700; letter-spacing: -0.02em;
+  margin-bottom: 20px; line-height: 1.25;
+}
+.section-body {
+  font-size: 0.92rem; color: var(--fg-muted);
+  line-height: 1.75; max-width: 660px;
+}
+.section-body p + p { margin-top: 16px; }
+.section-body strong { color: var(--fg); font-weight: 600; }
+
+/* ========== SPLIT LAYOUT ========== */
+.split {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 60px; align-items: center;
+  margin-bottom: 80px;
+}
+.split.reverse { direction: rtl; }
+.split.reverse > * { direction: ltr; }
+
+/* ========== IMAGE PLACEHOLDERS ========== */
+.img-placeholder {
+  background: var(--card-bg);
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  aspect-ratio: 16/10;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.78rem; color: var(--fg-muted); font-weight: 500;
+  position: relative; overflow: hidden;
+}
+.img-placeholder.tall { aspect-ratio: 4/3; }
+.img-placeholder.full {
+  width: 100%; aspect-ratio: 21/9; margin-bottom: 80px;
+  border-radius: 20px;
+}
+.img-placeholder-label {
+  font-family: 'Pacifico', cursive;
+  font-size: 0.8rem; color: var(--accent);
+  opacity: 0.5;
+}
+
+/* ========== CHALLENGE LIST ========== */
+.challenge-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 20px; margin-top: 28px;
+}
+.challenge-card {
+  background: var(--card-bg);
+  border-radius: 14px;
+  padding: 24px 28px;
+  border: 1px solid var(--border);
+}
+.challenge-card-num {
+  font-size: 2rem; font-weight: 200;
+  color: var(--accent); letter-spacing: -0.04em;
+  line-height: 1; margin-bottom: 10px;
+  opacity: 0.6;
+}
+.challenge-card-title {
+  font-size: 0.9rem; font-weight: 700;
+  margin-bottom: 6px;
+}
+.challenge-card-desc {
+  font-size: 0.82rem; color: var(--fg-muted);
+  line-height: 1.6;
+}
+
+/* ========== CALLOUT QUOTE ========== */
+.callout {
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 40px 44px;
+  margin: 48px 0;
+  position: relative;
+  border: 1px solid var(--border);
+}
+.callout::before {
+  content: '"';
+  font-family: 'Pacifico', cursive;
+  font-size: 4rem; color: var(--accent);
+  opacity: 0.2; position: absolute;
+  top: 12px; left: 28px; line-height: 1;
+}
+.callout-text {
+  font-size: 1.05rem; font-weight: 500;
+  font-style: italic; line-height: 1.7;
+  color: var(--fg);
+  padding-left: 20px;
+}
+.callout-source {
+  font-size: 0.78rem; color: var(--fg-muted);
+  margin-top: 12px; padding-left: 20px;
+  font-style: normal;
+}
+
+/* ========== IMPACT STATS ========== */
+.impact-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px; margin-top: 32px;
+}
+.impact-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 28px 24px;
+  text-align: center;
+  border: 1px solid var(--border);
+}
+.impact-num {
+  font-size: 2.8rem; font-weight: 700;
+  color: var(--accent); letter-spacing: -0.04em;
+  line-height: 1;
+}
+.impact-label {
+  font-size: 0.78rem; color: var(--fg-muted);
+  margin-top: 8px; font-weight: 500;
+}
+.impact-hand-note {
+  font-family: 'Pacifico', cursive;
+  font-size: 0.8rem; color: var(--accent);
+  opacity: 0.5; margin-top: 32px;
+  text-align: center;
+}
+
+/* ========== PROCESS STEPS ========== */
+.process-flow {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 16px; margin-top: 32px;
+}
+.process-step {
+  background: var(--card-bg);
+  border: 1.5px dashed var(--border);
+  border-radius: 16px;
+  padding: 28px 22px;
+  text-align: center;
+  position: relative;
+  transition: border-color 0.3s;
+}
+.process-step:hover { border-color: var(--accent); }
+.process-step-num {
+  font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 10px;
+}
+.process-step-title {
+  font-size: 1rem; font-weight: 700;
+  margin-bottom: 8px;
+}
+.process-step-desc {
+  font-size: 0.78rem; color: var(--fg-muted);
+  line-height: 1.55;
+}
+.process-arrow {
+  position: absolute; right: -22px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--accent); opacity: 0.4;
+}
+.process-step:last-child .process-arrow { display: none; }
+
+/* ========== DESIGN SOLUTIONS ========== */
+.solution-block {
+  margin-bottom: 60px;
+}
+.solution-block-title {
+  font-size: 1.1rem; font-weight: 700;
+  margin-bottom: 8px; letter-spacing: -0.01em;
+}
+.solution-block-desc {
+  font-size: 0.88rem; color: var(--fg-muted);
+  line-height: 1.7; margin-bottom: 24px;
+  max-width: 600px;
+}
+
+/* ========== DESIGN SYSTEM TAG ========== */
+.ds-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 14px; border-radius: 100px;
+  font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.06em;
+  border: 1.5px solid var(--border);
+  color: var(--fg-muted);
+  margin-right: 8px; margin-bottom: 8px;
+}
+.ds-tag svg { width: 12px; height: 12px; }
+
+/* ========== FOOTER CTA ========== */
+.footer-cta {
+  text-align: center; padding: 100px 40px 80px;
+}
+.footer-cta-title {
+  font-size: clamp(2.2rem, 5.5vw, 4.2rem);
+  font-weight: 700; letter-spacing: -0.04em;
+  margin-bottom: 24px; line-height: 1.1;
+}
+.footer-cta-sub {
+  font-size: 0.95rem; color: var(--fg-muted);
+  margin-bottom: 32px;
+}
+.footer-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 16px 36px; border-radius: 100px;
+  background: var(--accent); color: #fff;
+  font-size: 0.9rem; font-weight: 600;
+  border: none; cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  position: relative; overflow: hidden;
+}
+.footer-btn:hover { background: var(--accent-hover); transform: translateY(-2px); }
+.footer-social {
+  display: flex; justify-content: center; gap: 20px;
+  margin-top: 40px;
+}
+.footer-social a {
+  color: var(--fg-muted); transition: color 0.3s;
+  font-size: 0.82rem; font-weight: 500;
+}
+.footer-social a:hover { color: var(--accent); }
+
+.footer-sign {
+  font-family: 'Pacifico', cursive;
+  font-size: 0.85rem; color: var(--accent);
+  opacity: 0.45; margin-top: 32px;
+}
+
+/* ========== REVEAL ANIMATIONS ========== */
+.reveal {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible {
+  opacity: 1; transform: translateY(0);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 900px) {
+  .split { grid-template-columns: 1fr; gap: 32px; }
+  .split.reverse { direction: ltr; }
+  .challenge-grid { grid-template-columns: 1fr; }
+  .process-flow { grid-template-columns: 1fr 1fr; }
+  .process-arrow { display: none !important; }
+  .case-study { padding: 0 24px; }
+  .nav { padding: 14px 20px; }
+  .nav.scrolled { padding: 10px 20px; width: calc(100% - 24px); }
+  .meta-pills { gap: 8px; }
+  .meta-pill { min-width: 110px; padding: 10px 16px; }
+  .tldr-section { padding: 28px 24px; }
+  .callout { padding: 28px 24px; }
+}
+@media (max-width: 600px) {
+  .process-flow { grid-template-columns: 1fr; }
+  .impact-grid { grid-template-columns: 1fr 1fr; }
+  .hero-title { font-size: clamp(1.8rem, 7vw, 2.6rem); }
+  .nav-pill { display: none; }
+  .tldr-stats { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ========== NAVIGATION ========== -->
+<nav class="nav" id="nav">
+  <a href="index.html" class="nav-logo">pradyumna<span>.</span></a>
+  <div class="nav-right">
+    <a href="index.html#work" class="nav-pill">Work</a>
+    <a href="index.html#about" class="nav-pill">About</a>
+    <a href="index.html#resume" class="nav-pill">Resume</a>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section class="case-study hero">
+  <a href="index.html#work" class="back-link reveal">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    Back to all work
+  </a>
+
+  <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:20px;" class="reveal">
+    <span class="hero-badge">UX Research &bull; Information Architecture</span>
+    <span class="sponsor-badge">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      Sponsor Project &bull; IU Libraries
+    </span>
+  </div>
+
+  <span class="hero-hook reveal">when 100,000 students can't find the 'save' button...</span>
+
+  <h1 class="hero-title reveal">
+    Redesigning How Indiana University <span class="underline-word">Discovers</span> Its Library
+  </h1>
+
+  <p class="hero-subtitle reveal">
+    IUCAT serves every student, researcher, and faculty member across IU's nine campuses. I led the end-to-end redesign of its Selections & Folders system — turning a confusing, broken workflow into an intuitive resource management experience.
+  </p>
+
+  <div class="meta-pills reveal">
+    <div class="meta-pill">
+      <span class="meta-pill-label">Role</span>
+      <span class="meta-pill-value">End-to-End Designer & Researcher</span>
+    </div>
+    <div class="meta-pill">
+      <span class="meta-pill-label">Company</span>
+      <span class="meta-pill-value">IU Libraries × HCI/d</span>
+    </div>
+    <div class="meta-pill">
+      <span class="meta-pill-label">Duration</span>
+      <span class="meta-pill-value">4 Months</span>
+    </div>
+    <div class="meta-pill">
+      <span class="meta-pill-label">Focus</span>
+      <span class="meta-pill-value">Navigation, Accessibility, Design System</span>
+    </div>
+  </div>
+
+  <div class="reveal" style="display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;">
+    <span class="ds-tag">Figma</span>
+    <span class="ds-tag">Rivet Design System</span>
+    <span class="ds-tag">Usability Testing</span>
+    <span class="ds-tag">Competitive Analysis</span>
+    <span class="ds-tag">Blacklight Framework</span>
+  </div>
+</section>
+
+<!-- ========== TL;DR ========== -->
+<section class="case-study">
+  <div class="tldr-section reveal">
+    <div class="tldr-label">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      TL;DR — The story in 30 seconds
+    </div>
+    <div class="tldr-content">
+      IUCAT is IU's online library catalog used by <strong>100,000+ students and faculty</strong> across nine campuses. The existing "Selections & Folders" feature — meant for saving and organizing resources — was so confusing that <strong>most users couldn't even find it</strong>. Through librarian interviews, patron walkthroughs, and competitive analysis of 8+ university library systems, we uncovered that users didn't understand the terminology, couldn't differentiate saving from requesting, and had no way to batch-checkout items. We redesigned the entire saving-to-requesting pipeline: a new <strong>"Save to Folder" + "Basket" dual-intent system</strong>, inline citations, contextual tooltips, and accessibility-first navigation — all within IU's Rivet Design System. The result: a design now being evaluated for development by the IU Libraries UX team.
+    </div>
+    <div class="tldr-stats">
+      <div>
+        <div class="tldr-stat-num">3</div>
+        <div class="tldr-stat-label">Librarian interviews</div>
+      </div>
+      <div>
+        <div class="tldr-stat-num">8+</div>
+        <div class="tldr-stat-label">Systems benchmarked</div>
+      </div>
+      <div>
+        <div class="tldr-stat-num">5</div>
+        <div class="tldr-stat-label">Major features shipped</div>
+      </div>
+      <div>
+        <div class="tldr-stat-num">100K+</div>
+        <div class="tldr-stat-label">Users impacted</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== HERO IMAGE ========== -->
+<section class="case-study">
+  <div class="img-placeholder full reveal">
+    <span class="img-placeholder-label">hero image — IUCAT redesign overview</span>
+  </div>
+</section>
+
+<!-- ========== CONTEXT ========== -->
+<section class="case-study">
+  <div class="split reveal">
+    <div>
+      <span class="section-label">01 — Context</span>
+      <h2 class="section-title">A catalog that serves an entire university — but frustrates almost everyone</h2>
+      <div class="section-body">
+        <p>IUCAT is the backbone of IU's library ecosystem — the single place where students, faculty, and researchers search, discover, and request books, journals, and digital resources across all nine campuses.</p>
+        <p>But there was a problem hiding in plain sight. The <strong>"Selections & Folders"</strong> system — the primary way users were supposed to save, organize, and manage resources — was virtually invisible. Users confused "Select" for a batch action. The Folders feature was buried. And there was no way to request multiple items at once.</p>
+        <p>Our team of 7 HCI graduate students was brought in by IU Libraries to fix this — and to rethink how navigation works for the entire catalog.</p>
+      </div>
+    </div>
+    <div class="img-placeholder reveal">
+      <span class="img-placeholder-label">current IUCAT interface</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CHALLENGE ========== -->
+<section class="case-study section">
+  <div class="narrow reveal">
+    <span class="section-label">02 — The Challenge</span>
+    <h2 class="section-title">Users couldn't save, couldn't organize, couldn't request. The system was working against them.</h2>
+    <div class="section-body" style="margin-bottom:28px;">
+      <p>Through patron walkthroughs and librarian interviews, four critical failure points emerged:</p>
+    </div>
+  </div>
+  <div class="narrow">
+    <div class="challenge-grid reveal">
+      <div class="challenge-card">
+        <div class="challenge-card-num">01</div>
+        <div class="challenge-card-title">Invisible Save Action</div>
+        <div class="challenge-card-desc">Users expected a "Save" button but found a "Select" checkbox that gave no feedback. Most didn't realize items were being stored at all.</div>
+      </div>
+      <div class="challenge-card">
+        <div class="challenge-card-num">02</div>
+        <div class="challenge-card-title">Blurred Intent</div>
+        <div class="challenge-card-desc">Users couldn't distinguish between saving for later reference vs. requesting for checkout. Some thought the checkbox was for batch-deletion, like email.</div>
+      </div>
+      <div class="challenge-card">
+        <div class="challenge-card-num">03</div>
+        <div class="challenge-card-title">Hidden Folders</div>
+        <div class="challenge-card-desc">The Folders feature only appeared inside the Selections tab. Users who never found "Selections" never discovered Folders existed.</div>
+      </div>
+      <div class="challenge-card">
+        <div class="challenge-card-num">04</div>
+        <div class="challenge-card-title">Jargon Overload</div>
+        <div class="challenge-card-desc">Terms like "Browse," "Call Number," and "Recall" confused new patrons. Librarians spent hours answering the same terminology questions.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="narrow" style="margin-top:36px;">
+    <div class="callout reveal">
+      <div class="callout-text">How might we improve IUCAT's navigation and redesign the Selections & Folders system so that saving, organizing, and requesting resources feels intuitive and supports real-world workflows?</div>
+      <div class="callout-source">— Our HMW statement, framed after 3 interviews + patron walkthroughs</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== MY ROLE ========== -->
+<section class="case-study">
+  <div class="split reverse reveal">
+    <div>
+      <span class="section-label">03 — My Role</span>
+      <h2 class="section-title">End-to-end ownership across research, design, and the design system</h2>
+      <div class="section-body">
+        <p>Within our 7-person team, I wore multiple hats. My core focus areas were <strong>navigation redesign, accessibility, and ensuring all solutions worked within IU's Rivet Design System.</strong></p>
+        <p>I led competitive analysis across 8 academic library systems (Stanford, Harvard, Penn State, UVA, Brown, ACM Digital Library, and more), identifying patterns in how saving, organizing, and citing resources could feel natural.</p>
+        <p>I co-facilitated patron walkthroughs, synthesized findings, created explorative sketches, and was responsible for ensuring the final Figma prototypes aligned with Rivet's component library and accessibility standards.</p>
+      </div>
+    </div>
+    <div class="img-placeholder tall reveal">
+      <span class="img-placeholder-label">team working session</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== RESEARCH ========== -->
+<section class="case-study section">
+  <div class="narrow reveal">
+    <span class="section-label">04 — Research</span>
+    <h2 class="section-title">Listening to the people who use the system every day — and those who have to explain it</h2>
+  </div>
+</section>
+
+<section class="case-study">
+  <div class="split reveal">
+    <div>
+      <h3 style="font-size:1.05rem; font-weight:700; margin-bottom:12px;">Expert Interviews with Librarians</h3>
+      <div class="section-body">
+        <p>We interviewed three IU Libraries faculty members — a senior cataloger, a scholars' commons librarian, and an open education librarian. The pattern was consistent: <strong>new students feel lost in IUCAT</strong>, and librarians spend a disproportionate amount of time answering the same basic questions about how to save and find resources.</p>
+        <p>One key insight: IU already maintains a robust Knowledge Base with support articles, but almost no patrons knew it existed. This became the seed for our tooltip and Knowledge Base Popup features.</p>
+      </div>
+    </div>
+    <div class="img-placeholder reveal">
+      <span class="img-placeholder-label">interview synthesis notes</span>
+    </div>
+  </div>
+</section>
+
+<section class="case-study">
+  <div class="split reverse reveal">
+    <div>
+      <h3 style="font-size:1.05rem; font-weight:700; margin-bottom:12px;">Patron Walkthroughs</h3>
+      <div class="section-body">
+        <p>We designed task-based walkthroughs where students had to find, save, and organize library items — without us naming any of the tools we expected them to use. We simply said <strong>"save these resources for later."</strong></p>
+        <p>The results were telling. Users looked for a "Save" button that didn't exist. When they found the "Select" checkbox, they expected it to enable a batch action (like selecting emails). No one discovered the Folders feature without help. And several users couldn't figure out how to request an item at all.</p>
+      </div>
+    </div>
+    <div class="img-placeholder reveal">
+      <span class="img-placeholder-label">walkthrough task flow map</span>
+    </div>
+  </div>
+</section>
+
+<section class="case-study">
+  <div class="split reveal">
+    <div>
+      <h3 style="font-size:1.05rem; font-weight:700; margin-bottom:12px;">Competitive Analysis — 8 University Systems</h3>
+      <div class="section-body">
+        <p>Since IUCAT runs on the Blacklight open-source framework, I specifically benchmarked other Blacklight-based catalogs alongside leading academic libraries. Key patterns I identified:</p>
+        <p><strong>Visible save counts</strong> (Stanford, Penn State). <strong>Bookmark/pin iconography</strong> with visual feedback (UVA, Harvard, Brown). <strong>Save-to-folder from search results</strong> (ACM Digital Library). <strong>Inline citation tools</strong> (ACM, Harvard).</p>
+        <p>These patterns directly informed our redesigned "Save to Folder" button, the Basket concept, and the new Citation modal.</p>
+      </div>
+    </div>
+    <div class="img-placeholder reveal">
+      <span class="img-placeholder-label">competitive analysis matrix</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PROCESS ========== -->
+<section class="case-study section">
+  <div class="narrow reveal">
+    <span class="section-label">05 — Process</span>
+    <h2 class="section-title">From divergent sketches to aligned solutions — within the Rivet design system</h2>
+    <div class="section-body">
+      <p>Our design process deliberately separated wild exploration from system-constrained execution.</p>
+    </div>
+  </div>
+  <div class="narrow" style="margin-top:32px;">
+    <div class="process-flow reveal">
+      <div class="process-step">
+        <div class="process-step-num">Phase 01</div>
+        <div class="process-step-title">Immerse</div>
+        <div class="process-step-desc">Interviews, walkthroughs, competitive analysis across 8 library systems</div>
+        <span class="process-arrow">→</span>
+      </div>
+      <div class="process-step">
+        <div class="process-step-num">Phase 02</div>
+        <div class="process-step-title">Explore</div>
+        <div class="process-step-desc">60+ explorative sketches, iconography studies, user flow mapping</div>
+        <span class="process-arrow">→</span>
+      </div>
+      <div class="process-step">
+        <div class="process-step-num">Phase 03</div>
+        <div class="process-step-title">Align</div>
+        <div class="process-step-desc">Converge on solutions within Rivet DS, iterate with IU Libraries UX team</div>
+        <span class="process-arrow">→</span>
+      </div>
+      <div class="process-step">
+        <div class="process-step-num">Phase 04</div>
+        <div class="process-step-title">Evaluate</div>
+        <div class="process-step-desc">Continuous sponsor feedback, UX team reviews, Figma handoff</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PROCESS IMAGE ========== -->
+<section class="case-study">
+  <div class="img-placeholder full reveal">
+    <span class="img-placeholder-label">explorative sketches spread</span>
+  </div>
+</section>
+
+<!-- ========== KEY INSIGHT ========== -->
+<section class="case-study section">
+  <div class="narrow">
+    <div class="callout reveal">
+      <div class="callout-text">The aha moment: saving for later reference and collecting for immediate request are fundamentally different intents — but IUCAT treated them as the same action. This single insight drove the entire redesign.</div>
+      <div class="callout-source">— The core insight from synthesizing our divergent sketches</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== DESIGN SOLUTIONS ========== -->
+<section class="case-study section">
+  <div class="narrow reveal">
+    <span class="section-label">06 — Design Solutions</span>
+    <h2 class="section-title">Five interconnected features that transform the IUCAT experience</h2>
+  </div>
+</section>
+
+<!-- Solution 1: Save to Folder -->
+<section class="case-study">
+  <div class="split reveal">
+    <div>
+      <div class="solution-block">
+        <span class="section-label">Solution 01</span>
+        <h3 class="solution-block-title">Redesigned Saving & Folders</h3>
+        <div class="solution-block-desc">
+          Replaced the confusing "Select" checkbox with a clear "Save to Folder" button directly on search results. A new modal lets users see which folders an item is already saved in, save to additional folders, or create new folders — all without leaving the search page. Labels were updated from library jargon to action-oriented language that matches what users expect from modern platforms.
+        </div>
+      </div>
+    </div>
+    <div class="img-placeholder tall reveal">
+      <span class="img-placeholder-label">save to folder — before & after</span>
+    </div>
+  </div>
+</section>
+
+<!-- Solution 2: Basket -->
+<section class="case-study">
+  <div class="split reverse reveal">
+    <div>
+      <div class="solution-block">
+        <span class="section-label">Solution 02</span>
+        <h3 class="solution-block-title">The Basket — Batch Requesting, Reimagined</h3>
+        <div class="solution-block-desc">
+          An entirely new feature: a shopping-cart-style Basket that separates the "I want to request this" intent from "I want to save this for later." Items are grouped by availability — Available Now, In-Person Only, Appointment Only, and Unavailable — with smart actions for each. Users can batch-request all available items with a single click and choose their preferred pickup library.
+        </div>
+      </div>
+    </div>
+    <div class="img-placeholder tall reveal">
+      <span class="img-placeholder-label">basket page with availability grouping</span>
+    </div>
+  </div>
+</section>
+
+<!-- Solution 3: Citations -->
+<section class="case-study">
+  <div class="split reveal">
+    <div>
+      <div class="solution-block">
+        <span class="section-label">Solution 03</span>
+        <h3 class="solution-block-title">Inline Citations</h3>
+        <div class="solution-block-desc">
+          A citation tool — absent from IUCAT but standard in peer systems — now lets users generate citations in APA, MLA, Chicago, BibTeX, and Bluebook formats directly from search results or within Folders. Export or copy-to-clipboard with one click. Batch export an entire folder for a reference list.
+        </div>
+      </div>
+    </div>
+    <div class="img-placeholder reveal">
+      <span class="img-placeholder-label">citation modal with format dropdown</span>
+    </div>
+  </div>
+</section>
+
+<!-- Solution 4: Tooltips -->
+<section class="case-study">
+  <div class="split reverse reveal">
+    <div>
+      <div class="solution-block">
+        <span class="section-label">Solution 04</span>
+        <h3 class="solution-block-title">Contextual Tooltips & Navigation Aid</h3>
+        <div class="solution-block-desc">
+          A system-wide tooltip layer that explains library terminology on hover (desktop) or tap (mobile). We mapped 30+ tooltips across navigation, search, basket, and item pages — each pulling from IU's existing Knowledge Base content. Mobile users get a consistent info-icon pattern. The homepage now includes clear visual instructions for the search → availability → request flow.
+        </div>
+      </div>
+    </div>
+    <div class="img-placeholder reveal">
+      <span class="img-placeholder-label">tooltip system — desktop & mobile</span>
+    </div>
+  </div>
+</section>
+
+<!-- Solution 5: Search Improvements -->
+<section class="case-study">
+  <div class="split reveal">
+    <div>
+      <div class="solution-block">
+        <span class="section-label">Solution 05</span>
+        <h3 class="solution-block-title">Enhanced Search Results</h3>
+        <div class="solution-block-desc">
+          Three additions: a search history toggle built into the search bar (no more navigating to a separate page), Item Tags derived from subject headings for easy discovery of related resources, and a Folders tab on each search result so returning users can see which folders an item is already organized into.
+        </div>
+      </div>
+    </div>
+    <div class="img-placeholder reveal">
+      <span class="img-placeholder-label">search results — tags, folders tab, history</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FULL WIDTH PROCESS IMAGE ========== -->
+<section class="case-study">
+  <div class="img-placeholder full reveal">
+    <span class="img-placeholder-label">final design system — component overview</span>
+  </div>
+</section>
+
+<!-- ========== EVALUATION ========== -->
+<section class="case-study section">
+  <div class="narrow reveal">
+    <span class="section-label">07 — Evaluation & Stakeholder Feedback</span>
+    <h2 class="section-title">Continuous validation with the people building IUCAT</h2>
+    <div class="section-body">
+      <p>Our evaluation wasn't a single gate — it was woven into every sprint. The IU Libraries sponsor attended weekly meetings, and we conducted formal review sessions with the IU Libraries UX design team.</p>
+      <p>Their feedback directly shaped the design. When the UX team questioned whether "Add to Basket" should appear at the folder level, their suggestion to move it inside the within-folder view led to a cleaner interaction model. When they pointed out that restricted-use items required redirects to external appointment systems, we added a new modal step we'd originally missed.</p>
+      <p>The UX team's response to our Basket concept was particularly validating — they confirmed that separating <strong>saving from requesting</strong> was the right paradigm shift and praised the introduction of availability-based grouping.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== IMPACT ========== -->
+<section class="case-study section">
+  <div class="narrow reveal">
+    <span class="section-label">08 — Impact</span>
+    <h2 class="section-title">Designing for scale across nine campuses</h2>
+    <div class="section-body">
+      <p>While the designs are currently in the evaluation pipeline for development, the potential reach is significant. IUCAT serves the entire Indiana University system.</p>
+    </div>
+    <div class="impact-grid">
+      <div class="impact-card">
+        <div class="impact-num">100K+</div>
+        <div class="impact-label">Students & faculty across 9 campuses served by IUCAT</div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-num">5</div>
+        <div class="impact-label">Major features designed, prototyped, and documented for handoff</div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-num">30+</div>
+        <div class="impact-label">Contextual tooltips mapped across the entire interface</div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-num">2</div>
+        <div class="impact-label">Technical implementation proposals for the dev team</div>
+      </div>
+    </div>
+    <div class="impact-hand-note reveal" style="margin-top:28px;">the kind of impact that compounds quietly</div>
+  </div>
+</section>
+
+<!-- ========== REFLECTION ========== -->
+<section class="case-study section">
+  <div class="narrow reveal">
+    <span class="section-label">09 — Reflection</span>
+    <h2 class="section-title">What this project taught me about systems thinking</h2>
+    <div class="section-body">
+      <p>This wasn't a visual redesign. It was a <strong>systems design problem</strong> — understanding how saving, organizing, requesting, and navigating are deeply interconnected workflows that break when even one piece is unclear.</p>
+      <p>The biggest lesson: <strong>users don't fail; systems fail users.</strong> Every "confused" user in our walkthroughs was behaving rationally based on what the interface communicated. They looked for "Save" because that's what every other platform calls it. They expected the checkbox to enable batch actions because that's what checkboxes do everywhere else. The system's language was simply speaking a dialect its users didn't share.</p>
+      <p>Working within IU's Rivet Design System also deepened my understanding of designing within constraints. Every component had to be buildable with existing patterns or achievable extensions. This forced creative problem-solving — like repurposing Rivet's dialog component for our off-canvas Basket preview.</p>
+      <p>Collaborating with a team of 7, with a real client, on a live system used by 100,000+ people — that's the kind of complexity that no classroom exercise can replicate. And it's exactly the kind of problem I want to spend my career solving.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER CTA ========== -->
+<section class="footer-cta reveal">
+  <h2 class="footer-cta-title">Let's design something<br><span style="color:var(--accent)">meaningful</span> together.</h2>
+  <p class="footer-cta-sub">I'm looking for full-time UX roles where I can bring systems thinking to complex product problems.</p>
+  <a href="mailto:pradyumnasatheesh@gmail.com" class="footer-btn">
+    Get in touch
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+  </a>
+  <div class="footer-social">
+    <a href="https://linkedin.com">LinkedIn</a>
+    <a href="mailto:pradyumnasatheesh@gmail.com">Email</a>
+    <a href="index.html">Portfolio</a>
+  </div>
+  <div class="footer-sign">designed with intention, built with care</div>
+</section>
+
+<!-- ========== JAVASCRIPT ========== -->
+<script>
+// Theme toggle
+const toggle = document.getElementById('themeToggle');
+const html = document.documentElement;
+const sunIcon = toggle.querySelector('.sun-icon');
+const moonIcon = toggle.querySelector('.moon-icon');
+
+function isDark() { return html.getAttribute('data-theme') === 'dark'; }
+
+function updateIcons() {
+  if (isDark()) {
+    sunIcon.style.display = 'block';
+    moonIcon.style.display = 'none';
+  } else {
+    sunIcon.style.display = 'none';
+    moonIcon.style.display = 'block';
+  }
+}
+
+toggle.addEventListener('click', () => {
+  html.setAttribute('data-theme', isDark() ? 'light' : 'dark');
+  updateIcons();
+});
+updateIcons();
+
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 60) {
+    nav.classList.add('scrolled');
+  } else {
+    nav.classList.remove('scrolled');
+  }
+});
+
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, i * 60);
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+
+reveals.forEach(el => revealObserver.observe(el));
+
+// Count-up animation for impact numbers
+const countEls = document.querySelectorAll('.impact-num, .tldr-stat-num');
+const countObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const text = el.textContent.trim();
+      const match = text.match(/^(\d+)/);
+      if (match) {
+        const target = parseInt(match[1]);
+        const suffix = text.replace(match[1], '');
+        let current = 0;
+        const step = Math.max(1, Math.floor(target / 40));
+        const interval = setInterval(() => {
+          current += step;
+          if (current >= target) {
+            current = target;
+            clearInterval(interval);
+          }
+          el.textContent = current + suffix;
+        }, 25);
+      }
+      countObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+countEls.forEach(el => countObserver.observe(el));
+</script>
+</body>
+</html>
