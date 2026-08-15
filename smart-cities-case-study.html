@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+<title>Smart Cities Case Study — pradyumna.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400;1,9..40,500;1,9..40,600;1,9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FFF;--fg:#141413;--fg-muted:#868681;--accent:#E8663C;--accent-hover:#D4572F;--accent-light:#FEF3EF;--accent-glow:rgba(232,102,60,.1);--card-bg:#F5F5F3;--border:#E5E5E0;--white:#FFF;--hand:'Pacifico',cursive}
+[data-theme="dark"]{--bg:#111110;--fg:#F0EFEB;--fg-muted:#8A8983;--accent:#E8663C;--accent-hover:#F07A52;--accent-light:rgba(232,102,60,.12);--accent-glow:rgba(232,102,60,.15);--card-bg:#1C1C1A;--border:#2A2A27;--white:#F0EFEB}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--bg);color:var(--fg);font-family:'DM Sans',-apple-system,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* NAV — same as index */
+nav{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:1400px;z-index:100;padding:24px 48px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.7);backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4);border-bottom:1px solid var(--border)}
+[data-theme="dark"] nav{background:rgba(17,17,16,.7)}
+.logo{font-size:1.35rem;font-weight:600;color:var(--fg);letter-spacing:-.04em;text-decoration:none;transition:opacity .3s}.logo:hover{opacity:.5}
+.nav-links{display:flex;gap:8px;list-style:none}
+.nav-pill{color:var(--fg);text-decoration:none;font-size:.82rem;font-weight:500;letter-spacing:.01em;padding:10px 22px;border-radius:100px;border:1.5px solid var(--border);background:transparent;display:inline-block;transition:background .3s,color .3s,border-color .3s}
+.nav-pill:hover{background:var(--fg);color:var(--white);border-color:var(--fg)}
+.theme-toggle{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--border);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;margin-left:8px;flex-shrink:0}
+.theme-toggle:hover{border-color:var(--accent);background:var(--accent-light)}
+.theme-toggle svg{width:18px;height:18px;color:var(--fg)}
+.theme-toggle .icon-moon{display:none}
+[data-theme="dark"] .theme-toggle .icon-sun{display:none}
+[data-theme="dark"] .theme-toggle .icon-moon{display:block}
+
+/* BACK LINK */
+.back-link{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;font-weight:500;color:var(--fg-muted);text-decoration:none;transition:color .3s;margin-bottom:32px}
+.back-link:hover{color:var(--accent)}
+.back-link svg{width:16px;height:16px}
+
+/* HERO */
+.case-hero{max-width:900px;margin:0 auto;padding:150px 48px 40px}
+.case-badges{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px}
+.case-badge{font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:8px 16px;border-radius:100px;border:1px solid var(--border);color:var(--fg-muted)}
+.case-badge.accent{background:var(--accent-light);color:var(--accent);border-color:rgba(232,102,60,.15)}
+.case-annotation{font-family:var(--hand);font-size:.95rem;color:var(--accent);margin-bottom:10px}
+.case-title{font-size:clamp(2rem,4.5vw,3.4rem);font-weight:700;letter-spacing:-.035em;line-height:1.08;margin-bottom:20px}
+.case-sub{font-size:1.05rem;color:var(--fg-muted);line-height:1.75;max-width:680px;margin-bottom:36px}
+.case-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px}
+.case-meta-item{background:var(--card-bg);border-radius:14px;padding:16px 18px}
+.case-meta-label{font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--fg-muted);font-weight:700;margin-bottom:6px}
+.case-meta-value{font-size:.85rem;font-weight:600}
+.case-tags{display:flex;flex-wrap:wrap;gap:8px}
+.case-tag{font-size:.73rem;font-weight:500;padding:7px 16px;border-radius:100px;border:1px solid var(--border);color:var(--fg-muted)}
+
+/* TL;DR */
+.tldr{max-width:900px;margin:0 auto 80px;padding:0 48px}
+.tldr-box{background:var(--card-bg);border-radius:20px;padding:36px 40px;border-left:3px solid var(--accent)}
+.tldr-label{display:flex;align-items:center;gap:8px;font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);font-weight:700;margin-bottom:14px}
+.tldr-text{font-size:.98rem;line-height:1.75;color:var(--fg-muted);margin-bottom:26px}
+.tldr-text strong{color:var(--fg);font-weight:600}
+.tldr-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.tldr-stat{text-align:center}
+.tldr-stat-num{font-size:1.7rem;font-weight:700;color:var(--accent);letter-spacing:-.02em}
+.tldr-stat-label{font-size:.68rem;color:var(--fg-muted);margin-top:4px;font-weight:500}
+
+/* SECTIONS */
+.case-section{max-width:900px;margin:0 auto;padding:56px 48px}
+.case-section-num{font-size:.78rem;font-weight:700;letter-spacing:.1em;color:var(--accent);margin-bottom:10px;text-transform:uppercase}
+.case-section-title{font-size:clamp(1.4rem,2.6vw,2rem);font-weight:700;letter-spacing:-.03em;margin-bottom:20px;line-height:1.2}
+.case-p{font-size:.98rem;line-height:1.85;color:var(--fg-muted);margin-bottom:18px}
+.case-p strong{color:var(--fg);font-weight:600}
+.case-p:last-child{margin-bottom:0}
+.case-image{width:100%;border-radius:16px;overflow:hidden;background:var(--card-bg);margin:28px 0 10px;border:1px solid var(--border)}
+.case-image img{width:100%;display:block}
+.case-image-caption{font-family:var(--hand);font-size:.78rem;color:var(--accent);opacity:.75;margin-bottom:8px}
+.case-image-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:28px 0 10px}
+.case-image-row .case-image{margin:0}
+.case-callout{background:var(--accent-light);border-radius:16px;padding:26px 30px;margin:24px 0;border:1px solid rgba(232,102,60,.15)}
+.case-callout p{font-family:var(--hand);font-size:1rem;color:var(--fg);line-height:1.6}
+
+/* PROBLEM GRID */
+.problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.problem-card{background:var(--card-bg);border-radius:14px;padding:22px 24px}
+.problem-num{font-family:var(--hand);font-size:.85rem;color:var(--accent);margin-bottom:6px}
+.problem-title{font-size:.92rem;font-weight:700;margin-bottom:6px}
+.problem-desc{font-size:.82rem;color:var(--fg-muted);line-height:1.6}
+
+/* PROCESS PHASES */
+.phase-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:28px 0}
+.phase-card{border:2px dashed var(--border);border-radius:16px;padding:22px 16px;text-align:center}
+.phase-num{font-family:var(--hand);font-size:.9rem;color:var(--accent);margin-bottom:6px}
+.phase-title{font-size:.85rem;font-weight:700;margin-bottom:6px}
+.phase-desc{font-size:.75rem;color:var(--fg-muted);line-height:1.5}
+
+/* INTERVENTION LIST */
+.intervention-list{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0}
+.intervention-item{background:var(--card-bg);border-radius:12px;padding:16px 20px;font-size:.86rem}
+.intervention-item strong{color:var(--accent);font-weight:700}
+
+/* SOLUTION BLOCKS */
+.solution-block{margin:48px 0}
+.solution-header{display:flex;align-items:baseline;gap:14px;margin-bottom:14px;flex-wrap:wrap}
+.solution-name{font-size:1.35rem;font-weight:700;letter-spacing:-.02em}
+.solution-name .hy{color:var(--fg-muted);font-weight:400}
+.solution-status{font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:100px;background:var(--accent);color:var(--white)}
+.solution-status.wip{background:var(--border);color:var(--fg-muted)}
+.system-model-box{background:var(--card-bg);border-radius:14px;padding:18px 22px;margin:18px 0;font-size:.85rem;color:var(--fg-muted);line-height:1.6}
+.system-model-box strong{color:var(--fg);font-weight:600}
+
+/* FOOTER CTA — reused from index */
+.footer-cta{padding:100px 48px;text-align:center}
+.footer-cta-eyebrow{font-size:.7rem;text-transform:uppercase;letter-spacing:.14em;color:var(--accent);font-weight:700;margin-bottom:14px}
+.footer-cta-title{font-size:clamp(2rem,5vw,3.4rem);font-weight:700;letter-spacing:-.04em;line-height:1.1;margin-bottom:18px}
+.footer-cta-sub{color:var(--fg-muted);font-weight:400;font-size:.95rem;margin-bottom:34px;max-width:420px;margin-left:auto;margin-right:auto;line-height:1.6}
+.btn-primary{background:var(--accent);color:var(--white);padding:15px 34px;border-radius:100px;text-decoration:none;font-size:.88rem;font-weight:600;letter-spacing:.01em;transition:all .35s ease;border:1.5px solid var(--accent);display:inline-block}
+.btn-primary:hover{background:var(--accent-hover);border-color:var(--accent-hover);transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,102,60,.22)}
+.footer-bottom{padding:22px 48px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:.75rem;color:var(--fg-muted)}
+
+@media(max-width:800px){
+  .case-hero,.case-section,.tldr{padding-left:24px;padding-right:24px}
+  .case-meta,.tldr-stats,.problem-grid,.phase-row,.intervention-list,.case-image-row{grid-template-columns:1fr 1fr}
+  nav{padding:16px 20px}
+  .nav-links{display:none}
+}
+@media(max-width:520px){
+  .case-meta,.tldr-stats,.problem-grid,.phase-row,.intervention-list,.case-image-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<nav id="navbar">
+  <a href="index.html" class="logo">pradyumna.</a>
+  <div style="display:flex;align-items:center;gap:8px">
+    <ul class="nav-links" style="display:flex;gap:8px;list-style:none">
+      <li><a href="index.html#about" class="nav-pill">About</a></li>
+      <li><a href="index.html#work" class="nav-pill">Work</a></li>
+      <li><a href="resume.html" class="nav-pill" target="_blank" rel="noopener">Resume</a></li>
+    </ul>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+  </div>
+</nav>
+
+<section class="case-hero">
+  <a href="index.html#work" class="back-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Back to all work</a>
+
+  <div class="case-badges">
+    <span class="case-badge accent">Systems Thinking &middot; Design Research</span>
+    <span class="case-badge">Sponsored Workshop &middot; T-Hub Hyderabad</span>
+  </div>
+
+  <div class="case-annotation">when a city modernizes, whose story gets left behind?</div>
+  <h1 class="case-title">Designing an Indian-Contexted Identity for Hyderabad's Smart City Future</h1>
+  <p class="case-sub">A 6-person systems design team was sponsored by T-Hub Hyderabad to explore what "smart" actually means for a city &mdash; and to design an intervention that keeps a city's culture from getting erased in the process of modernizing it.</p>
+
+  <div class="case-meta">
+    <div class="case-meta-item"><div class="case-meta-label">Role</div><div class="case-meta-value">Research, Systems Mapping &amp; Concept Design</div></div>
+    <div class="case-meta-item"><div class="case-meta-label">Team</div><div class="case-meta-value">6 designers</div></div>
+    <div class="case-meta-item"><div class="case-meta-label">Duration</div><div class="case-meta-value">2&ndash;4 Weeks</div></div>
+    <div class="case-meta-item"><div class="case-meta-label">Sponsor</div><div class="case-meta-value">T-Hub Hyderabad</div></div>
+  </div>
+  <div class="case-tags">
+    <span class="case-tag">Systems Thinking</span>
+    <span class="case-tag">Service Design</span>
+    <span class="case-tag">Design Research</span>
+    <span class="case-tag">Donella Meadows Leverage Points</span>
+    <span class="case-tag">Figma</span>
+  </div>
+</section>
+
+<section class="tldr">
+  <div class="tldr-box">
+    <div class="tldr-label">&#9889; TL;DR &mdash; the story in 30 seconds</div>
+    <p class="tldr-text">Our team was sponsored by <strong>T-Hub Hyderabad</strong> to study system design &mdash; and apply it to the question of what makes a city genuinely "smart." Through mind-mapping, fieldwork, and benchmarking cities like <strong>London, New York, Singapore, Amsterdam, and Pondicherry</strong> against cautionary cases in <strong>China, Delhi, and Mumbai</strong>, we found the real gap wasn't technology &mdash; it was <strong>culture</strong>. Hyderabad's old and new halves had drifted apart, and most smart-city plans had no mechanism to carry cultural identity forward. Using <strong>Donella Meadows' leverage-points framework</strong> to prioritize where to intervene, we designed a system of four concepts &mdash; a mobility card, a street-level nostalgia installation, a culture-discovery app, and a food-packaging concept &mdash; all built around one aim: <strong>creating an Indian-contexted identity for Hyderabad</strong> instead of importing a generic one.</p>
+    <div class="tldr-stats">
+      <div class="tldr-stat"><div class="tldr-stat-num">8</div><div class="tldr-stat-label">Cities benchmarked</div></div>
+      <div class="tldr-stat"><div class="tldr-stat-num">12</div><div class="tldr-stat-label">Leverage points analyzed</div></div>
+      <div class="tldr-stat"><div class="tldr-stat-num">7</div><div class="tldr-stat-label">System intervention points</div></div>
+      <div class="tldr-stat"><div class="tldr-stat-num">4</div><div class="tldr-stat-label">Concepts designed</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 01 CONTEXT -->
+<section class="case-section">
+  <p class="case-section-num">01 &mdash; Context</p>
+  <h2 class="case-section-title">What actually makes a city "smart"?</h2>
+  <p class="case-p">T-Hub Hyderabad sponsored our team to explore <strong>system design</strong> as a discipline &mdash; understanding its research methodologies and applying them to design a solution effective across multiple levels of a system. We chose to focus that lens on smart cities, and specifically on Hyderabad.</p>
+  <p class="case-p">The first thing we had to unlearn was the popular myth: <strong>smart cities are not defined by how much technology they apply, but by how efficiently that technology is used to improve how the city actually functions.</strong> Technology can be a medium for making a city smart &mdash; it isn't the qualifying factor on its own.</p>
+  <div class="case-image">
+    <img src="images/smart-cities/sc-mindmap-smartcities.jpg" alt="Stakeholder map of a smart city ecosystem — governance, developers, environmentalists, economic beneficiaries, utilitarians, and culture">
+  </div>
+  <p class="case-image-caption">mapping every stakeholder a smart city touches, before deciding where to intervene</p>
+</section>
+
+<!-- 02 THE GAP -->
+<section class="case-section">
+  <p class="case-section-num">02 &mdash; The Gap</p>
+  <h2 class="case-section-title">Two cities that never fully became one</h2>
+  <p class="case-p">We grounded our focus city, Hyderabad, in its own demographic reality: its culture and history play a vital role in the city's individualistic identity, so any development should include provisions to <strong>improve, retain, and promote</strong> that identity rather than override it.</p>
+  <div class="case-image">
+    <img src="images/smart-cities/sc-mindmap-hyderabad.jpg" alt="Mind map of Hyderabad covering culture and tourism, IT zone, service industry, and people">
+  </div>
+  <p class="case-image-caption">mind-mapping Hyderabad across culture, IT, services, and people</p>
+  <p class="case-p">Fieldwork and research surfaced <strong>the gap</strong>: although Hyderabad's old and new halves have co-existed for decades, there's a major alienation of cultural demographics between them. The old city carries heritage, craft, and tradition; the new city is defined by IT parks, modern residential zones, and a much more Western-influenced lifestyle &mdash; and the two rarely meet.</p>
+  <div class="case-image">
+    <img src="images/smart-cities/sc-current-culture.jpg" alt="Field research collage of Hyderabad's current culture — bandi street food culture, handicrafts markets, nightlife, low-key heritage spots, the IT hub, and heritage-site tourism">
+  </div>
+  <p class="case-image-caption">current culture, mapped through fieldwork: bandi culture, handicraft markets, nightlife, the IT hub</p>
+</section>
+
+<!-- 03 MY ROLE -->
+<section class="case-section">
+  <p class="case-section-num">03 &mdash; My Role</p>
+  <h2 class="case-section-title">Research, systems mapping, and contributing across every concept</h2>
+  <p class="case-p">Within our 6-person team (Haider, Kunjal, Joshua, Naushabah, Payal, and myself), I worked across the project rather than owning a single lane. I contributed to the <strong>research and systems mapping</strong> work &mdash; including applying <strong>Donella Meadows' leverage-points framework</strong> to rank where our team should intervene &mdash; and stayed involved through the design of all three concepts we carried to completion: <strong>Hyderabad ONE</strong>, <strong>Hyderabad OUR</strong>, and <strong>Hyderabad EXO</strong>.</p>
+</section>
+
+<!-- 04 RESEARCH -->
+<section class="case-section">
+  <p class="case-section-num">04 &mdash; Research</p>
+  <h2 class="case-section-title">Learning from cities that got this right &mdash; and cities that didn't</h2>
+  <p class="case-p">We split our research into two threads: <strong>what culture actually means in a smart-city context</strong>, and <strong>how other cities have handled it</strong> &mdash; for better or worse.</p>
+  <div class="case-image">
+    <img src="images/smart-cities/sc-mindmap-culture.jpg" alt="Mind map of Culture of Hyderabad covering educational methods, economic promotions, literature, tourism, people, mobility, infrastructure, and social norms">
+  </div>
+  <p class="case-image-caption">unpacking "culture" into its component parts before designing for it</p>
+  <p class="case-p">On the positive side, we studied cities that used culture as a deliberate planning tool &mdash; <strong>London, New York, Singapore, Amsterdam, and Pondicherry</strong> &mdash; looking at how each retained and promoted cultural heritage while still modernizing.</p>
+  <div class="case-image">
+    <img src="images/smart-cities/sc-retainment-revival.jpg" alt="Research board on retainment and revival of culture — smart mobility, smart infrastructure, combination of cultural identities, economic development, and citizen engagement">
+  </div>
+  <p class="case-image-caption">patterns of cultural retainment and revival, synthesized from five benchmark cities</p>
+  <p class="case-p">On the cautionary side, we studied what happens when culture is <strong>neglected</strong>. China's rapid, technology-centric smart-city rollouts produced visually repetitive urban corridors and eroded local identity. Delhi and Mumbai's own modernization raised the same question locally: is the city's cultural identity fading as fast as it's growing?</p>
+  <div class="case-image">
+    <img src="images/smart-cities/sc-research-board-neglect.jpg" alt="Research board analyzing China's smart city rollout, and identity crisis case studies for Delhi and Mumbai">
+  </div>
+  <p class="case-image-caption">researching what neglecting culture in smart-city planning actually costs a city</p>
+  <div class="problem-grid">
+    <div class="problem-card"><div class="problem-num">~</div><div class="problem-title">Infrastructural repetition</div><div class="problem-desc">Rapid, unplanned urbanization leads to a loss of visual and architectural identity.</div></div>
+    <div class="problem-card"><div class="problem-num">~</div><div class="problem-title">Fast construction</div><div class="problem-desc">Rising congestion and a shrinking green cover across the city.</div></div>
+    <div class="problem-card"><div class="problem-num">~</div><div class="problem-title">Lack of citizen engagement</div><div class="problem-desc">Prevents local innovation and accelerates the decline of intellectual heritage.</div></div>
+    <div class="problem-card"><div class="problem-num">~</div><div class="problem-title">Data isn't open</div><div class="problem-desc">In China's case specifically: vendors sell generic "smart city in a box" solutions that don't fit local context.</div></div>
+  </div>
+  <div class="case-image">
+    <img src="images/smart-cities/sc-effects-neglect.jpg" alt="Diagram showing effects of cultural neglect in smart city planning, with photo examples of infrastructural repetition and fast construction">
+  </div>
+  <p class="case-image-caption">what neglecting culture in smart-city planning actually produces</p>
+</section>
+
+<!-- 05 SYNTHESIS -->
+<section class="case-section">
+  <p class="case-section-num">05 &mdash; Synthesis</p>
+  <h2 class="case-section-title">Finding the highest-leverage place to intervene</h2>
+  <p class="case-p">We mapped every opportunity we'd surfaced against the pain points that produced it, then interconnected them to see which opportunities kept recurring across the most connection points.</p>
+  <div class="case-image">
+    <img src="images/smart-cities/sc-opportunity-mapping.jpg" alt="Opportunity mapping board connecting pain points to final opportunity areas">
+  </div>
+  <p class="case-image-caption">opportunity mapping &mdash; tracing pain points to their highest-connection opportunities</p>
+  <p class="case-p">To decide which opportunities were actually worth pursuing, we ranked them using <strong>Donella Meadows' 12 places to intervene in a system</strong> &mdash; prioritizing higher-leverage interventions (like shifting the paradigm or mindset behind city planning) over lower-leverage ones (like adjusting a constant or parameter).</p>
+  <div class="case-image">
+    <img src="images/smart-cities/sc-donella-meadows.jpg" alt="Donella Meadows 12 leverage points, ranked against our team's five candidate opportunities">
+  </div>
+  <p class="case-image-caption">ranking our opportunities against Donella Meadows' leverage-points framework</p>
+  <div class="case-callout">
+    <p>"Although the twin-cities have co-existed as one for decades, there's a major alienation of cultural demographics between the new and old areas." &mdash; the gap that shaped everything downstream</p>
+  </div>
+  <p class="case-p">That analysis pointed us to a single final direction: the <strong>creation of an Indian-contexted identity for Hyderabad</strong> &mdash; something distinct from importing a Western smart-city template wholesale.</p>
+</section>
+
+<!-- 06 SYSTEM MODEL -->
+<section class="case-section">
+  <p class="case-section-num">06 &mdash; System Model</p>
+  <h2 class="case-section-title">Mapping how identity actually flows through a city</h2>
+  <p class="case-p">Before designing any single product, we mapped the underlying system: how food, architecture, tourism, mobility, society, governance, and heritage all feed into &mdash; and are fed by &mdash; a city's sense of identity.</p>
+  <div class="case-image">
+    <img src="images/smart-cities/sc-system-flow-identity.jpg" alt="System flow diagram mapping how identity moves through architecture, tourism, mobility, society, governance, and heritage">
+  </div>
+  <p class="case-image-caption">system flow of identity &mdash; how these components inter-relate across a city</p>
+  <p class="case-p">From that system map, we identified seven concrete intervention points &mdash; one lever per subsystem:</p>
+  <div class="intervention-list">
+    <div class="intervention-item"><strong>Food</strong> &mdash; Branding</div>
+    <div class="intervention-item"><strong>Architecture</strong> &mdash; Design &amp; Forecast</div>
+    <div class="intervention-item"><strong>Tourism</strong> &mdash; Citizen Engagement</div>
+    <div class="intervention-item"><strong>Mobility</strong> &mdash; Public Transportation</div>
+    <div class="intervention-item"><strong>Society</strong> &mdash; Social Behaviour</div>
+    <div class="intervention-item"><strong>Governance</strong> &mdash; Policy Infrastructure</div>
+    <div class="intervention-item"><strong>Heritage</strong> &mdash; Code of Values</div>
+  </div>
+  <div class="case-image">
+    <img src="images/smart-cities/sc-component-study.jpg" alt="Component study research board for Hyderabad identifying key needs and problem areas">
+  </div>
+  <p class="case-image-caption">component study &mdash; deriving needs and problem areas specific to Hyderabad</p>
+</section>
+
+<!-- 07 SOLUTIONS -->
+<section class="case-section">
+  <p class="case-section-num">07 &mdash; Design Solutions</p>
+  <h2 class="case-section-title">Four concepts, one system of solutions</h2>
+  <p class="case-p">Mobility, architecture, food, and tourism became the four levers we designed against &mdash; each aimed at the same goal of building an Indian-contexted identity for Hyderabad.</p>
+  <div class="case-image">
+    <img src="images/smart-cities/sc-system-of-solutions.jpg" alt="System of solutions diagram — architectural nostalgia, experiential dining, experiencing tourism, and visual identity, all tied to Creation of Indian Contexted Identity">
+  </div>
+  <p class="case-image-caption">the system of solutions &mdash; four concepts under one aim</p>
+
+  <div class="solution-block">
+    <div class="solution-header"><span class="solution-name"><span class="hy">Hyderabad</span> ONE</span><span class="solution-status">Concept</span></div>
+    <p class="case-p">A unified mobility card usable across every public transit service in the city &mdash; auto-rickshaws, buses, the metro, and cabs &mdash; illustrated in Hyderabad's own visual identity (Charminar, Film City) rather than generic transit branding. While it solves the practical mobility problem, its real job is to make the city's identity part of a daily-use object.</p>
+    <div class="case-image"><img src="images/smart-cities/sc-hyderabad-one-cards.jpg" alt="Hyderabad ONE mobility card design, illustrated with Charminar, an auto-rickshaw, bus, metro, and cab"></div>
+    <div class="case-image"><img src="images/smart-cities/sc-hyderabad-one-palette.jpg" alt="Hyderabad ONE card design shown across multiple color and material variants"></div>
+    <div class="system-model-box"><strong>System model:</strong> data collection &rarr; government policy &rarr; financial &amp; mobility services &rarr; identity design &rarr; manufacturing &rarr; distribution through mobility stations &rarr; society &rarr; mobility services.</div>
+  </div>
+
+  <div class="solution-block">
+    <div class="solution-header"><span class="solution-name"><span class="hy">Hyderabad</span> OUR</span><span class="solution-status">Concept</span></div>
+    <p class="case-p">A deliberately crude, monument-like street installation that symbolizes how fast the city around it has changed. Each device carries a "Look into me" panel showing overlaid historical visuals of that exact street, telling a story from the past to whoever stops to look.</p>
+    <div class="case-image"><img src="images/smart-cities/sc-hyderabad-our-monument.jpg" alt="Hyderabad OUR — a monument-like street installation with a 'Look into me' viewing panel"></div>
+    <div class="case-image"><img src="images/smart-cities/sc-hyderabad-our-context.jpg" alt="Hyderabad OUR installation placed in context at a real Hyderabad street corner, alongside historical photos of the same location"></div>
+    <p class="case-p">By creating a sense of nostalgia, the device aims to shift how people see &mdash; and value &mdash; the pace of urbanization happening around them.</p>
+    <div class="system-model-box"><strong>System model:</strong> gain information about the area / approach a heritage collective &rarr; scout locations of historic and nostalgic interest &rarr; planning committee and government permissions &rarr; spatial planning &amp; construction.</div>
+  </div>
+
+  <div class="solution-block">
+    <div class="solution-header"><span class="solution-name"><span class="hy">Hyderabad</span> EXO</span><span class="solution-status">Concept</span></div>
+    <p class="case-p">A mobile app built to enhance cultural engagement &mdash; letting users experience Hyderabad in its true authenticity rather than a tourist-brochure version of it. Every recommendation &mdash; cuisine, markets, festivals, heritage sites &mdash; is curated by cultural experts based on firsthand experience and public opinion, not just ratings.</p>
+    <div class="case-image"><img src="images/smart-cities/sc-hyderabad-exo-flow.jpg" alt="Hyderabad EXO onboarding flow — start screen, onboarding form, and choose-your-experience home screen"></div>
+    <p class="case-image-caption">onboarding flow: start &rarr; onboarding &rarr; choose your experience</p>
+    <div class="case-image"><img src="images/smart-cities/sc-hyderabad-exo-cuisine.jpg" alt="Hyderabad EXO cuisine recommendation screens curated by cultural experts"></div>
+    <p class="case-image-caption">cuisine recommendations, curated by cultural experts</p>
+    <div class="case-image"><img src="images/smart-cities/sc-wireframes.jpg" alt="Full wireframe sheet for the Hyderabad EXO app, including mobility-card connection and a synced-route experience planner"></div>
+    <p class="case-image-caption">wireframes &mdash; including mobility-card linking and a synced-route experience planner</p>
+    <div class="system-model-box"><strong>System model:</strong> data collection from cultural experts, organizations, and influencers &rarr; a personalized experience gathered and vetted first by curators &rarr; suggestions ranked by place performance and public opinion &rarr; curated experiences surfaced to users to choose from.</div>
+  </div>
+
+  <div class="solution-block">
+    <div class="solution-header"><span class="solution-name"><span class="hy">Hyderabad</span> EAT</span><span class="solution-status wip">Work in Progress</span></div>
+    <p class="case-p">A food-packaging concept designed to reintroduce the essence of Hyderabad into everyday takeaway meals &mdash; approaching restaurants (or being approached by them), studying each brand's history and cuisine style, and developing a reusable packaging system tied to that history. This concept was scoped during the workshop but not taken to a finished design.</p>
+    <div class="system-model-box"><strong>System model:</strong> approach restaurants (or they approach the brand) &rarr; study the brand's history, cuisine style, and historical connection &rarr; develop a reusable packaging solution from that research &rarr; deliver the package and launch the experience.</div>
+  </div>
+</section>
+
+<!-- 08 REFLECTION -->
+<section class="case-section">
+  <p class="case-section-num">08 &mdash; Reflection</p>
+  <h2 class="case-section-title">Culture isn't a feature you add later</h2>
+  <p class="case-p">The biggest shift for me on this project was realizing that culture can't be treated as a layer you add on top of a smart city after the infrastructure is decided &mdash; it has to be one of the systems you design for from the start, alongside mobility, governance, and economy.</p>
+  <p class="case-p">Using Donella Meadows' leverage-points framework also changed how I evaluate my own ideas: it's easy to gravitate toward the opportunity that's easiest to prototype, but the framework forced our team to ask which intervention would actually shift the system, not just decorate it. That's a lens I've carried into every systems-level project since.</p>
+</section>
+
+<section class="footer-cta" id="contact">
+  <p class="footer-cta-eyebrow">Get in touch</p>
+  <h2 class="footer-cta-title">Let's design something<br>meaningful together.</h2>
+  <p class="footer-cta-sub">Seeking Summer 2026 design strategy and service design internships. Open to collaborations and conversations.</p>
+  <a href="mailto:pradyumnasatheesh@gmail.com" class="btn-primary">pradyumnasatheesh@gmail.com</a>
+</section>
+<footer class="footer-bottom"><span>&copy; 2026 pradyumna. All rights reserved.</span><span>MS HCI &middot; Indiana University Bloomington</span></footer>
+
+<script>
+var toggle=document.getElementById('themeToggle');
+toggle.addEventListener('click',function(){
+  var html=document.documentElement;
+  if(html.getAttribute('data-theme')==='dark'){html.removeAttribute('data-theme')}
+  else{html.setAttribute('data-theme','dark')}
+});
+</script>
+</body>
+</html>
