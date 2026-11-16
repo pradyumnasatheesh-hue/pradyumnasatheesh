@@ -1,1037 +1,675 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<title>IUCAT Case Study — pradyumna.</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>IUCAT case study - Pradyumna Satheesh</title>
+<meta name="description" content="The library catalog had a save button. It was a checkbox called Select. How a team of eight redesigned saving and requesting for Indiana University Libraries.">
+<link rel="canonical" href="https://pradyumnasatheesh.com/iucat-case-study.html">
+<meta property="og:site_name" content="Pradyumna Satheesh">
+<meta name="author" content="Pradyumna Satheesh">
+<link rel="icon" href="a/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="IUCAT case study - Pradyumna Satheesh">
+<meta property="og:description" content="The library catalog had a save button. It was a checkbox called Select.">
+<meta property="og:url" content="https://pradyumnasatheesh.com/iucat-case-study.html">
+<meta property="og:image" content="https://pradyumnasatheesh.com/a/og-iucat.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400;1,9..40,500;1,9..40,600;1,9..40,700&family=Pacifico&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Caveat+Brush&family=Caveat:wght@500;600;700&family=DM+Sans:wght@400;500;600;700;800&family=Libre+Franklin:wght@400;500;600;700&display=swap">
 <style>
-/* ========== CSS VARIABLES ========== */
-:root {
-  --bg: #FFFFFF;
-  --fg: #141413;
-  --fg-muted: #868681;
-  --accent: #E8663C;
-  --accent-hover: #D4572F;
-  --accent-light: #FEF3EF;
-  --card-bg: #F5F5F3;
-  --border: #E5E5E0;
+/* Layout: one reading column of generous bands. Text sits in a narrow measure, product screens break out wide. */
+:root{
+  --paper:#F6F2EA; --sand:#E9E3D6; --line:#DDD6C8; --ink:#1A1A1A; --head:#333333; --body:#45413A;
+  --soft:#6A655C; --dim:#A39D90; --red:#B3263A; --red-deep:#8F1D2E; --red-tint:#F3D6DA; --white:#FFFFFF;
+  --teal:#0F766E; --teal-deep:#0F5E57; --teal-tint:#E6F2F0;
+  --sans:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --hand:Caveat,"Segoe Print","Comic Sans MS",cursive;
+  --brush:"Caveat Brush",Caveat,"Segoe Print",cursive;
+  --ui:"DM Sans",Inter,system-ui,sans-serif;
+  --band:clamp(96px,13vw,176px);
+  color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
 }
-[data-theme="dark"] {
-  --bg: #111110;
-  --fg: #F0EFEB;
-  --fg-muted: #8A8983;
-  --accent: #E8663C;
-  --accent-hover: #F07A52;
-  --card-bg: #1C1C1A;
-  --border: #2A2A27;
-}
+html{scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:18px;line-height:1.6;overflow-x:hidden}
+img{max-width:100%}
+a{color:var(--ink)}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px;border-radius:6px}
+h1,h2,h3,p,figure,blockquote{margin:0}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(22px,env(safe-area-inset-left,0px));padding-right:max(22px,env(safe-area-inset-right,0px))}
+.band{padding-top:var(--band)}
+.stack{display:flex;flex-direction:column;gap:40px}
+.lede{max-width:40em;color:var(--body);font-size:20px;line-height:1.6}
+.display{font-size:clamp(36px,5.2vw,64px);line-height:1.08;letter-spacing:-0.03em;font-weight:600;color:var(--head);text-wrap:balance;max-width:17em}
+.title{font-size:clamp(30px,3.8vw,46px);line-height:1.1;letter-spacing:-0.03em;font-weight:600;color:var(--head);text-wrap:balance;max-width:20em}
+.sub{font-size:clamp(24px,2.6vw,32px);line-height:1.15;letter-spacing:-0.03em;font-weight:600;color:var(--head);text-wrap:balance}
+.dim{color:var(--dim)}
+.hl{background:url(a/brush.svg) center/100% 100% no-repeat;color:var(--white);padding:0 .18em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.ul{background:url(a/underline.svg) bottom/100% .26em no-repeat;padding-bottom:.12em}
+.note{font-family:var(--hand);font-weight:600;font-size:24px;line-height:1.2;color:var(--soft)}
+.kicker{font-size:15px;font-weight:600;color:var(--soft)}
+.cap{font-size:13.5px;color:var(--soft)}
+.hb{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 22px;font:400 21px var(--brush);color:var(--ink);text-decoration:none;background:url(a/btn.svg) center/100% 100% no-repeat;border:0;cursor:pointer;white-space:nowrap;transition:transform .18s cubic-bezier(.3,1.6,.5,1)}
+.hb:hover{background-image:url(a/btn-hover.svg);transform:rotate(-1.5deg)}
+.hb.on{background-image:url(a/btn-soft.svg);color:var(--ink)}
+.tx{font:600 16px var(--sans);color:var(--soft);text-decoration:none;background:url(a/underline.svg) bottom/0% .3em no-repeat;border:0;padding:8px 2px 9px;margin:0 8px;cursor:pointer;transition:color .2s,background-size .3s}
+.tx:hover{color:var(--ink);background-size:100% .3em}
+.hb.on:hover{transform:rotate(1.5deg)}
+.nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding-block:20px}
+.logo{font-size:30px;font-weight:800;letter-spacing:-0.06em;text-decoration:none}
+.logo i{font-style:normal;color:var(--red)}
+.logo{display:inline-flex;align-items:baseline;color:var(--ink)}
+.logo .lt{display:inline-block;animation:drop .5s cubic-bezier(.3,1.5,.5,1) backwards;animation-delay:calc(var(--i)*70ms);transition:transform .28s cubic-bezier(.3,1.7,.5,1);transition-delay:calc(var(--i)*35ms)}
+.logo:hover .lt{transform:translateY(-4px) rotate(-4deg)}
+.logo .dw{display:inline-block;transition:transform .35s cubic-bezier(.3,1.9,.5,1) .18s}
+.logo:hover .dw{transform:translateY(-12px) scale(1.25)}
+.logo .dw i{display:inline-block;transform-origin:50% 85%;animation:ball 1s cubic-bezier(.3,0,.4,1) .45s backwards,idle 7s ease-in-out 4s infinite}
+@keyframes drop{from{opacity:0;transform:translateY(-14px) rotate(-8deg)}}
+@keyframes ball{0%{opacity:0;transform:translateY(-44px)}45%{opacity:1;transform:translateY(0) scale(1.3,.65)}65%{transform:translateY(-12px) scale(.94,1.1)}82%{transform:translateY(0) scale(1.12,.86)}100%{transform:none}}
+@keyframes idle{0%,86%,100%{transform:none}90%{transform:translateY(-9px) scale(.94,1.1)}94%{transform:translateY(0) scale(1.18,.78)}97%{transform:translateY(-3px)}}
+.nav nav{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.card{background:var(--white);border:1.5px solid var(--line);border-radius:22px}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.facts>div{padding:22px 24px;display:flex;flex-direction:column;gap:6px}
+.facts b{font-size:20px;font-weight:600;letter-spacing:-0.02em;line-height:1.25}
+.facts .dark{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.two{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:40px;align-items:center}
+.two.even{grid-template-columns:1fr 1fr;align-items:stretch}
+.two.wide{grid-template-columns:minmax(0,1fr) minmax(0,1.6fr)}
+.aside{display:flex;align-items:flex-end;gap:6px;max-width:720px}
+.aside img{flex:none;width:clamp(110px,14vw,150px);height:auto}
+.pnote{background:var(--white);border:1.5px solid var(--ink);border-radius:18px;padding:18px 22px;box-shadow:0 12px 28px rgba(26,26,26,.10);display:flex;flex-direction:column;gap:6px;margin-bottom:22px}
+.pnote b{font-size:13px;font-weight:700;color:var(--red)}
+.pnote p{font:600 25px/1.22 var(--hand)}
+.tier{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;padding:14px 18px;border-radius:14px;background:var(--paper)}
+.tier b{font-size:17px;letter-spacing:-0.01em}
+.tier .sees{margin-left:auto;font:600 21px/1.15 var(--hand);color:var(--teal-deep);text-align:right}
+.scroller{overflow:visible}
+.stage{border-radius:24px;padding:clamp(20px,3vw,40px);display:flex;align-items:center;justify-content:center;gap:20px}
+.node{background:var(--white);border:1.5px solid var(--ink);border-radius:14px;padding:11px 14px;font-size:15px;font-weight:600;line-height:1.25;text-align:center}
+.flow{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px}
+.quote{padding:clamp(26px,4vw,44px);display:flex;flex-direction:column;gap:18px;border-color:var(--ink)}
+.quote blockquote{font-size:clamp(22px,2.6vw,30px);font-weight:600;letter-spacing:-0.02em;line-height:1.3}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.stats>div{padding:26px}
+.stats b{display:block;font-size:clamp(40px,5vw,56px);font-weight:800;letter-spacing:-0.05em;line-height:1}
 
-/* ========== RESET & BASE ========== */
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--bg);
-  color: var(--fg);
-  line-height: 1.6;
-  transition: background 0.4s, color 0.4s;
-  overflow-x: hidden;
-}
-a { color: inherit; text-decoration: none; }
-img { max-width: 100%; display: block; }
 
-/* ========== NAVIGATION ========== */
-.nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  padding: 18px 40px;
-  display: flex; justify-content: space-between; align-items: center;
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  background: transparent;
-}
-.nav.scrolled {
-  top: 14px;
-  left: 50%; transform: translateX(-50%);
-  max-width: 880px; width: calc(100% - 40px);
-  padding: 12px 28px;
-  background: color-mix(in srgb, var(--bg) 75%, transparent);
-  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border);
-  border-radius: 100px;
-}
-.nav-logo {
-  font-size: 1.1rem; font-weight: 700; letter-spacing: -0.03em;
-}
-.nav-logo span { color: var(--accent); }
-.nav-right { display: flex; align-items: center; gap: 10px; }
-.nav-pill {
-  padding: 7px 18px; border-radius: 100px;
-  border: 1.5px solid var(--border);
-  font-size: 0.82rem; font-weight: 500; letter-spacing: 0.01em;
-  background: transparent; color: var(--fg); cursor: pointer;
-  transition: all 0.3s;
-}
-.nav-pill:hover {
-  background: var(--fg); color: var(--bg);
-  font-style: italic;
-}
-.theme-toggle {
-  width: 40px; height: 40px; border-radius: 50%;
-  border: 1.5px solid var(--border);
-  background: transparent; color: var(--fg); cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: border-color 0.3s;
-}
-.theme-toggle:hover { border-color: var(--accent); }
-.theme-toggle svg { width: 18px; height: 18px; }
+/* ---------- IUCAT screens, rebuilt in the Rivet look. Drawn at a fixed 1180px stage and scaled to fit, like a video. ---------- */
+.frame{position:relative;overflow:hidden;background:#fff;border:1.6px solid var(--ink);border-radius:22px 18px 24px 20px/20px 24px 18px 22px;box-shadow:0 18px 44px rgba(26,26,26,.10)}
+.frame.phone{border-width:6px;border-radius:34px;max-width:300px}
+.stg{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}
+.film .stg{transition:transform .9s cubic-bezier(.4,0,.2,1)}
+.rv{font-family:"Libre Franklin","Franklin Gothic Medium",Arial,sans-serif;font-size:14px;line-height:1.4;color:#243142;background:#fff;text-align:left;position:relative;overflow:hidden;height:100%}
+.rv *{box-sizing:border-box}
+.rv svg{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.rv-hd{height:60px;display:flex;align-items:center;padding:0 80px;border-bottom:1px solid #E6E6E6;gap:12px;white-space:nowrap}
+.rv-logo{display:flex;align-items:center;gap:12px;font-weight:700;font-size:17px;letter-spacing:.01em}
+.rv-logo i{width:26px;height:30px;background:#990000;display:block}
+.rv-nav{margin-left:auto;display:flex;align-items:center;gap:22px;font-size:13.5px}
+.rv-nav span{display:inline-flex;align-items:center;gap:6px}
+.rv-nav .car::after{content:"";width:6px;height:6px;border-right:1.6px solid;border-bottom:1.6px solid;transform:rotate(45deg) translateY(-2px);margin-left:4px}
+.rv-bdg{min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:#990000;color:#fff;font-size:11px;font-weight:700;display:inline-grid;place-items:center;margin-left:-2px}
+.rv-bdg.pop{animation:rvbump .5s cubic-bezier(.3,1.7,.5,1)}
+@keyframes rvbump{40%{transform:scale(1.5)}}
+.rv-av{width:28px;height:28px;border-radius:14px;background:#990000;color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center}
+.rv-tabs{display:flex;gap:4px;padding:0 80px;border-bottom:1px solid #E6E6E6;font-size:13.5px}
+.rv-tabs span{padding:11px 12px 9px;border-bottom:3px solid transparent;position:relative}
+.rv-tabs .on{color:#990000;border-color:#990000;background:#FBF2F2}
+.rv-sb{margin:22px 80px 0;background:#990000;border-radius:4px;padding:14px 12px 12px;color:#fff;position:relative}
+.rv-sb .in{display:flex;background:#fff;border-radius:3px;color:#243142;height:34px;align-items:center}
+.rv-sb .in b{padding:0 12px;color:#006298;font-weight:600;border-right:1px solid #DDD;height:100%;display:flex;align-items:center;background:#F7F7F7;border-radius:3px 0 0 3px}
+.rv-sb .in em{flex:1;padding:0 10px;font-style:normal}
+.rv-sb .in u{width:38px;height:100%;background:#006298;border-radius:0 3px 3px 0;display:grid;place-items:center;color:#fff;text-decoration:none}
+.rv-sb .in u.h{background:#fff;color:#006298;border-left:1px solid #DDD;border-radius:0}
+.rv-sb .oo{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:13px}
+.rv-sb .oo i{width:14px;height:14px;background:#fff;border-radius:2px;display:block}
+.rv-hist{position:absolute;left:12px;right:12px;top:50px;background:#fff;color:#006298;border:1px solid #CCC;border-radius:0 0 4px 4px;box-shadow:0 10px 24px rgba(0,0,0,.18);z-index:2;padding:6px 0;font-size:13px}
+.rv-hist div{padding:5px 14px;display:flex;gap:8px;align-items:center}
+.rv-for{margin:0 80px;padding:9px 8px;background:#F7F7F7;font-size:13px;display:flex;align-items:center;gap:8px}
+.rv-for b{background:#E6E6E6;border-radius:999px;padding:2px 10px;font-weight:600;font-size:12px}
+.rv-for a{margin-left:auto;color:#006298;font-weight:600;font-size:12px;border:1px solid #CCC;border-radius:3px;padding:2px 8px;background:#fff}
+.rv-body{display:grid;grid-template-columns:230px 1fr;gap:28px;padding:0 80px}
+.rv-h1{text-align:center;font-size:21px;margin:14px 0 4px;font-weight:500}
+.rv-fac{font-size:13.5px}
+.rv-fac b{display:block;padding:10px 0 8px;font-size:13.5px}
+.rv-fac div{display:flex;justify-content:space-between;padding:7px 4px;border-top:1px solid #DDD}
+.rv-fac div::after{content:"+";font-size:17px;line-height:1}
+.rv-res{padding-top:6px}
+.rv-count{display:flex;justify-content:flex-end;gap:6px;font-size:12px;margin-bottom:4px}
+.rv-count span{background:#006298;color:#fff;font-weight:600;padding:3px 10px;border-radius:3px}
+.rv-it{display:grid;grid-template-columns:1fr auto;gap:6px 14px;padding:12px 0 14px;border-bottom:1px solid #E6E6E6;position:relative}
+.rv-ti{color:#006298;font-size:16.5px;line-height:1.3}
+.rv-ti span{color:#243142}
+.rv-act{display:flex;gap:6px;align-items:center;justify-content:flex-end}
+.rv-b{font:600 12px "Libre Franklin",Arial,sans-serif;display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border:1.5px solid #9CC8E0;border-radius:4px;background:#fff;color:#006298;cursor:pointer;white-space:nowrap;position:relative}
+.rv-b svg{width:14px;height:14px}
+.rv-b.solid{background:#006298;border-color:#006298;color:#fff}
+.rv-b.lg{font-size:13.5px;padding:8px 14px}
+.rv-b.dis{color:#8A93A0;border-color:#DDD;background:#F7F7F7}
+.rv-b.del{border-color:#F4B8A6;color:#DF3603;padding:5px 6px}
+.rv-b.plain{border-color:transparent}
+.rv-q{color:#006298;font:800 34px/20px Georgia,serif;height:22px;padding:0 4px;cursor:pointer;background:none;border:0;position:relative}
+.rv-chk{display:inline-flex;align-items:center;gap:6px;font:600 12px "Libre Franklin",Arial,sans-serif;padding:4px 8px;border:1.5px solid #9CC8E0;border-radius:4px;color:#006298;background:#fff;cursor:pointer}
+.rv-chk i{width:13px;height:13px;border:1.5px solid #006298;border-radius:2px;display:grid;place-items:center;font-style:normal;font-size:10px;line-height:1;color:#fff}
+.rv-chk.on i{background:#006298}
+.rv-sub{grid-column:1/-1;display:flex;gap:2px;font-size:13px;border-bottom:1px solid #E6E6E6}
+.rv-sub span{padding:6px 12px;color:#006298;font-weight:600;display:inline-flex;gap:6px;align-items:center}
+.rv-sub .on{color:#990000;border-bottom:2px solid #990000;background:#FBF2F2}
+.rv-sub .new{animation:rvin .4s both}
+.rv-md{display:grid;grid-template-columns:86px 1fr;gap:2px 8px;font-size:13px}
+.rv-md span:nth-child(odd){text-align:right;color:#4A5568}
+.rv-cov{width:74px;height:98px;border-radius:2px;display:flex;align-items:flex-end;padding:6px;color:#fff;font-size:8.5px;font-weight:700;line-height:1.15;justify-self:end}
+.rv-tags{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap;font-size:11.5px}
+.rv-tags b{background:#E6E6E6;border-radius:999px;padding:2px 10px;font-weight:600;display:inline-flex;gap:5px;align-items:center}
+.rv-tags svg{width:11px;height:11px}
+.rv-veil{position:absolute;inset:0;background:rgba(36,49,66,.5);z-index:5}
+.rv-veil.in{animation:rvfade .25s both}
+@keyframes rvfade{from{opacity:0}}
+@keyframes rvin{from{opacity:0;transform:translateY(10px)}}
+.rv-dlg{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:560px;background:#fff;border-radius:6px;box-shadow:0 24px 60px rgba(0,0,0,.35);z-index:6;padding:20px 22px;display:flex;flex-direction:column;gap:14px}
+.rv-dlg.in{animation:rvdlg .3s cubic-bezier(.3,1.3,.5,1) both}
+@keyframes rvdlg{from{opacity:0;transform:translate(-50%,-46%) scale(.97)}}
+.rv-dlg h4{margin:0;font-size:17px;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+.rv-x{border:0;background:none;font-size:22px;line-height:1;color:#243142;cursor:pointer;padding:2px 8px;position:relative}
+.rv-bk{display:flex;gap:12px;align-items:center;font-size:16px;font-style:italic}
+.rv-bk .rv-cov{width:34px;height:46px;font-size:0;padding:0;flex:none}
+.rv-inp{border:1px solid #8A93A0;border-radius:3px;padding:6px 10px;color:#8A93A0;font-size:13px}
+.rv-tbl{display:grid;grid-template-columns:1.5fr 1fr 1fr auto;font-size:13px;align-items:center}
+.rv-tbl>*{padding:8px 10px;border-bottom:1px solid #E6E6E6;min-height:42px;display:flex;align-items:center}
+.rv-tbl .th{font-weight:700;background:#F7F7F7;min-height:0;font-size:12px}
+.rv-tbl a{color:#006298;font-weight:600;margin-right:6px}.rv-tbl span{white-space:nowrap}
+.rv-off{position:absolute;top:0;right:0;bottom:0;width:390px;background:#fff;z-index:6;padding:18px 18px 16px;display:flex;flex-direction:column;gap:10px;box-shadow:-18px 0 50px rgba(0,0,0,.3)}
+.rv-off.in{animation:rvoff .4s cubic-bezier(.3,1,.4,1) both}
+@keyframes rvoff{from{transform:translateX(105%)}}
+.rv-dl{display:flex;align-items:center;gap:8px;font-weight:600;font-size:13px}
+.rv-dl b{background:#006298;color:#fff;padding:5px 12px;border-radius:3px;font-weight:600}
+.rv-g{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:500;margin-top:8px}
+.rv-g small{color:#6B7280;font-size:13px}
+.rv-g svg{width:18px;height:18px}
+.rv-gd{font-style:italic;font-weight:600;color:#6B7280;font-size:12px;margin:-6px 0 0 26px}
+.rv-c{display:flex;gap:10px;align-items:center;background:#F7F7F7;border-radius:4px;padding:7px 10px;font-size:12.5px;line-height:1.3}
+.rv-c.in{animation:rvin .35s both}
+.rv-c .rv-cov{width:32px;height:44px;font-size:0;padding:0;flex:none}
+.rv-c div{flex:1}
+.rv-c b{display:block;font-size:13px}
+.rv-pin{display:inline-flex;gap:4px;align-items:center}.rv-pin svg{width:12px;height:12px;color:#006298}
+.rv-bask{display:grid;grid-template-columns:1fr 330px;gap:44px;padding:20px 110px 0}
+.rv-bask h2{font-size:32px;margin:0 0 6px;font-weight:700;letter-spacing:-.01em}
+.rv-col{display:flex;flex-direction:column;gap:8px}
+.rv-al{background:#F2F5E6;border-left:4px solid #056E41;color:#056E41;padding:12px 16px;font-size:12.5px;position:relative}
+.rv-al.in{animation:rvin .45s both}
+.rv-al b{display:block;font-size:15px;font-weight:600;margin-bottom:4px}
+.rv-ap{border:1.5px solid #DDD;border-radius:6px;padding:14px;display:flex;flex-direction:column;gap:8px;align-self:start}
+.rv-ap h5{margin:0;font-size:15px;display:flex;justify-content:space-between;align-items:center}
+.rv-ap .ok{background:#F2F5E6;border-radius:4px;padding:8px;display:flex;flex-direction:column;gap:6px}
+.rv-ap .ok.in{animation:rvin .5s .15s both}
+.rv-ap .ok>i{color:#056E41;font-weight:700;font-size:12.5px}
+.rv-ap .rv-c{background:none;padding:0}
+.rv-lib{border:1.5px solid #CCC;border-radius:4px;padding:8px 12px;font-size:13px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;position:relative}
+.rv-lib b{display:block}
+.rv-lib.on{border-color:#056E41;background:#EAF5EC;box-shadow:0 0 0 1px #056E41}
+.rv-lib.on::after{content:"✓";width:18px;height:18px;border-radius:9px;border:1.5px solid #056E41;color:#056E41;display:grid;place-items:center;font-size:11px}
+.rv-tip{position:absolute;background:#fff;border:1px solid #8A93A0;border-radius:4px;padding:7px 10px;font-size:12px;line-height:1.3;box-shadow:0 8px 20px rgba(0,0,0,.2);z-index:4;width:max-content;max-width:190px;animation:rvin .3s both}
+.rv-tip::after{content:"";position:absolute;left:50%;bottom:-6px;width:10px;height:10px;background:#fff;border-right:1px solid #8A93A0;border-bottom:1px solid #8A93A0;transform:translateX(-50%) rotate(45deg)}
+.rv-home{margin:26px 80px 0;background:#F7F7F7;padding:30px 40px 24px;text-align:center}
+.rv-home .g{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:22px}
+.rv-home .g div{background:#fff;border:1px solid #DDD;border-radius:4px;padding:22px 18px;font-size:13.5px;display:flex;flex-direction:column;gap:12px;align-items:center}
+.rv-home svg{width:34px;height:34px;color:#006298;stroke-width:1.4}
+.rv-crumb{font-size:19px;margin:18px 0 6px}.rv-crumb a{color:#006298}
+.fcur{position:absolute;left:0;top:0;width:26px;height:26px;z-index:20;pointer-events:none;transition:transform .8s cubic-bezier(.5,0,.2,1);filter:drop-shadow(0 3px 5px rgba(0,0,0,.35))}
+.fcur svg{width:100%;height:100%;transition:transform .15s}
+.fcur.tap svg{transform:scale(.78)}
+.fcur::after{content:"";position:absolute;left:-12px;top:-12px;width:30px;height:30px;border-radius:15px;border:2.5px solid #B3263A;opacity:0}
+.fcur.tap::after{animation:ring .5s ease-out}
+@keyframes ring{from{opacity:.9;transform:scale(.3)}to{opacity:0;transform:scale(1.5)}}
+.filmrow{display:grid;grid-template-columns:minmax(0,1fr);gap:22px}
+.filmcap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 24px;align-items:end}
+.filmcap .t{font-size:clamp(22px,2.6vw,30px);font-weight:600;letter-spacing:-0.03em;line-height:1.2;color:var(--head);min-height:1.2em}
+.filmcap .note{min-height:1.2em}
+.filmctl{display:flex;align-items:center;gap:14px}
+.dots{display:flex;gap:8px;align-items:center}
+.dots button{flex:none;width:14px;height:14px;border-radius:7px;border:2px solid var(--ink);background:var(--white);padding:0;cursor:pointer;transition:width .25s,background .25s}
+.dots button[aria-current="true"]{background:var(--red);border-color:var(--red);width:30px}
+.swapin{animation:pop .4s ease both}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.97)}to{opacity:1;transform:none}}
+.rt{font:600 14px var(--ui);padding:9px 16px;border-radius:999px;border:1.5px solid var(--ink);background:var(--white);color:var(--ink);cursor:pointer}
+.rt[aria-selected="true"]{background:var(--ink);color:var(--white)}
+.tabs{display:flex;flex-wrap:wrap;gap:8px}
 
-/* ========== LAYOUT ========== */
-.case-study { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
-.narrow { max-width: 760px; margin-left: auto; margin-right: auto; }
-.full-bleed { max-width: 100vw; margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); padding: 0; }
+/* process */
+.shot{display:block;border:1.5px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 14px 34px rgba(26,26,26,.08)}
+.shot img{display:block;width:100%;height:auto}
+.step{display:grid;grid-template-columns:64px minmax(0,1fr);gap:8px 20px;align-items:start}
+.step .num{font:400 54px/1 var(--brush);color:var(--red)}
+.step .stack{gap:24px;min-width:0}
+.wall{display:flex;gap:26px;overflow-x:auto;padding:18px 6px 30px;margin:0 -6px;scroll-snap-type:x proximity;scrollbar-width:thin}
+.paper{flex:none;width:300px;background:#fff;border:1.5px solid var(--ink);border-radius:5px;padding:10px 10px 12px;box-shadow:0 12px 26px rgba(26,26,26,.12);display:flex;flex-direction:column;gap:8px;scroll-snap-align:center;transition:transform .25s cubic-bezier(.3,1.5,.5,1)}
+.paper:nth-child(odd){transform:rotate(-1.4deg)}.paper:nth-child(even){transform:rotate(1.1deg);margin-top:22px}
+.paper:hover{transform:rotate(0) scale(1.03)}
+.paper img{display:block;width:100%;height:230px;object-fit:cover;object-position:top;border-radius:2px;background:#eee}
+.paper{text-decoration:none}.paper span{font:600 20px/1.15 var(--hand);color:var(--soft)}
+.paper.mine{border-color:var(--red);box-shadow:0 12px 26px rgba(179,38,58,.18)}
+.paper.mine span{color:var(--red)}
+.finds{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.finds>div{padding:20px 22px;display:flex;flex-direction:column;gap:6px}
+.finds b{font-size:18px;font-weight:600;letter-spacing:-0.02em;line-height:1.3}
+.finds p{font-size:16px;color:var(--body);line-height:1.5}
+.split{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:stretch}
+.split .card{padding:24px;display:flex;flex-direction:column;gap:8px;border-color:var(--ink)}
+.split .mid{align-self:center;font:400 28px var(--brush);color:var(--red)}
+.iter{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.iter>div{display:flex;flex-direction:column;gap:10px}
+.iter .pair{display:grid;grid-template-columns:1fr;gap:8px}
+.iter b{font-size:17px;font-weight:600;letter-spacing:-0.02em}
+.iter p{font-size:15.5px;color:var(--body);line-height:1.5}
+.iter .cap{display:flex;gap:6px;align-items:center}
+.fpanel{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.1fr);gap:36px;align-items:start}
+.fpanel ul{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px}
+.fpanel li{padding-left:18px;position:relative;font-size:17px;color:var(--body);line-height:1.5}
+.fpanel li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:8px;border-radius:4px;background:var(--red)}
+.fshots{display:flex;flex-direction:column;gap:18px}
+.fshots.duo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,3fr);align-items:start}
+.calls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.calls>div{padding:22px 24px;display:flex;flex-direction:column;gap:8px}
+.calls b{font-size:19px;font-weight:600;letter-spacing:-0.02em;line-height:1.25}
+.calls p{font-size:16px;color:var(--body);line-height:1.5}
+footer{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;margin-top:var(--band);padding-block:26px;border-top:1.5px solid var(--line);font-size:15px;color:var(--soft)}
 
-/* ========== HERO ========== */
-.hero {
-  padding-top: 140px; padding-bottom: 80px;
-}
-.back-link {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 0.86rem; font-weight: 500; color: var(--fg-muted);
-  margin-bottom: 32px; transition: color 0.3s;
-}
-.back-link:hover { color: var(--accent); }
-.back-link svg { width: 16px; height: 16px; }
 
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: var(--accent-light); color: var(--accent);
-  padding: 6px 16px; border-radius: 100px;
-  font-size: 0.72rem; font-weight: 700;
-  letter-spacing: 0.1em; text-transform: uppercase;
+@media (max-width:860px){
+  body{font-size:17px}
+  .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .two,.two.even,.two.wide,.fpanel,.finds,.calls,.split,.iter{grid-template-columns:1fr}
+  .split .mid{justify-self:center}
+  .step{grid-template-columns:minmax(0,1fr)}.step .num{font-size:44px}
+  .filmcap{grid-template-columns:1fr}
+  .paper{width:250px}
+  .fshots.duo{grid-template-columns:1fr}
 }
-[data-theme="dark"] .hero-badge { background: rgba(232,102,60,0.12); }
-
-.sponsor-badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: var(--card-bg); color: var(--fg-muted);
-  padding: 6px 16px; border-radius: 100px;
-  font-size: 0.68rem; font-weight: 600;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  border: 1px solid var(--border);
-}
-
-.hero-title {
-  font-size: clamp(2.2rem, 5vw, 3.6rem);
-  font-weight: 700; letter-spacing: -0.04em;
-  line-height: 1.1; margin-bottom: 20px;
-  max-width: 800px;
-}
-.underline-word {
-  position: relative; display: inline-block;
-}
-.underline-word::after {
-  content: ''; position: absolute; bottom: -6px; left: 0; width: 100%;
-  height: 12px;
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 8 Q30 2 60 7 Q90 12 118 4' fill='none' stroke='%23E8663C' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center;
-  background-size: 100% 100%;
-  opacity: 0.5;
-}
-.hero-subtitle {
-  font-size: clamp(1rem, 1.8vw, 1.15rem);
-  color: var(--fg-muted); font-weight: 400;
-  max-width: 620px; line-height: 1.65;
-  margin-bottom: 36px;
-}
-.hero-hook {
-  font-family: 'Pacifico', cursive;
-  font-size: 0.9rem; font-weight: 400;
-  color: var(--accent); opacity: 0.6;
-  margin-bottom: 28px;
-  display: block;
-}
-
-/* Meta pills */
-.meta-pills {
-  display: flex; flex-wrap: wrap; gap: 12px;
-  margin-bottom: 20px;
-}
-.meta-pill {
-  display: flex; flex-direction: column; gap: 2px;
-  padding: 14px 22px;
-  background: var(--card-bg);
-  border-radius: 14px;
-  min-width: 140px;
-}
-.meta-pill-label {
-  font-size: 0.65rem; font-weight: 700;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--accent);
-}
-.meta-pill-value {
-  font-size: 0.88rem; font-weight: 500;
-  color: var(--fg);
-}
-
-/* ========== TLDR SECTION ========== */
-.tldr-section {
-  background: var(--card-bg);
-  border-radius: 20px;
-  padding: 36px 40px;
-  margin-bottom: 80px;
-  border: 1px solid var(--border);
-  position: relative;
-  overflow: hidden;
-}
-.tldr-section::before {
-  content: '';
-  position: absolute; top: 0; left: 0; width: 4px; height: 100%;
-  background: var(--accent);
-  border-radius: 4px 0 0 4px;
-}
-.tldr-label {
-  font-size: 0.7rem; font-weight: 700;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--accent); margin-bottom: 14px;
-  display: flex; align-items: center; gap: 8px;
-}
-.tldr-content {
-  font-size: 0.95rem; color: var(--fg); line-height: 1.7;
-}
-.tldr-content strong { font-weight: 600; }
-.tldr-stats {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  gap: 20px; margin-top: 24px;
-  padding-top: 24px; border-top: 1px solid var(--border);
-}
-.tldr-stat-num {
-  font-size: 1.8rem; font-weight: 700; color: var(--accent);
-  letter-spacing: -0.04em; line-height: 1;
-}
-.tldr-stat-label {
-  font-size: 0.72rem; color: var(--fg-muted); font-weight: 500;
-  margin-top: 4px;
-}
-
-/* ========== SECTIONS ========== */
-.section {
-  margin-bottom: 80px;
-}
-.section-label {
-  font-size: 0.65rem; font-weight: 700;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--accent); margin-bottom: 14px;
-}
-.section-title {
-  font-size: clamp(1.2rem, 2.2vw, 1.6rem);
-  font-weight: 700; letter-spacing: -0.02em;
-  margin-bottom: 20px; line-height: 1.25;
-}
-.section-body {
-  font-size: 0.92rem; color: var(--fg-muted);
-  line-height: 1.75; max-width: 660px;
-}
-.section-body p + p { margin-top: 16px; }
-.section-body strong { color: var(--fg); font-weight: 600; }
-
-/* ========== SPLIT LAYOUT ========== */
-.split {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 60px; align-items: center;
-  margin-bottom: 80px;
-}
-.split.reverse { direction: rtl; }
-.split.reverse > * { direction: ltr; }
-
-/* ========== IMAGE PLACEHOLDERS ========== */
-.img-placeholder {
-  background: var(--card-bg);
-  border: 1.5px solid var(--border);
-  border-radius: 16px;
-  aspect-ratio: 16/10;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.78rem; color: var(--fg-muted); font-weight: 500;
-  position: relative; overflow: hidden;
-}
-.img-placeholder.tall { aspect-ratio: 4/3; }
-.img-placeholder.full {
-  width: 100%; aspect-ratio: 21/9; margin-bottom: 80px;
-  border-radius: 20px;
-}
-.img-placeholder-label {
-  font-family: 'Pacifico', cursive;
-  font-size: 0.8rem; color: var(--accent);
-  opacity: 0.5;
-}
-
-/* ========== CHALLENGE LIST ========== */
-.challenge-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 20px; margin-top: 28px;
-}
-.challenge-card {
-  background: var(--card-bg);
-  border-radius: 14px;
-  padding: 24px 28px;
-  border: 1px solid var(--border);
-}
-.challenge-card-num {
-  font-size: 2rem; font-weight: 200;
-  color: var(--accent); letter-spacing: -0.04em;
-  line-height: 1; margin-bottom: 10px;
-  opacity: 0.6;
-}
-.challenge-card-title {
-  font-size: 0.9rem; font-weight: 700;
-  margin-bottom: 6px;
-}
-.challenge-card-desc {
-  font-size: 0.82rem; color: var(--fg-muted);
-  line-height: 1.6;
-}
-
-/* ========== CALLOUT QUOTE ========== */
-.callout {
-  background: var(--card-bg);
-  border-radius: 20px;
-  padding: 40px 44px;
-  margin: 48px 0;
-  position: relative;
-  border: 1px solid var(--border);
-}
-.callout::before {
-  content: '"';
-  font-family: 'Pacifico', cursive;
-  font-size: 4rem; color: var(--accent);
-  opacity: 0.2; position: absolute;
-  top: 12px; left: 28px; line-height: 1;
-}
-.callout-text {
-  font-size: 1.05rem; font-weight: 500;
-  font-style: italic; line-height: 1.7;
-  color: var(--fg);
-  padding-left: 20px;
-}
-.callout-source {
-  font-size: 0.78rem; color: var(--fg-muted);
-  margin-top: 12px; padding-left: 20px;
-  font-style: normal;
-}
-
-/* ========== IMPACT STATS ========== */
-.impact-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px; margin-top: 32px;
-}
-.impact-card {
-  background: var(--card-bg);
-  border-radius: 16px;
-  padding: 28px 24px;
-  text-align: center;
-  border: 1px solid var(--border);
-}
-.impact-num {
-  font-size: 2.8rem; font-weight: 700;
-  color: var(--accent); letter-spacing: -0.04em;
-  line-height: 1;
-}
-.impact-label {
-  font-size: 0.78rem; color: var(--fg-muted);
-  margin-top: 8px; font-weight: 500;
-}
-.impact-hand-note {
-  font-family: 'Pacifico', cursive;
-  font-size: 0.8rem; color: var(--accent);
-  opacity: 0.5; margin-top: 32px;
-  text-align: center;
-}
-
-/* ========== PROCESS STEPS ========== */
-.process-flow {
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: 16px; margin-top: 32px;
-}
-.process-step {
-  background: var(--card-bg);
-  border: 1.5px dashed var(--border);
-  border-radius: 16px;
-  padding: 28px 22px;
-  text-align: center;
-  position: relative;
-  transition: border-color 0.3s;
-}
-.process-step:hover { border-color: var(--accent); }
-.process-step-num {
-  font-size: 0.65rem; font-weight: 700;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--accent); margin-bottom: 10px;
-}
-.process-step-title {
-  font-size: 1rem; font-weight: 700;
-  margin-bottom: 8px;
-}
-.process-step-desc {
-  font-size: 0.78rem; color: var(--fg-muted);
-  line-height: 1.55;
-}
-.process-arrow {
-  position: absolute; right: -22px; top: 50%;
-  transform: translateY(-50%);
-  color: var(--accent); opacity: 0.4;
-}
-.process-step:last-child .process-arrow { display: none; }
-
-/* ========== DESIGN SOLUTIONS ========== */
-.solution-block {
-  margin-bottom: 60px;
-}
-.solution-block-title {
-  font-size: 1.1rem; font-weight: 700;
-  margin-bottom: 8px; letter-spacing: -0.01em;
-}
-.solution-block-desc {
-  font-size: 0.88rem; color: var(--fg-muted);
-  line-height: 1.7; margin-bottom: 24px;
-  max-width: 600px;
-}
-
-/* ========== DESIGN SYSTEM TAG ========== */
-.ds-tag {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 5px 14px; border-radius: 100px;
-  font-size: 0.68rem; font-weight: 600;
-  letter-spacing: 0.06em;
-  border: 1.5px solid var(--border);
-  color: var(--fg-muted);
-  margin-right: 8px; margin-bottom: 8px;
-}
-.ds-tag svg { width: 12px; height: 12px; }
-
-/* ========== FOOTER CTA ========== */
-.footer-cta {
-  text-align: center; padding: 100px 40px 80px;
-}
-.footer-cta-title {
-  font-size: clamp(2.2rem, 5.5vw, 4.2rem);
-  font-weight: 700; letter-spacing: -0.04em;
-  margin-bottom: 24px; line-height: 1.1;
-}
-.footer-cta-sub {
-  font-size: 0.95rem; color: var(--fg-muted);
-  margin-bottom: 32px;
-}
-.footer-btn {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 16px 36px; border-radius: 100px;
-  background: var(--accent); color: #fff;
-  font-size: 0.9rem; font-weight: 600;
-  border: none; cursor: pointer;
-  transition: background 0.3s, transform 0.2s;
-  position: relative; overflow: hidden;
-}
-.footer-btn:hover { background: var(--accent-hover); transform: translateY(-2px); }
-.footer-social {
-  display: flex; justify-content: center; gap: 20px;
-  margin-top: 40px;
-}
-.footer-social a {
-  color: var(--fg-muted); transition: color 0.3s;
-  font-size: 0.82rem; font-weight: 500;
-}
-.footer-social a:hover { color: var(--accent); }
-
-.footer-sign {
-  font-family: 'Pacifico', cursive;
-  font-size: 0.85rem; color: var(--accent);
-  opacity: 0.45; margin-top: 32px;
-}
-
-/* ========== REVEAL ANIMATIONS ========== */
-.reveal {
-  opacity: 0; transform: translateY(30px);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.reveal.visible {
-  opacity: 1; transform: translateY(0);
-}
-
-/* ========== RESPONSIVE ========== */
-@media (max-width: 900px) {
-  .split { grid-template-columns: 1fr; gap: 32px; }
-  .split.reverse { direction: ltr; }
-  .challenge-grid { grid-template-columns: 1fr; }
-  .process-flow { grid-template-columns: 1fr 1fr; }
-  .process-arrow { display: none !important; }
-  .case-study { padding: 0 24px; }
-  .nav { padding: 14px 20px; }
-  .nav.scrolled { padding: 10px 20px; width: calc(100% - 24px); }
-  .meta-pills { gap: 8px; }
-  .meta-pill { min-width: 110px; padding: 10px 16px; }
-  .tldr-section { padding: 28px 24px; }
-  .callout { padding: 28px 24px; }
-}
-@media (max-width: 600px) {
-  .process-flow { grid-template-columns: 1fr; }
-  .impact-grid { grid-template-columns: 1fr 1fr; }
-  .hero-title { font-size: clamp(1.8rem, 7vw, 2.6rem); }
-  .nav-pill { display: none; }
-  .tldr-stats { grid-template-columns: 1fr 1fr; }
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
 </style>
 </head>
 <body>
 
-<!-- ========== NAVIGATION ========== -->
-<nav class="nav" id="nav">
-  <a href="index.html" class="nav-logo">pradyumna<span>.</span></a>
-  <div class="nav-right">
-    <a href="index.html#work" class="nav-pill">Work</a>
-    <a href="index.html#about" class="nav-pill">About</a>
-    <a href="index.html#resume" class="nav-pill">Resume</a>
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-      <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-      <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-    </button>
-  </div>
-</nav>
+<header class="wrap nav">
+  <a class="logo" href="index.html" aria-label="Prady, home"><span class="lt" style="--i:0">p</span><span class="lt" style="--i:1">r</span><span class="lt" style="--i:2">a</span><span class="lt" style="--i:3">d</span><span class="lt" style="--i:4">y</span><span class="dw"><i>.</i></span></a>
+  <nav aria-label="Primary">
+    <a class="tx" href="index.html#work">My work</a>
+    <a class="tx" href="index.html#how">How I work</a>
+    <a class="tx" href="index.html#about">About</a>
+    <a class="hb on" href="https://pradyumnasatheesh.com/resume.html">Resume</a>
+  </nav>
+</header>
 
-<!-- ========== HERO ========== -->
-<section class="case-study hero">
-  <a href="index.html#work" class="back-link reveal">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-    Back to all work
-  </a>
 
-  <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:20px;" class="reveal">
-    <span class="hero-badge">UX Research &bull; Information Architecture</span>
-    <span class="sponsor-badge">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-      Sponsor Project &bull; IU Libraries
-    </span>
-  </div>
+<main>
+  <section class="wrap stack" style="padding-top:clamp(40px,6vw,80px)">
+    <span class="kicker">Case study, IUCAT for Indiana University Libraries</span>
+    <h1 class="display">The library catalog had a save button. <span class="dim">It was a checkbox called</span> <span class="hl">“Select”.</span></h1>
+    <p class="lede">IUCAT is how Indiana University finds, saves and requests books across its campuses. In a team of eight we redesigned saving and requesting. I came up with the Basket, the part that lets you request several books in one go.</p>
 
-  <span class="hero-hook reveal">when 100,000 students can't find the 'save' button...</span>
-
-  <h1 class="hero-title reveal">
-    Redesigning How Indiana University <span class="underline-word">Discovers</span> Its Library
-  </h1>
-
-  <p class="hero-subtitle reveal">
-    IUCAT serves every student, researcher, and faculty member across IU's nine campuses. I led the end-to-end redesign of its Selections & Folders system — turning a confusing, broken workflow into an intuitive resource management experience.
-  </p>
-
-  <div class="meta-pills reveal">
-    <div class="meta-pill">
-      <span class="meta-pill-label">Role</span>
-      <span class="meta-pill-value">End-to-End Designer & Researcher</span>
-    </div>
-    <div class="meta-pill">
-      <span class="meta-pill-label">Company</span>
-      <span class="meta-pill-value">IU Libraries × HCI/d</span>
-    </div>
-    <div class="meta-pill">
-      <span class="meta-pill-label">Duration</span>
-      <span class="meta-pill-value">4 Months</span>
-    </div>
-    <div class="meta-pill">
-      <span class="meta-pill-label">Focus</span>
-      <span class="meta-pill-value">Navigation, Accessibility, Design System</span>
-    </div>
-  </div>
-
-  <div class="reveal" style="display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;">
-    <span class="ds-tag">Figma</span>
-    <span class="ds-tag">Rivet Design System</span>
-    <span class="ds-tag">Usability Testing</span>
-    <span class="ds-tag">Competitive Analysis</span>
-    <span class="ds-tag">Blacklight Framework</span>
-  </div>
-</section>
-
-<!-- ========== TL;DR ========== -->
-<section class="case-study">
-  <div class="tldr-section reveal">
-    <div class="tldr-label">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-      TL;DR — The story in 30 seconds
-    </div>
-    <div class="tldr-content">
-      IUCAT is IU's online library catalog used by <strong>100,000+ students and faculty</strong> across nine campuses. The existing "Selections & Folders" feature — meant for saving and organizing resources — was so confusing that <strong>most users couldn't even find it</strong>. Through librarian interviews, patron walkthroughs, and competitive analysis of 8+ university library systems, we uncovered that users didn't understand the terminology, couldn't differentiate saving from requesting, and had no way to batch-checkout items. We redesigned the entire saving-to-requesting pipeline: a new <strong>"Save to Folder" + "Basket" dual-intent system</strong>, inline citations, contextual tooltips, and accessibility-first navigation — all within IU's Rivet Design System. The result: a design now being evaluated for development by the IU Libraries UX team.
-    </div>
-    <div class="tldr-stats">
-      <div>
-        <div class="tldr-stat-num">3</div>
-        <div class="tldr-stat-label">Librarian interviews</div>
+    <div class="filmrow" style="margin-top:8px">
+      <div class="frame film" id="film" role="img" aria-label="Animated walkthrough of the redesigned IUCAT: saving a book to a folder, adding two books to the Basket, and requesting them together"></div>
+      <div class="filmcap">
+        <div class="stack" style="gap:4px"><span class="kicker" id="fN">1 of 7</span><span class="t" id="fT"></span><span class="note" id="fS"></span></div>
+        <div class="filmctl"><div class="dots" id="fDots"></div><button class="tx" type="button" id="fPlay" style="margin:0">Pause</button></div>
       </div>
-      <div>
-        <div class="tldr-stat-num">8+</div>
-        <div class="tldr-stat-label">Systems benchmarked</div>
-      </div>
-      <div>
-        <div class="tldr-stat-num">5</div>
-        <div class="tldr-stat-label">Major features shipped</div>
-      </div>
-      <div>
-        <div class="tldr-stat-num">100K+</div>
-        <div class="tldr-stat-label">Users impacted</div>
-      </div>
+      <span class="cap">The final design, rebuilt here in code in the style of Rivet, IU's design system, with sample books. It plays on a loop. Use the dots to jump to a step.</span>
     </div>
-  </div>
-</section>
 
-<!-- ========== HERO IMAGE ========== -->
-<section class="case-study">
-  <div class="img-placeholder full reveal">
-    <span class="img-placeholder-label">hero image — IUCAT redesign overview</span>
-  </div>
-</section>
+    <div class="facts">
+      <div class="card"><span class="kicker">My role</span><b>Designer and researcher</b><span class="note">the Basket was my idea</span></div>
+      <div class="card"><span class="kicker">Team and sponsor</span><b>8 designers, IU Libraries</b><span class="note">we met the sponsor every week</span></div>
+      <div class="card"><span class="kicker">Time</span><b>One semester</b><span class="note">research to handoff</span></div>
+      <div class="card dark"><span class="kicker" style="color:#D9D2C3">Handed off</span><b>5 feature sets</b><span class="note" style="color:#D9D2C3">with notes for developers</span></div>
+    </div>
+  </section>
 
-<!-- ========== CONTEXT ========== -->
-<section class="case-study">
-  <div class="split reveal">
-    <div>
-      <span class="section-label">01 — Context</span>
-      <h2 class="section-title">A catalog that serves an entire university — but frustrates almost everyone</h2>
-      <div class="section-body">
-        <p>IUCAT is the backbone of IU's library ecosystem — the single place where students, faculty, and researchers search, discover, and request books, journals, and digital resources across all nine campuses.</p>
-        <p>But there was a problem hiding in plain sight. The <strong>"Selections & Folders"</strong> system — the primary way users were supposed to save, organize, and manage resources — was virtually invisible. Users confused "Select" for a batch action. The Folders feature was buried. And there was no way to request multiple items at once.</p>
-        <p>Our team of 7 HCI graduate students was brought in by IU Libraries to fix this — and to rethink how navigation works for the entire catalog.</p>
+  <section class="wrap band stack">
+    <h2 class="title">Nobody could find <span class="ul">how to save a book</span></h2>
+    <p class="lede">To save an item in IUCAT you tick a box labelled Select. It then sits in a Selections tab in the top bar, and only from there can you put it in a folder. Requesting a book is a different button, on a different page.</p>
+    <div class="stack" style="gap:14px">
+      <span class="note" id="bNote">try it yourself: tick “Select” on a book</span>
+      <div class="frame" id="beforeDemo" data-h="600"></div>
+      <span class="cap">The catalog as it works today, rebuilt so you can try it. The only response to saving is a number changing in the top bar.</span>
+    </div>
+    <div class="two wide" style="align-items:start;margin-top:12px">
+      <div class="stack" style="gap:12px"><a class="shot" href="a/iu-select.jpg"><img src="a/iu-select.jpg" alt="A search result in the current IUCAT with a small Select checkbox on the right" loading="lazy" width="1200" height="394"></a><span class="cap">The real thing: a screenshot of today's Select checkbox.</span></div>
+      <div class="stack" style="gap:12px"><a class="shot" href="a/iu-before.jpg"><img src="a/iu-before.jpg" alt="The current IUCAT search page with the Select checkbox and the Selections tab circled in red" loading="lazy" width="1500" height="749"></a><span class="cap">The two red circles are everything the system shows you after you save.</span></div>
+    </div>
+  </section>
+
+  <section class="wrap band stack" style="gap:clamp(72px,9vw,120px)">
+    <div class="stack"><h2 class="title">How we got from that checkbox <span class="hl">to the Basket</span></h2><p class="lede">Five steps, in the order they happened.</p></div>
+
+    <div class="step"><span class="num">1</span><div class="stack">
+      <span class="sub">We watched people try, without telling them which tool to use</span>
+      <p class="lede">We gave students a list of items and asked them to save those for later, thinking aloud. We never said Selections or Folders, so what counted as “saving” was up to them. Before that we interviewed three IU librarians and compared catalogs built on the same Blacklight framework, including Stanford, Penn State, Harvard and Brown.</p>
+      <div class="finds">
+        <div class="card"><b>They looked for a button that said Save</b><p>Most people paused at the Select checkbox or missed it completely.</p></div>
+        <div class="card"><b>A checkbox reads as step one of something</b><p>Like ticking emails before deleting them. People waited for a second step that never came.</p></div>
+        <div class="card"><b>Nothing confirmed the save</b><p>Most could not find the Selections tab where their items had gone.</p></div>
+        <div class="card"><b>Some thought Select meant request</b><p>They ticked several books expecting to check them out together. Request is on each item's own page, one book at a time.</p></div>
       </div>
-    </div>
-    <div class="img-placeholder reveal">
-      <span class="img-placeholder-label">current IUCAT interface</span>
-    </div>
-  </div>
-</section>
+      <div class="aside"><div class="pnote"><b>From the librarians</b><p>they answer the same questions again and again, mostly about what the catalog's words mean</p></div><img src="a/thinking.png" alt="Line drawing of Prady thinking"></div>
+    </div></div>
 
-<!-- ========== CHALLENGE ========== -->
-<section class="case-study section">
-  <div class="narrow reveal">
-    <span class="section-label">02 — The Challenge</span>
-    <h2 class="section-title">Users couldn't save, couldn't organize, couldn't request. The system was working against them.</h2>
-    <div class="section-body" style="margin-bottom:28px;">
-      <p>Through patron walkthroughs and librarian interviews, four critical failure points emerged:</p>
-    </div>
-  </div>
-  <div class="narrow">
-    <div class="challenge-grid reveal">
-      <div class="challenge-card">
-        <div class="challenge-card-num">01</div>
-        <div class="challenge-card-title">Invisible Save Action</div>
-        <div class="challenge-card-desc">Users expected a "Save" button but found a "Select" checkbox that gave no feedback. Most didn't realize items were being stored at all.</div>
+    <div class="step"><span class="num">2</span><div class="stack">
+      <span class="sub">We sketched wide before narrowing</span>
+      <p class="lede">Everyone drew alone first, then we put the sheets side by side. The aim was to imagine new features, not only tidy the old ones.</p>
+      <div class="wall" tabindex="0" aria-label="Sketches, scroll sideways"><a class="paper" href="a/iu-sk-icons.jpg"><img src="a/iu-sk-icons.jpg" alt="Hand sketches of possible save icons: bookmark, heart, plus, star, pin, and an Add to Folder menu" loading="lazy"><span>which icon says “save”?</span></a><a class="paper" href="a/iu-sk-variations.jpg"><img src="a/iu-sk-variations.jpg" alt="Notes comparing bookmark, Pinterest-style add and pin for the selections feature" loading="lazy"><span>bookmark, plus or pin</span></a><a class="paper" href="a/iu-sk-overlay.jpg"><img src="a/iu-sk-overlay.jpg" alt="A paper sketch of a folder picker laid over a screenshot of IUCAT" loading="lazy"><span>a folder picker, drawn over the real page</span></a><a class="paper" href="a/iu-sk-create.jpg"><img src="a/iu-sk-create.jpg" alt="Sketch of a folder list with a Create folder button" loading="lazy"><span>make a folder on the spot</span></a><a class="paper" href="a/iu-sk-flow.jpg"><img src="a/iu-sk-flow.jpg" alt="Two sketched screens and a flow chart of saving from search into a folder" loading="lazy"><span>the whole save flow on one sheet</span></a><a class="paper" href="a/iu-sk-actions.jpg"><img src="a/iu-sk-actions.jpg" alt="Annotated sketch of the search page and folder page with numbered actions" loading="lazy"><span>numbering every action</span></a><a class="paper" href="a/iu-sk-folder.jpg"><img src="a/iu-sk-folder.jpg" alt="Sketch of a folder screen with sort, filter, select, remove and request now" loading="lazy"><span>what a folder page needs</span></a><a class="paper" href="a/iu-sk-tips.jpg"><img src="a/iu-sk-tips.jpg" alt="Sketch of instruction bubbles explaining Basic Search, Browse and Call Number" loading="lazy"><span>bubbles for the library’s jargon</span></a><a class="paper" href="a/iu-sk-results.jpg"><img src="a/iu-sk-results.jpg" alt="Sketch of browse results with thumbnails" loading="lazy"><span>browse results with covers</span></a></div>
+      <span class="cap">Sketches from the whole team. Scroll sideways, and open any one to see it full size.</span>
+    </div></div>
+
+    <div class="step"><span class="num">3</span><div class="stack">
+      <span class="sub">One checkbox was doing two jobs, so I proposed a Basket</span>
+      <p class="lede">Our early ideas put everything in one cart or bag. Laying the sketches out showed why that would fail: keeping a book for later and asking the library for it now are different intentions. I suggested giving requesting its own place, a Basket that works like one in any shop. You collect while you search, then check out once.</p>
+      <div class="split">
+        <div class="card"><span class="kicker">Keep it for later</span><span class="sub">Folders</span><p style="color:var(--body);font-size:17px">A named Save to Folder button on every search result.</p></div>
+        <span class="mid">not the same as</span>
+        <div class="card" style="border-color:var(--red)"><span class="kicker">Get it now</span><span class="sub">Basket</span><p style="color:var(--body);font-size:17px">Collect from search, see what is available where, request it all together.</p></div>
       </div>
-      <div class="challenge-card">
-        <div class="challenge-card-num">02</div>
-        <div class="challenge-card-title">Blurred Intent</div>
-        <div class="challenge-card-desc">Users couldn't distinguish between saving for later reference vs. requesting for checkout. Some thought the checkbox was for batch-deletion, like email.</div>
+      <div class="wall" tabindex="0" aria-label="Basket sketches, scroll sideways"><a class="paper" href="a/iu-sk-cart.jpg"><img src="a/iu-sk-cart.jpg" alt="Notebook sketch of search results with the words Bookshelf, Cart and Storage questioned" loading="lazy"><span>bookshelf? cart? storage?</span></a><a class="paper" href="a/iu-sk-bag.jpg"><img src="a/iu-sk-bag.jpg" alt="Sketch of an account menu and a bag icon that shows how many items it holds" loading="lazy"><span>a bag that counts what is in it</span></a><a class="paper" href="a/iu-sk-requestall.jpg"><img src="a/iu-sk-requestall.jpg" alt="Sketch asking how to request several books at once, with a Request All button" loading="lazy"><span>select all, or request all?</span></a><a class="paper mine" href="a/iu-sk-basket.jpg"><img src="a/iu-sk-basket.jpg" alt="Early sketch of a Basket page grouped by e-book, physical and restricted items" loading="lazy"><span>the first Basket page</span></a></div>
+    </div></div>
+
+    <div class="step"><span class="num">4</span><div class="stack">
+      <span class="sub">We made it fit Rivet, and iterated in the open</span>
+      <p class="lede">IUCAT is built with Rivet, IU's design system, so every idea had to be rebuilt from its parts. Three places took the most rounds.</p>
+      <div class="iter">
+        <div><a class="shot" href="a/iu-it-modal1.jpg"><img src="a/iu-it-modal1.jpg" alt="An intermediate Saved in modal listing folders" loading="lazy"></a><a class="shot" href="a/iu-it-modal2.jpg"><img src="a/iu-it-modal2.jpg" alt="The final Saved in modal with Save to Folder and Create a New Folder" loading="lazy"></a><b>The folder modal</b><p>Rivet's ready-made modal said nothing about the folders themselves. Ours shows what each holds, when it changed, and lets you create one in place.</p></div>
+        <div><a class="shot" href="a/iu-it-colors.jpg"><img src="a/iu-it-colors.jpg" alt="Four sets of button colour tests for Add to Basket, Edit and Delete" loading="lazy"></a><a class="shot" href="a/iu-it-folder2.jpg"><img src="a/iu-it-folder2.jpg" alt="The final folders list with quiet icon actions" loading="lazy"></a><b>Button colour</b><p>We tried green, blue and gold for Add to Basket. The rule we kept: blue and white for actions, red only for destructive ones.</p></div>
+        <div><a class="shot" href="a/iu-it-preview.jpg"><img src="a/iu-it-preview.jpg" alt="A preliminary Basket preview panel grouped by availability" loading="lazy"></a><a class="shot" href="a/iu-it-tags2.jpg"><img src="a/iu-it-tags2.jpg" alt="The final search result with Save to Folder, Add to Basket and a Folders tab" loading="lazy"></a><b>The Basket preview</b><p>An early version opened a full page. We changed it to a panel that slides over search, so adding a book never costs you your place.</p></div>
       </div>
-      <div class="challenge-card">
-        <div class="challenge-card-num">03</div>
-        <div class="challenge-card-title">Hidden Folders</div>
-        <div class="challenge-card-desc">The Folders feature only appeared inside the Selections tab. Users who never found "Selections" never discovered Folders existed.</div>
+      <span class="cap">Working screens from the team's design file.</span>
+    </div></div>
+
+    <div class="step"><span class="num">5</span><div class="stack">
+      <span class="sub">The library's own UX designers pushed back, and it got better</span>
+      <div class="calls">
+        <div class="card"><b>Basket and Folders stay separate</b><p>They asked whether items should move from Basket back into Folders. We kept the two apart on purpose, so Basket is only ever about requesting.</p></div>
+        <div class="card"><b>A step we had missed</b><p>Restricted items need an appointment in a reading room, booked on another library site. They caught it, and we added a notice that says where you are being sent and why.</p></div>
       </div>
-      <div class="challenge-card">
-        <div class="challenge-card-num">04</div>
-        <div class="challenge-card-title">Jargon Overload</div>
-        <div class="challenge-card-desc">Terms like "Browse," "Call Number," and "Recall" confused new patrons. Librarians spent hours answering the same terminology questions.</div>
-      </div>
-    </div>
-  </div>
+    </div></div>
+  </section>
 
-  <div class="narrow" style="margin-top:36px;">
-    <div class="callout reveal">
-      <div class="callout-text">How might we improve IUCAT's navigation and redesign the Selections & Folders system so that saving, organizing, and requesting resources feels intuitive and supports real-world workflows?</div>
-      <div class="callout-source">— Our HMW statement, framed after 3 interviews + patron walkthroughs</div>
-    </div>
-  </div>
-</section>
+  <section class="wrap band stack">
+    <h2 class="title">What we handed over</h2>
+    <p class="lede">Every screen here is rebuilt in code from the final design.</p>
+    <div class="tabs" role="tablist" aria-label="Feature sets" id="ftabs"></div>
+    <div class="fpanel" id="fpanel" role="tabpanel"></div>
+  </section>
 
-<!-- ========== MY ROLE ========== -->
-<section class="case-study">
-  <div class="split reverse reveal">
-    <div>
-      <span class="section-label">03 — My Role</span>
-      <h2 class="section-title">End-to-end ownership across research, design, and the design system</h2>
-      <div class="section-body">
-        <p>Within our 7-person team, I wore multiple hats. My core focus areas were <strong>navigation redesign, accessibility, and ensuring all solutions worked within IU's Rivet Design System.</strong></p>
-        <p>I led competitive analysis across 8 academic library systems (Stanford, Harvard, Penn State, UVA, Brown, ACM Digital Library, and more), identifying patterns in how saving, organizing, and citing resources could feel natural.</p>
-        <p>I co-facilitated patron walkthroughs, synthesized findings, created explorative sketches, and was responsible for ensuring the final Figma prototypes aligned with Rivet's component library and accessibility standards.</p>
-      </div>
+  <section class="wrap band stack">
+    <h2 class="title">Where it stands</h2>
+    <div class="two even">
+      <div class="card" style="padding:26px;display:flex;flex-direction:column;gap:10px"><span class="sub">Built so it can be built</span><p style="color:var(--body)">The handoff includes notes for developers: how to make the slide-in Basket from Rivet's dialog since Rivet has no drawer, how it should behave for keyboard users, and two ways to store a Basket in Blacklight.</p></div>
+      <div class="card" style="padding:26px;display:flex;flex-direction:column;gap:10px"><span class="sub">No usage numbers yet</span><p style="color:var(--body)">The designs and documentation are with IU Libraries. This was a design handoff, so there is nothing measured to report, and I would rather say that than invent a number.</p></div>
     </div>
-    <div class="img-placeholder tall reveal">
-      <span class="img-placeholder-label">team working session</span>
-    </div>
-  </div>
-</section>
+    <figure class="card quote">
+      <blockquote>“Pradyumna has an extraordinary ability to see the system behind the screen. He doesn’t just solve the brief, he reframes the problem in ways that unlock better outcomes for everyone involved.”</blockquote>
+      <figcaption class="kicker">James H. Smith, Discovery &amp; UX Librarian, Indiana University</figcaption>
+    </figure>
+  </section>
 
-<!-- ========== RESEARCH ========== -->
-<section class="case-study section">
-  <div class="narrow reveal">
-    <span class="section-label">04 — Research</span>
-    <h2 class="section-title">Listening to the people who use the system every day — and those who have to explain it</h2>
-  </div>
-</section>
+  <section class="wrap band stack">
+    <span class="kicker">What I took away</span>
+    <p class="display">Name the job <span class="hl">before</span> <span class="dim">you design the button.</span></p>
+    <p class="lede">Students and librarians use the same catalog in completely different ways. Most of the confusion we found was not about layout. It was one word standing in for two intentions.</p>
+    <div class="two" style="margin-top:32px;align-items:end">
+      <div class="aside"><div class="pnote"><b>What's next</b><p>before this, I led a platform for 2,000+ volunteers across India</p></div><img src="a/excited.png" alt="Line drawing of Prady looking excited about the next project"></div>
+      <a href="dots-case-study.html" class="card" style="padding:28px;display:flex;flex-direction:column;gap:14px;text-decoration:none;border-color:var(--ink)">
+        <span class="kicker">Next case study</span>
+        <span class="sub">I led one platform where an NGO's volunteer stories meet its program data</span>
+        <span class="hb on" style="align-self:flex-start">Read it</span>
+      </a>
+    </div>
+  </section>
+</main>
 
-<section class="case-study">
-  <div class="split reveal">
-    <div>
-      <h3 style="font-size:1.05rem; font-weight:700; margin-bottom:12px;">Expert Interviews with Librarians</h3>
-      <div class="section-body">
-        <p>We interviewed three IU Libraries faculty members — a senior cataloger, a scholars' commons librarian, and an open education librarian. The pattern was consistent: <strong>new students feel lost in IUCAT</strong>, and librarians spend a disproportionate amount of time answering the same basic questions about how to save and find resources.</p>
-        <p>One key insight: IU already maintains a robust Knowledge Base with support articles, but almost no patrons knew it existed. This became the seed for our tooltip and Knowledge Base Popup features.</p>
-      </div>
-    </div>
-    <div class="img-placeholder reveal">
-      <span class="img-placeholder-label">interview synthesis notes</span>
-    </div>
-  </div>
-</section>
-
-<section class="case-study">
-  <div class="split reverse reveal">
-    <div>
-      <h3 style="font-size:1.05rem; font-weight:700; margin-bottom:12px;">Patron Walkthroughs</h3>
-      <div class="section-body">
-        <p>We designed task-based walkthroughs where students had to find, save, and organize library items — without us naming any of the tools we expected them to use. We simply said <strong>"save these resources for later."</strong></p>
-        <p>The results were telling. Users looked for a "Save" button that didn't exist. When they found the "Select" checkbox, they expected it to enable a batch action (like selecting emails). No one discovered the Folders feature without help. And several users couldn't figure out how to request an item at all.</p>
-      </div>
-    </div>
-    <div class="img-placeholder reveal">
-      <span class="img-placeholder-label">walkthrough task flow map</span>
-    </div>
-  </div>
-</section>
-
-<section class="case-study">
-  <div class="split reveal">
-    <div>
-      <h3 style="font-size:1.05rem; font-weight:700; margin-bottom:12px;">Competitive Analysis — 8 University Systems</h3>
-      <div class="section-body">
-        <p>Since IUCAT runs on the Blacklight open-source framework, I specifically benchmarked other Blacklight-based catalogs alongside leading academic libraries. Key patterns I identified:</p>
-        <p><strong>Visible save counts</strong> (Stanford, Penn State). <strong>Bookmark/pin iconography</strong> with visual feedback (UVA, Harvard, Brown). <strong>Save-to-folder from search results</strong> (ACM Digital Library). <strong>Inline citation tools</strong> (ACM, Harvard).</p>
-        <p>These patterns directly informed our redesigned "Save to Folder" button, the Basket concept, and the new Citation modal.</p>
-      </div>
-    </div>
-    <div class="img-placeholder reveal">
-      <span class="img-placeholder-label">competitive analysis matrix</span>
-    </div>
-  </div>
-</section>
-
-<!-- ========== PROCESS ========== -->
-<section class="case-study section">
-  <div class="narrow reveal">
-    <span class="section-label">05 — Process</span>
-    <h2 class="section-title">From divergent sketches to aligned solutions — within the Rivet design system</h2>
-    <div class="section-body">
-      <p>Our design process deliberately separated wild exploration from system-constrained execution.</p>
-    </div>
-  </div>
-  <div class="narrow" style="margin-top:32px;">
-    <div class="process-flow reveal">
-      <div class="process-step">
-        <div class="process-step-num">Phase 01</div>
-        <div class="process-step-title">Immerse</div>
-        <div class="process-step-desc">Interviews, walkthroughs, competitive analysis across 8 library systems</div>
-        <span class="process-arrow">→</span>
-      </div>
-      <div class="process-step">
-        <div class="process-step-num">Phase 02</div>
-        <div class="process-step-title">Explore</div>
-        <div class="process-step-desc">60+ explorative sketches, iconography studies, user flow mapping</div>
-        <span class="process-arrow">→</span>
-      </div>
-      <div class="process-step">
-        <div class="process-step-num">Phase 03</div>
-        <div class="process-step-title">Align</div>
-        <div class="process-step-desc">Converge on solutions within Rivet DS, iterate with IU Libraries UX team</div>
-        <span class="process-arrow">→</span>
-      </div>
-      <div class="process-step">
-        <div class="process-step-num">Phase 04</div>
-        <div class="process-step-title">Evaluate</div>
-        <div class="process-step-desc">Continuous sponsor feedback, UX team reviews, Figma handoff</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========== PROCESS IMAGE ========== -->
-<section class="case-study">
-  <div class="img-placeholder full reveal">
-    <span class="img-placeholder-label">explorative sketches spread</span>
-  </div>
-</section>
-
-<!-- ========== KEY INSIGHT ========== -->
-<section class="case-study section">
-  <div class="narrow">
-    <div class="callout reveal">
-      <div class="callout-text">The aha moment: saving for later reference and collecting for immediate request are fundamentally different intents — but IUCAT treated them as the same action. This single insight drove the entire redesign.</div>
-      <div class="callout-source">— The core insight from synthesizing our divergent sketches</div>
-    </div>
-  </div>
-</section>
-
-<!-- ========== DESIGN SOLUTIONS ========== -->
-<section class="case-study section">
-  <div class="narrow reveal">
-    <span class="section-label">06 — Design Solutions</span>
-    <h2 class="section-title">Five interconnected features that transform the IUCAT experience</h2>
-  </div>
-</section>
-
-<!-- Solution 1: Save to Folder -->
-<section class="case-study">
-  <div class="split reveal">
-    <div>
-      <div class="solution-block">
-        <span class="section-label">Solution 01</span>
-        <h3 class="solution-block-title">Redesigned Saving & Folders</h3>
-        <div class="solution-block-desc">
-          Replaced the confusing "Select" checkbox with a clear "Save to Folder" button directly on search results. A new modal lets users see which folders an item is already saved in, save to additional folders, or create new folders — all without leaving the search page. Labels were updated from library jargon to action-oriented language that matches what users expect from modern platforms.
-        </div>
-      </div>
-    </div>
-    <div class="img-placeholder tall reveal">
-      <span class="img-placeholder-label">save to folder — before & after</span>
-    </div>
-  </div>
-</section>
-
-<!-- Solution 2: Basket -->
-<section class="case-study">
-  <div class="split reverse reveal">
-    <div>
-      <div class="solution-block">
-        <span class="section-label">Solution 02</span>
-        <h3 class="solution-block-title">The Basket — Batch Requesting, Reimagined</h3>
-        <div class="solution-block-desc">
-          An entirely new feature: a shopping-cart-style Basket that separates the "I want to request this" intent from "I want to save this for later." Items are grouped by availability — Available Now, In-Person Only, Appointment Only, and Unavailable — with smart actions for each. Users can batch-request all available items with a single click and choose their preferred pickup library.
-        </div>
-      </div>
-    </div>
-    <div class="img-placeholder tall reveal">
-      <span class="img-placeholder-label">basket page with availability grouping</span>
-    </div>
-  </div>
-</section>
-
-<!-- Solution 3: Citations -->
-<section class="case-study">
-  <div class="split reveal">
-    <div>
-      <div class="solution-block">
-        <span class="section-label">Solution 03</span>
-        <h3 class="solution-block-title">Inline Citations</h3>
-        <div class="solution-block-desc">
-          A citation tool — absent from IUCAT but standard in peer systems — now lets users generate citations in APA, MLA, Chicago, BibTeX, and Bluebook formats directly from search results or within Folders. Export or copy-to-clipboard with one click. Batch export an entire folder for a reference list.
-        </div>
-      </div>
-    </div>
-    <div class="img-placeholder reveal">
-      <span class="img-placeholder-label">citation modal with format dropdown</span>
-    </div>
-  </div>
-</section>
-
-<!-- Solution 4: Tooltips -->
-<section class="case-study">
-  <div class="split reverse reveal">
-    <div>
-      <div class="solution-block">
-        <span class="section-label">Solution 04</span>
-        <h3 class="solution-block-title">Contextual Tooltips & Navigation Aid</h3>
-        <div class="solution-block-desc">
-          A system-wide tooltip layer that explains library terminology on hover (desktop) or tap (mobile). We mapped 30+ tooltips across navigation, search, basket, and item pages — each pulling from IU's existing Knowledge Base content. Mobile users get a consistent info-icon pattern. The homepage now includes clear visual instructions for the search → availability → request flow.
-        </div>
-      </div>
-    </div>
-    <div class="img-placeholder reveal">
-      <span class="img-placeholder-label">tooltip system — desktop & mobile</span>
-    </div>
-  </div>
-</section>
-
-<!-- Solution 5: Search Improvements -->
-<section class="case-study">
-  <div class="split reveal">
-    <div>
-      <div class="solution-block">
-        <span class="section-label">Solution 05</span>
-        <h3 class="solution-block-title">Enhanced Search Results</h3>
-        <div class="solution-block-desc">
-          Three additions: a search history toggle built into the search bar (no more navigating to a separate page), Item Tags derived from subject headings for easy discovery of related resources, and a Folders tab on each search result so returning users can see which folders an item is already organized into.
-        </div>
-      </div>
-    </div>
-    <div class="img-placeholder reveal">
-      <span class="img-placeholder-label">search results — tags, folders tab, history</span>
-    </div>
-  </div>
-</section>
-
-<!-- ========== FULL WIDTH PROCESS IMAGE ========== -->
-<section class="case-study">
-  <div class="img-placeholder full reveal">
-    <span class="img-placeholder-label">final design system — component overview</span>
-  </div>
-</section>
-
-<!-- ========== EVALUATION ========== -->
-<section class="case-study section">
-  <div class="narrow reveal">
-    <span class="section-label">07 — Evaluation & Stakeholder Feedback</span>
-    <h2 class="section-title">Continuous validation with the people building IUCAT</h2>
-    <div class="section-body">
-      <p>Our evaluation wasn't a single gate — it was woven into every sprint. The IU Libraries sponsor attended weekly meetings, and we conducted formal review sessions with the IU Libraries UX design team.</p>
-      <p>Their feedback directly shaped the design. When the UX team questioned whether "Add to Basket" should appear at the folder level, their suggestion to move it inside the within-folder view led to a cleaner interaction model. When they pointed out that restricted-use items required redirects to external appointment systems, we added a new modal step we'd originally missed.</p>
-      <p>The UX team's response to our Basket concept was particularly validating — they confirmed that separating <strong>saving from requesting</strong> was the right paradigm shift and praised the introduction of availability-based grouping.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ========== IMPACT ========== -->
-<section class="case-study section">
-  <div class="narrow reveal">
-    <span class="section-label">08 — Impact</span>
-    <h2 class="section-title">Designing for scale across nine campuses</h2>
-    <div class="section-body">
-      <p>While the designs are currently in the evaluation pipeline for development, the potential reach is significant. IUCAT serves the entire Indiana University system.</p>
-    </div>
-    <div class="impact-grid">
-      <div class="impact-card">
-        <div class="impact-num">100K+</div>
-        <div class="impact-label">Students & faculty across 9 campuses served by IUCAT</div>
-      </div>
-      <div class="impact-card">
-        <div class="impact-num">5</div>
-        <div class="impact-label">Major features designed, prototyped, and documented for handoff</div>
-      </div>
-      <div class="impact-card">
-        <div class="impact-num">30+</div>
-        <div class="impact-label">Contextual tooltips mapped across the entire interface</div>
-      </div>
-      <div class="impact-card">
-        <div class="impact-num">2</div>
-        <div class="impact-label">Technical implementation proposals for the dev team</div>
-      </div>
-    </div>
-    <div class="impact-hand-note reveal" style="margin-top:28px;">the kind of impact that compounds quietly</div>
-  </div>
-</section>
-
-<!-- ========== REFLECTION ========== -->
-<section class="case-study section">
-  <div class="narrow reveal">
-    <span class="section-label">09 — Reflection</span>
-    <h2 class="section-title">What this project taught me about systems thinking</h2>
-    <div class="section-body">
-      <p>This wasn't a visual redesign. It was a <strong>systems design problem</strong> — understanding how saving, organizing, requesting, and navigating are deeply interconnected workflows that break when even one piece is unclear.</p>
-      <p>The biggest lesson: <strong>users don't fail; systems fail users.</strong> Every "confused" user in our walkthroughs was behaving rationally based on what the interface communicated. They looked for "Save" because that's what every other platform calls it. They expected the checkbox to enable batch actions because that's what checkboxes do everywhere else. The system's language was simply speaking a dialect its users didn't share.</p>
-      <p>Working within IU's Rivet Design System also deepened my understanding of designing within constraints. Every component had to be buildable with existing patterns or achievable extensions. This forced creative problem-solving — like repurposing Rivet's dialog component for our off-canvas Basket preview.</p>
-      <p>Collaborating with a team of 7, with a real client, on a live system used by 100,000+ people — that's the kind of complexity that no classroom exercise can replicate. And it's exactly the kind of problem I want to spend my career solving.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ========== FOOTER CTA ========== -->
-<section class="footer-cta reveal">
-  <h2 class="footer-cta-title">Let's design something<br><span style="color:var(--accent)">meaningful</span> together.</h2>
-  <p class="footer-cta-sub">I'm looking for full-time UX roles where I can bring systems thinking to complex product problems.</p>
-  <a href="mailto:pradyumnasatheesh@gmail.com" class="footer-btn">
-    Get in touch
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-  </a>
-  <div class="footer-social">
-    <a href="https://linkedin.com">LinkedIn</a>
-    <a href="mailto:pradyumnasatheesh@gmail.com">Email</a>
-    <a href="index.html">Portfolio</a>
-  </div>
-  <div class="footer-sign">designed with intention, built with care</div>
-</section>
-
-<!-- ========== JAVASCRIPT ========== -->
+<footer class="wrap">
+  <span>© 2026 Pradyumna Satheesh. MS HCI, Indiana University Bloomington.</span>
+  <span style="display:flex;gap:8px;flex-wrap:wrap"><a class="tx" href="index.html">Back home</a><a class="hb on" href="index.html#hello">Say hi</a></span>
+</footer>
 <script>
-// Theme toggle
-const toggle = document.getElementById('themeToggle');
-const html = document.documentElement;
-const sunIcon = toggle.querySelector('.sun-icon');
-const moonIcon = toggle.querySelector('.moon-icon');
+(function () {
+  var W = 1180, H = 740;
+  var I = {
+    folder: '<svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>',
+    basket: '<svg viewBox="0 0 24 24"><path d="M3 10h18l-1.6 9H4.6zM8 10l3-6M16 10l-3-6M9 13.5v3M12 13.5v3M15 13.5v3"/></svg>',
+    search: '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>',
+    clock: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>',
+    trash: '<svg viewBox="0 0 24 24"><path d="M5 7h14M10 7V4.5h4V7M7 7l1 12.5h8L17 7M10.5 10.5v6M13.5 10.5v6"/></svg>',
+    pin: '<svg viewBox="0 0 24 24"><path d="M12 21s6.5-5.6 6.5-10.5a6.5 6.5 0 0 0-13 0C5.500 15.400 12 21 12 21z"/><circle cx="12" cy="10.500" r="2.200"/></svg>',
+    ok: '<svg viewBox="0 0 24 24" style="color:#056E41"><circle cx="12" cy="12" r="9" fill="#056E41"/><path d="M8 12.300l2.700 2.700L16 9.500" stroke="#fff" stroke-width="2.2"/></svg>',
+    people: '<svg viewBox="0 0 24 24" style="color:#59264D"><circle cx="9" cy="8" r="3.200" fill="#59264D"/><path d="M3 19c0-3.300 2.700-5.500 6-5.500s6 2.200 6 5.500z" fill="#59264D"/><circle cx="17" cy="9" r="2.500" fill="#59264D"/><path d="M16 13.600c2.900 0 5 1.900 5 4.900h-4" fill="#59264D"/></svg>',
+    cal: '<svg viewBox="0 0 24 24" style="color:#006298"><rect x="4" y="5.500" width="16" height="14.500" rx="1.500"/><path d="M4 10h16M8.500 3.500v4M15.500 3.500v4M8 14h2M14 14h2"/></svg>',
+    no: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="#990000" stroke="#990000"/><path d="M7.500 12h9" stroke="#fff" stroke-width="2.400"/></svg>',
+    user: '<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.500"/><path d="M5 20c0-3.900 3.100-6 7-6s7 2.100 7 6"/></svg>',
+    doc: '<svg viewBox="0 0 24 24"><path d="M7 3.500h7l4 4V20.500H7zM14 3.500v4h4M10 12h5M10 15.500h5"/></svg>',
+    mark: '<svg viewBox="0 0 24 24"><path d="M7 4h10v16l-5-4-5 4z"/></svg>',
+    help: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.500"/><path d="M9.700 9.500a2.400 2.400 0 1 1 3.400 2.200c-.8.400-1.100.9-1.100 1.800M12 16.600v.2"/></svg>'
+  };
+  var B = [
+    { t: 'Sustainable design : a critical guide', s: 'Sustainable design', au: 'Bergman, David, 1956-', pub: 'New York : Princeton Architectural Press, c2012', fmt: 'Book', at: 'Bloomington', c: '#5E8FA3', ed: '1st ed.' },
+    { t: 'Sustainable design : ecology, architecture, and planning', s: 'Sustainable design : ecology, architecture…', au: 'Williams, Daniel Edward', pub: 'Hoboken : Wiley, c2007', fmt: 'Book', at: 'Bloomington, Indianapolis', c: '#6C8F4E', ed: '1st ed.' },
+    { t: 'Sustainable design : a critical guide', s: 'Sustainable design', au: 'Bergman, David, 1956-', pub: 'New York : Princeton Architectural Press, c2012', fmt: 'E-Book', at: 'Online', c: '#5E8FA3', online: true }
+  ];
+  var EXTRA = [
+    { g: 'person', s: 'Sustainable Design : HCI, Usability and Environmental Concerns', au: 'Issa, Tomayess', ed: '1st ed. 2015.', at: 'Bloomington, Indianapolis', c: '#1F6F5C' },
+    { g: 'appt', s: 'Cradle to cradle : remaking the way we make things', au: 'McDonough, William', ed: '1st ed. 2002.', at: 'Bloomington', c: '#B5673A', btn: 'Make Appointment' },
+    { g: 'none', s: 'Design for the real world : human ecology and social change', au: 'Papanek, Victor', ed: '2nd ed. 1984.', at: 'Status: Missing', c: '#7A5C8E', btn: 'More Options', miss: true }
+  ];
+  var LIBS = [['Wells Library', '1320 E Tenth St.'], ['Lilly Library', '1200 E Seventh St.'], ['Music Library', '200 S Eagleson Ave.'], ['Neal-Marshall Black Culture Center Library', '275 N Eagleson Ave.'], ['Business/SPEA Library', '1315 E Tenth St.']];
+  var FOLDERS = [['HCI reading list', 3, '2 days ago'], ['Thesis sources', 5, '5 days ago'], ['Capstone', 2, '12 days ago']];
+  function cov(b) { return '<span class="rv-cov" style="background:linear-gradient(160deg,' + b.c + ',#243142)">' + (b.s || '') + '</span>'; }
+  function fresh(S, k) { return S.fresh === k ? ' in' : ''; }
 
-function isDark() { return html.getAttribute('data-theme') === 'dark'; }
-
-function updateIcons() {
-  if (isDark()) {
-    sunIcon.style.display = 'block';
-    moonIcon.style.display = 'none';
-  } else {
-    sunIcon.style.display = 'none';
-    moonIcon.style.display = 'block';
+  function head(S) {
+    var nav = '<span class="car">Campus</span><span class="car">Help</span><span>History</span>';
+    if (S.before) nav += '<span>Selections [' + S.sel.length + ']</span><span style="font-weight:600">Clear Selections</span>';
+    else nav += '<span>' + I.folder + 'Folders</span><span>' + I.basket + 'Basket <b class="rv-bdg' + (S.fresh === 'badge' || S.fresh === 'off' ? ' pop' : '') + '">' + S.basket.length + '</b></span>';
+    return '<div class="rv-hd"><span class="rv-logo"><i></i>IUCAT</span><span class="rv-nav">' + nav + '<span class="car"><b class="rv-av">PS</b></span></span></div>';
   }
-}
-
-toggle.addEventListener('click', () => {
-  html.setAttribute('data-theme', isDark() ? 'light' : 'dark');
-  updateIcons();
-});
-updateIcons();
-
-// Nav scroll
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 60) {
-    nav.classList.add('scrolled');
-  } else {
-    nav.classList.remove('scrolled');
+  function tabs(S) {
+    var t = ['Basic Search', 'Advanced Search', 'Browse', 'Reserves', 'Music Search'];
+    return '<div class="rv-tabs">' + t.map(function (x, i) { return '<span class="' + (i === 0 ? 'on' : '') + '">' + x + (S.tips && i === 3 ? '<span class="rv-tip" style="left:50%;transform:translateX(-50%);bottom:44px">Search course reserve items across all IU campuses</span>' : '') + '</span>'; }).join('') + '</div>';
   }
-});
+  function sbox(S, q) {
+    return '<div class="rv-sb"><div class="in"><b>All Fields ▾</b><em>' + q + '</em>' + (S.before ? '' : '<u class="h">' + I.clock + '</u>') + '<u>' + I.search + '</u></div><div class="oo"><i></i>Online Only</div>' +
+      (S.hist ? '<div class="rv-hist">' + ['sustainable design', 'lean ux', 'feminism', 'hci remixed', 'design against design'].map(function (x) { return '<div>' + I.clock + x + '</div>'; }).join('') + '</div>' : '') + '</div>';
+  }
+  function item(S, b, i) {
+    var saved = S.saved[i] || [], inB = S.basket.indexOf(i) >= 0, act;
+    if (S.before) act = '<button type="button" class="rv-chk' + (S.sel.indexOf(i) >= 0 ? ' on' : '') + '" data-k="sel-' + i + '"><i>' + (S.sel.indexOf(i) >= 0 ? '✓' : '') + '</i>Select</button>';
+    else act = '<button type="button" class="rv-b' + (saved.length ? ' solid' : '') + '" data-k="save-' + i + '">' + I.folder + (saved.length ? 'Saved' : 'Save to Folder') + (S.tips && i === 0 ? '<span class="rv-tip" style="left:50%;transform:translateX(-50%);bottom:36px;color:#243142;font-weight:400">Save to folders</span>' : '') + '</button>' +
+      (b.online ? '<span class="rv-b dis">' + I.basket + 'Online Only</span>' : '<button type="button" class="rv-b' + (inB ? ' solid' : '') + '" data-k="bask-' + i + '">' + I.basket + (inB ? 'Added to Basket' : 'Add to Basket') + '</button>') +
+      '<button type="button" class="rv-q" data-k="cite-' + i + '" aria-label="Cite">”</button>';
+    var h = '<div class="rv-it"><div class="rv-ti"><span>' + (i + 1) + '.</span> ' + b.t + '</div><div class="rv-act">' + act + '</div>';
+    if (S.tags && i === 0) h += '<div class="rv-tags">' + ['Sustainable design', 'Architecture, Environmental aspects', 'Green products'].map(function (x) { return '<b>' + x + ' ' + I.search + '</b>'; }).join('') + '</div>';
+    h += '<div class="rv-sub"><span class="on">Publication Details</span><span>Availability</span>' + (!S.before && saved.length ? '<span class="' + (S.fresh === 'saved' ? 'new' : '') + '">' + I.folder + 'Folders (' + saved.length + ')</span>' : '') + '</div>';
+    h += '<div class="rv-md"><span>Author:</span><span>' + b.au + '</span><span>Published:</span><span>' + b.pub + '</span><span>Format:</span><span>' + b.fmt + '</span><span>Copies At:</span><span>' + b.at + '</span></div>' + cov(b) + '</div>';
+    return h;
+  }
+  function dlgSave(S) {
+    var b = B[S.modal.i], saved = S.saved[S.modal.i] || [];
+    return '<div class="rv-veil' + fresh(S, 'modal') + '" data-k="close"></div><div class="rv-dlg' + fresh(S, 'modal') + '"><h4>Saved in <button type="button" class="rv-x" data-k="mclose">×</button></h4><div class="rv-bk">' + cov({ c: b.c }) + b.t + '</div><div class="rv-inp">Type to search folders…</div><div class="rv-tbl"><span class="th">Name</span><span class="th">Created</span><span class="th">Updated</span><span class="th"></span>' +
+      FOLDERS.map(function (f, k) { var on = saved.indexOf(f[0]) >= 0; return '<span><a>' + f[0] + '</a> (' + (f[1] + (on ? 1 : 0)) + ' items)</span><span>' + f[2] + '</span><span>' + (on ? 'Just now' : f[2]) + '</span><span><button type="button" class="rv-b' + (on ? '' : ' solid') + '" data-k="fold-' + k + '">' + (on ? 'Remove from Folder' : 'Save to Folder') + '</button></span>'; }).join('') +
+      '</div><div><span class="rv-b">Create a New Folder</span></div></div>';
+  }
+  function dlgCite(S) {
+    return '<div class="rv-veil' + fresh(S, 'modal') + '" data-k="close"></div><div class="rv-dlg' + fresh(S, 'modal') + '" style="width:600px"><h4>Export Citations <button type="button" class="rv-x" data-k="mclose">×</button></h4><div class="rv-inp" style="color:#243142;width:300px;display:flex;justify-content:space-between">Chicago <span>▾</span></div><div class="rv-inp" style="color:#243142;min-height:110px;padding:12px">Bergman, David. <i>Sustainable Design: A Critical Guide</i>. New York: Princeton Architectural Press, 2012.</div><div style="display:flex;justify-content:flex-end;gap:8px"><span class="rv-b solid lg">Export</span><span class="rv-b solid lg">Copy to Clipboard</span></div></div>';
+  }
+  function card(b, extra, isNew) {
+    return '<div class="rv-c' + (isNew ? ' in' : '') + '">' + cov({ c: b.c }) + '<div><b>' + (b.s2 || b.t || b.s) + '</b>Author: ' + b.au + '<br>Edition: ' + (b.ed || '1st ed.') + '<br>' + (b.miss ? '<b style="font-size:12.5px">Status: Missing</b>' : '<span class="rv-pin">' + I.pin + b.at + '</span>') + '</div>' + (extra || '') + '<span class="rv-b del">' + I.trash + '</span></div>';
+  }
+  function offc(S) {
+    return '<div class="rv-veil' + fresh(S, 'off') + '" data-k="close"></div><div class="rv-off' + fresh(S, 'off') + '"><h4 style="margin:0;font-size:16px;display:flex;align-items:center;gap:8px">Basket Preview <span class="rv-b" style="margin-left:auto">' + I.basket + 'Go to Basket</span><button type="button" class="rv-x" data-k="offclose">×</button></h4><div class="rv-dl">Deliver to <b>Bloomington ▾</b></div><div class="rv-g">' + I.ok + 'Available Now <small>(' + S.basket.length + ')</small></div><div class="rv-gd">These items are available to be requested.</div>' +
+      S.basket.map(function (i, k) { return card(B[i], '', k === S.basket.length - 1 && S.fresh === 'off'); }).join('') +
+      '<div class="rv-g">' + I.people + 'In-Person Only <small>(1)</small></div>' + card(EXTRA[0]) +
+      '<button type="button" class="rv-b solid lg" style="margin-top:auto;justify-content:center" data-k="gobasket">' + I.basket + 'Go to Basket</button></div>';
+  }
+  function search(S) {
+    var q = S.q || 'sustainable design';
+    var h = head(S) + tabs(S) + sbox(S, q) + '<div class="rv-for">You searched for: <b>' + q + ' ×</b><a>Reset</a></div>';
+    if (S.none) return h + '<div class="rv-home" style="background:#fff;border:1px solid #DDD;margin-top:20px"><div style="font-size:22px;margin:10px 0 26px">No results found</div><div style="color:#006298;font-weight:600;margin-bottom:12px">Try related searches ›</div><div class="rv-tags" style="justify-content:center">' + ['Labubu', 'Doll', 'Hong Kong', 'Doll Object', 'Roman Doll', 'Perfect Doll'].map(function (x) { return '<b>' + x + '</b>'; }).join('') + '</div></div>';
+    h += '<div class="rv-h1">Search Results</div><div class="rv-body"><div class="rv-fac"><div style="border:0;padding:4px 0">1 - 25 of 11,385 Results</div><b>Refine your search</b>' + ['Newly Added Titles', 'Format', 'Publication Year', 'Author', 'Subject', 'Language', 'Call Number', 'Campus', 'Library'].map(function (x) { return '<div>' + x + '</div>'; }).join('') + '</div><div class="rv-res"><div class="rv-count"><span>Sort by Relevance ▾</span><span>25 per page ▾</span></div>' + B.map(function (b, i) { return item(S, b, i); }).join('') + '</div></div>';
+    if (S.modal && S.modal.k === 'save') h += dlgSave(S);
+    if (S.modal && S.modal.k === 'cite') h += dlgCite(S);
+    if (S.off) h += offc(S);
+    return h;
+  }
+  function basket(S) {
+    var n = S.basket.length, h = head(S) + '<div class="rv-bask"><div class="rv-col"><h2>Basket</h2><div class="rv-dl">Deliver to <b>Bloomington ▾</b></div>';
+    if (S.done) h += '<div class="rv-al' + fresh(S, 'done') + '"><b>' + S.done + ' Items Requested</b><i>Sustainable design…</i> + ' + (S.done - 1) + ' other was successfully requested. You can cancel a request from the My Account page.</div>';
+    if (n) h += '<div class="rv-g">' + I.ok + 'Available Now <small>(' + n + ')</small></div><div class="rv-gd">These items are available to be requested. Some titles may require extra time to be delivered to your preferred library.</div>' + S.basket.map(function (i) { return card(B[i], '<span class="rv-b">Request</span>'); }).join('') + '<div style="display:flex;justify-content:flex-end"><button type="button" class="rv-b solid" data-k="reqall">Request All (' + n + ')</button></div>';
+    var G = { person: [I.people, 'In-Person Only', 'These items are only available for checkout by visiting the specified library in-person.'], appt: [I.cal, 'Appointment Only', 'These items require in-person appointments for viewing.'], none: [I.no, 'Unavailable', 'These items are unavailable for checkout.'] };
+    EXTRA.forEach(function (e) { var g = G[e.g]; h += '<div class="rv-g">' + g[0] + g[1] + ' <small>(1)</small></div><div class="rv-gd">' + g[2] + '</div>' + card(e, e.btn ? '<span class="rv-b">' + e.btn + '</span>' : ''); });
+    h += '</div><div class="rv-ap"><h5>Account Preview <span class="rv-b">' + I.user + 'Go to Account</span></h5><b>Checkouts</b>' +
+      '<div class="rv-c">' + cov({ c: '#1F6F5C' }) + '<div><b>Lean UX : applying lean principles to improve user experience</b>Due 12/8/2026 (21 days)<br><span class="rv-pin">' + I.pin + 'Bloomington</span></div></div><a style="color:#006298;font-weight:600;font-size:13px;text-align:right">See All Checkouts (1) →</a><b>Requests</b>' +
+      (S.done ? '<div class="ok' + fresh(S, 'done') + '"><i>' + S.done + ' title(s) just requested</i>' + S.reqd.map(function (i) { return '<div class="rv-c">' + cov({ c: B[i].c }) + '<div><b>' + B[i].s + '</b>Pickup: Wells Library<br><span class="rv-pin">' + I.pin + 'Bloomington</span></div></div>'; }).join('') + '</div><a style="color:#006298;font-weight:600;font-size:13px;text-align:right">See All Requests (' + S.done + ') →</a>' : '<i style="font-size:12.5px;color:#6B7280">0 item(s) have been requested for delivery.</i>') + '</div></div>';
+    if (S.req) h += '<div class="rv-veil' + fresh(S, 'req') + '" data-k="close"></div><div class="rv-dlg' + fresh(S, 'req') + '" style="width:520px;gap:10px"><h4>Request ' + n + ' Item(s) <button type="button" class="rv-x" data-k="mclose">×</button></h4><div class="rv-bk" style="font-size:15px">' + cov({ c: B[0].c }) + '<span>Sustainable design… + ' + (n - 1) + ' other<br><small style="font-style:normal;font-size:12px;color:#4A5568">Select a location to have item(s) delivered to the IU library of your choice. Delivery usually takes 4-7 working days.</small></span></div><b style="font-size:13px">Select a Bloomington library for pickup:</b>' +
+      LIBS.map(function (l, k) { return '<div class="rv-lib' + (S.lib === k ? ' on' : '') + '" data-k="lib-' + k + '"><span><b>' + l[0] + '</b><span class="rv-pin">' + I.pin + l[1] + '</span></span></div>'; }).join('') +
+      '<div style="display:flex;justify-content:flex-end;gap:8px;margin-top:4px"><span class="rv-b plain lg">Cancel</span><button type="button" class="rv-b solid lg' + (S.lib == null ? ' dis' : '') + '" data-k="reqgo">Request ' + n + ' Item(s)</button></div></div>';
+    return h;
+  }
+  function folder(S) {
+    return head(S) + tabs(S) + sbox(S, '<span style="color:#8A93A0">Search the library catalog</span>') + '<div style="padding:0 190px"><div class="rv-crumb"><a>Folders</a> / HCI reading list</div><div style="display:flex;justify-content:space-between;align-items:flex-start"><div class="rv-md" style="grid-template-columns:70px 1fr;font-size:12.5px"><span>Owner:</span><span>Pradyumna Satheesh</span><span>Visibility:</span><span>Only me</span><span>Created:</span><span>28 days ago</span><span>Updated:</span><span>2 days ago</span></div><div class="rv-act"><span class="rv-b"><b style="font:800 18px/10px Georgia">”</b>Export Citation</span><span class="rv-b">Copy Link</span><span class="rv-b">Email</span><span class="rv-b solid">' + I.basket + 'Add All to Basket</span></div></div>' +
+      [B[0], B[1], EXTRA[0]].map(function (b, i) { return '<div class="rv-it" style="grid-template-columns:1fr auto"><div><div class="rv-ti"><span>' + (i + 1) + '.</span> ' + (b.t || b.s) + '</div><div class="rv-md" style="margin-top:6px"><span>Author:</span><span>' + b.au + '</span><span>Format:</span><span>Book</span><span>Copies At:</span><span>' + b.at + '</span></div></div><div class="rv-act" style="align-items:flex-start"><span class="rv-b">' + I.basket + 'Add to Basket</span><span class="rv-b del">' + I.trash + '</span></div></div>'; }).join('') + '</div>';
+  }
+  function home(S) {
+    return head(S) + tabs(S) + sbox(S, '<span style="color:#8A93A0">Search the library catalog</span>') + '<div style="padding:18px 190px 0;font-size:19px">Welcome to the Indiana University Library Catalog</div><div class="rv-home" style="margin-top:14px"><div class="g"><div>' + I.search + 'Use the Search bar to find books, media, articles, and online materials.</div><div>' + I.doc + 'Tap a result to see availability, location, and request options.</div><div>' + I.mark + 'Select Request to get the item from your campus library.</div></div>Need help choosing a library or placing a request? Visit the <b style="color:#990000">Knowledge Base</b>.</div>';
+  }
+  function mobile() {
+    return '<div class="rv-hd" style="padding:0 16px"><span class="rv-logo"><i></i>IUCAT</span><span class="rv-nav"><b style="font-size:22px">≡</b></span></div><div style="padding:8px 16px;font-size:15px">' +
+      ['Basic Search', 'Advanced Search', 'Browse', 'Reserves', 'Music Search'].map(function (x, i) { return '<div style="padding:13px 6px;display:flex;gap:8px;align-items:center;' + (i === 0 ? 'color:#990000;border-bottom:3px solid #990000;background:#FBF2F2' : 'border-bottom:1px solid #E6E6E6') + '">' + x + '<span style="color:#006298;display:flex">' + I.help + '</span></div>' + (i === 0 ? '<div style="background:#F7F7F7;border:1px solid #DDD;border-radius:4px;margin:10px 0;padding:12px 14px;font-size:13px"><b>Basic Search</b><br>Search every field at once. Word-stemming is done automatically, so “design” also finds “designs”.<br><a style="color:#006298;font-weight:600">Access more help at the KB.</a></div>' : ''); }).join('') + '</div>';
+  }
+  var SCREENS = { search: search, basket: basket, folder: folder, home: home, mobile: mobile };
+  function base(o) { var S = { page: 'search', saved: {}, basket: [], sel: [], modal: null, off: false, req: false, lib: null, done: 0, reqd: [] }; for (var k in o) S[k] = o[k]; return S; }
+  function html(S) { return SCREENS[S.page](S); }
 
-// Reveal on scroll
-const reveals = document.querySelectorAll('.reveal');
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry, i) => {
-    if (entry.isIntersecting) {
-      setTimeout(() => {
-        entry.target.classList.add('visible');
-      }, i * 60);
-      revealObserver.unobserve(entry.target);
+  /* fit every frame to its width */
+  function fit(fr) {
+    var w = +fr.dataset.w || W, h = +fr.dataset.h || H, s = fr.clientWidth / w; fr._s = s;
+    var fh = h * s; if (fr.classList.contains('film') && fr.clientWidth < 560) fh = fr.clientWidth * 1.05;
+    if (fr.dataset.fill) fh = fr.clientHeight; else fr.style.height = fh + 'px'; fr._h = fh;
+    var st = fr.firstElementChild; st.style.width = w + 'px'; st.style.height = h + 'px';
+    if (fr._cam) fr._cam(); else st.style.transform = 'scale(' + s + ')';
+  }
+  var ro = new ResizeObserver(function (es) { es.forEach(function (e) { fit(e.target); }); });
+  function mount(fr, S) { fr.innerHTML = '<div class="stg"><div class="rv">' + html(S) + '</div></div>'; ro.observe(fr); fit(fr); }
+  window.IUrv = { mount: mount, base: base, film: makeFilm };
+
+  /* ---------- the film ---------- */
+  function makeFilm(film, o) {
+    o = o || {};
+    var S, tok = 0, playing = true, idx = 0, seen = false, minZ = o.minZoom || 1;
+    film.innerHTML = '<div class="stg"><div class="rv"></div><div class="fcur"><svg viewBox="0 0 24 24"><path d="M5 3l14 8.500-6.200 1.500L9.500 19z" fill="#1A1A1A" stroke="#fff" stroke-width="1.500" stroke-linejoin="round"/></svg></div></div>';
+    var stage = film.firstElementChild, scr = stage.firstElementChild, cur = stage.querySelector('.fcur'), focus = { x: W / 2, y: H / 2 }, cpos = { x: 640, y: 420 };
+    function draw(k) { S.fresh = k; scr.innerHTML = html(S); S.fresh = null; }
+    film._cam = function () {
+      var fw = film.clientWidth, fh = film._h || H * film._s, z = Math.min(2.3, Math.max(minZ, 640 / fw)), t = film._s * z;
+      var ox = Math.min(0, Math.max(fw - W * t, fw / 2 - focus.x * t)), oy = Math.min(0, Math.max(fh - H * t, fh / 2 - focus.y * t));
+      stage.style.transform = 'translate(' + ox + 'px,' + oy + 'px) scale(' + t + ')';
+    };
+    function place() { cur.style.transform = 'translate(' + cpos.x + 'px,' + cpos.y + 'px)'; }
+    function center(sel) { var el = scr.querySelector(sel); if (!el) return null; var r = el.getBoundingClientRect(), sr = stage.getBoundingClientRect(), k = sr.width / W; return { x: (r.left - sr.left + r.width / 2) / k, y: (r.top - sr.top + r.height / 2) / k }; }
+    function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+    var STEPS = [
+      { t: 'Search works the way it always did', n: 'nothing to relearn', acts: [] },
+      { t: 'Saving finally has a name', n: 'this used to be the “Select” checkbox', acts: [['[data-k=save-0]', function () { S.modal = { k: 'save', i: 0 }; }, 'modal']] },
+      { t: 'Pick a folder without leaving search', n: 'the result shows where it is saved', acts: [['[data-k=fold-0]', function () { S.saved[0] = ['HCI reading list']; }, ''], ['[data-k=mclose]', function () { S.modal = null; }, 'saved']] },
+      { t: 'Add to Basket, and keep searching', n: 'collect now, check out once', acts: [['[data-k=bask-0]', function () { S.basket.push(0); S.off = true; }, 'off'], ['[data-k=offclose]', function () { S.off = false; }, ''], ['[data-k=bask-1]', function () { S.basket.push(1); S.off = true; }, 'off']] },
+      { t: 'The Basket sorts by what you can get', n: 'now, in person, by appointment, or not at all', acts: [['[data-k=gobasket]', function () { S.off = false; S.page = 'basket'; }, '']] },
+      { t: 'Request everything in one go', n: 'it used to be one book, one page at a time', acts: [['[data-k=reqall]', function () { S.req = true; }, 'req'], ['[data-k=lib-0]', function () { S.lib = 0; }, ''], ['[data-k=reqgo]', function () { S.req = false; S.done = S.basket.length; S.reqd = S.basket.slice(); S.basket = []; }, 'done']] },
+      { t: 'And the catalog says it worked', n: 'the feedback “Select” never gave', acts: [], hold: 3600 }
+    ];
+    var capN = o.n, capT = o.t, capS = o.s, dots = o.dots, btn = o.btn;
+    if (dots) STEPS.forEach(function (s, i) { var b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', 'Step ' + (i + 1) + ': ' + s.t); b.onclick = function () { jump(i, true); }; dots.appendChild(b); });
+    function cap(i) {
+      if (!capT) return;
+      capN.textContent = (i + 1) + ' of ' + STEPS.length; capT.textContent = STEPS[i].t; capS.textContent = STEPS[i].n;
+      [capT, capS].forEach(function (e) { e.classList.remove('swapin'); void e.offsetWidth; e.classList.add('swapin'); });
+      [].forEach.call(dots.children, function (b, k) { b.setAttribute('aria-current', k === i); });
     }
-  });
-}, { threshold: 0.15 });
-
-reveals.forEach(el => revealObserver.observe(el));
-
-// Count-up animation for impact numbers
-const countEls = document.querySelectorAll('.impact-num, .tldr-stat-num');
-const countObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const el = entry.target;
-      const text = el.textContent.trim();
-      const match = text.match(/^(\d+)/);
-      if (match) {
-        const target = parseInt(match[1]);
-        const suffix = text.replace(match[1], '');
-        let current = 0;
-        const step = Math.max(1, Math.floor(target / 40));
-        const interval = setInterval(() => {
-          current += step;
-          if (current >= target) {
-            current = target;
-            clearInterval(interval);
-          }
-          el.textContent = current + suffix;
-        }, 25);
+    function reset(upTo) { S = base({}); for (var i = 0; i < upTo; i++) STEPS[i].acts.forEach(function (a) { a[1](); }); }
+    async function runStep(i, my) {
+      idx = i; cap(i); var st = STEPS[i];
+      if (!st.acts.length) { focus = { x: W / 2, y: i === 0 ? 300 : 260 }; film._cam(); }
+      for (var a = 0; a < st.acts.length; a++) {
+        await sleep(a ? 650 : 900); if (my !== tok) return false;
+        var c = center(st.acts[a][0]); if (c) { cpos = { x: c.x - 4, y: c.y - 2 }; focus = c; place(); film._cam(); }
+        await sleep(950); if (my !== tok) return false;
+        cur.classList.add('tap'); await sleep(200); if (my !== tok) return false;
+        st.acts[a][1](); draw(st.acts[a][2]); cur.classList.remove('tap');
+        var after = scr.querySelector('.rv-dlg,.rv-off'); if (after && (film.clientWidth < 560 || minZ > 1)) { var c2 = center('.rv-dlg,.rv-off'); if (c2) { focus = c2; film._cam(); } }
       }
-      countObserver.unobserve(el);
+      await sleep(st.hold || 1900); return my === tok;
     }
+    async function play(from) {
+      var my = ++tok; var i = from;
+      while (my === tok && playing) { var ok = await runStep(i, my); if (!ok) return; i++; if (i >= STEPS.length) { i = 0; reset(0); draw(''); cpos = { x: 640, y: 420 }; place(); } }
+    }
+    function jump(i, stop) { tok++; reset(i); draw(''); cap(i); idx = i; if (stop) { playing = false; if (btn) btn.textContent = 'Play'; } else play(i); }
+    if (btn) btn.onclick = function () { playing = !playing; btn.textContent = playing ? 'Pause' : 'Play'; if (playing) jump(idx, false); else tok++; };
+    reset(0); draw(''); place(); cap(0); ro.observe(film); fit(film);
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches;
+    if (reduce) { playing = false; if (btn) btn.textContent = 'Play'; }
+    new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting && playing && !seen) { seen = true; jump(idx, false); } else if (!e.isIntersecting) { seen = false; tok++; } }); }, { threshold: .3 }).observe(film);
+  }
+  var f0 = document.getElementById('film');
+  if (f0) makeFilm(f0, { n: document.getElementById('fN'), t: document.getElementById('fT'), s: document.getElementById('fS'), dots: document.getElementById('fDots'), btn: document.getElementById('fPlay') });
+})();
+</script>
+
+<script>
+(function () {
+  var rv = window.IUrv;
+  /* the current catalog, to try */
+  var bd = document.getElementById('beforeDemo'), bn = document.getElementById('bNote'), BS = rv.base({ before: true });
+  function bdraw() { rv.mount(bd, BS); }
+  bd.addEventListener('click', function (e) {
+    var t = e.target.closest('[data-k^="sel-"]'); if (!t) return; var i = +t.dataset.k.split('-')[1], k = BS.sel.indexOf(i);
+    if (k >= 0) BS.sel.splice(k, 1); else BS.sel.push(i);
+    bn.textContent = BS.sel.length ? 'that was it. look for “Selections [' + BS.sel.length + ']” in the top bar.' : 'unticked. did you see the number change?';
+    bdraw();
   });
-}, { threshold: 0.5 });
-countEls.forEach(el => countObserver.observe(el));
+  bdraw();
+
+  var F = [
+    { n: 'Saving and folders', h: 'Save from search, into the folder you choose', li: ['“Select” becomes a labelled Save to Folder button on every result.', 'The modal shows which folders already hold the item and lets you create one on the spot.', 'A folder can be cited, shared or sent to the Basket whole.'],
+      s: [[{ modal: { k: 'save', i: 0 }, saved: { 0: ['HCI reading list'] } }, 'The Saved in modal'], [{ page: 'folder', basket: [0] }, 'Inside a folder']] },
+    { n: 'Basket and checkout', h: 'Request several books at once', li: ['Add to Basket sits next to each result. A preview slides in so you never lose your search.', 'Items are grouped as Available Now, In-Person Only, Appointment Only or Unavailable.', 'Request All opens a library picker. Unavailable items offer a recall or an interlibrary loan.'],
+      s: [[{ page: 'basket', basket: [0, 1] }, 'The Basket page'], [{ page: 'basket', basket: [0, 1], req: true, lib: 0 }, 'Choosing where to pick up'], [{ off: true, basket: [0, 1] }, 'The preview, over search']] },
+    { n: 'Search results', h: 'Small fixes where people already look', li: ['Past searches open from a clock button in the search bar. Today they sit on a separate History page.', 'Subject headings become item tags that start a new search.', 'A Folders tab on each result shows where it is already saved.'],
+      s: [[{ hist: true, tags: true, saved: { 0: ['HCI reading list', 'Capstone'] }, basket: [1] }, 'History, item tags and the Folders tab']] },
+    { n: 'Citations', h: 'Cite without leaving the catalog', li: ['A quotation-mark action on every result opens a citation in the style you choose.', 'Copy it or export it.', 'A whole folder can be exported at once for a reference list.'],
+      s: [[{ modal: { k: 'cite', i: 0 } }, 'Export Citations']] },
+    { n: 'Tooltips and guidance', h: 'Explain the library’s words where they appear', li: ['Hover tooltips for terms like Reserves and Browse, in plain language.', 'On phones, a question-mark icon opens the same help.', 'A three-step guide on the home page, and related searches when a search finds nothing.'],
+      s: [[{ tips: true }, 'Tooltips on desktop'], [{ page: 'home' }, 'Home page guide'], [{ none: true, q: 'labubu' }, 'When a search finds nothing'], [{ page: 'mobile', w: 390, h: 640, phone: true }, 'Help on a phone']] }
+  ];
+  var tabs = document.getElementById('ftabs'), panel = document.getElementById('fpanel'), cur = 0;
+  function show(i) {
+    cur = i; var f = F[i];
+    [].forEach.call(tabs.children, function (b, k) { b.setAttribute('aria-selected', k === i); b.tabIndex = k === i ? 0 : -1; });
+    panel.innerHTML = '<div><span class="sub">' + f.h + '</span><ul>' + f.li.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul></div><div class="fshots"></div>';
+    var box = panel.lastElementChild;
+    f.s.forEach(function (s) {
+      var wrap = document.createElement('div'); wrap.className = 'stack'; wrap.style.gap = '8px';
+      var fr = document.createElement('div'); fr.className = 'frame' + (s[0].phone ? ' phone' : ''); fr.dataset.w = s[0].w || 1180; fr.dataset.h = s[0].h || (s[0].page === 'basket' ? 740 : 660);
+      var c = document.createElement('span'); c.className = 'cap'; c.textContent = s[1];
+      wrap.appendChild(fr); wrap.appendChild(c); box.appendChild(wrap); rv.mount(fr, rv.base(s[0]));
+    });
+    panel.style.animation = 'none'; void panel.offsetWidth; panel.style.animation = 'pop .35s ease both';
+  }
+  F.forEach(function (f, i) { var b = document.createElement('button'); b.className = 'rt'; b.textContent = f.n; b.type = 'button'; b.setAttribute('role', 'tab'); b.onclick = function () { show(i); }; b.onkeydown = function (e) { if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { var k = (cur + (e.key === 'ArrowRight' ? 1 : F.length - 1)) % F.length; show(k); tabs.children[k].focus(); } }; tabs.appendChild(b); });
+  show(0);
+})();
 </script>
 </body>
 </html>
