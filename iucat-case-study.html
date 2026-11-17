@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>IUCAT case study | prady. Pradyumna Satheesh</title>
+<meta name="description" content="The library catalog had a save button. It was a checkbox called Select. How a team of eight redesigned saving and requesting for Indiana University Libraries.">
+<link rel="canonical" href="https://pradyumnasatheesh.com/iucat-case-study.html">
+<meta property="og:site_name" content="Pradyumna Satheesh">
+<meta name="author" content="Pradyumna Satheesh">
+<link rel="icon" href="a/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="IUCAT case study | prady. Pradyumna Satheesh">
+<meta property="og:description" content="The library catalog had a save button. It was a checkbox called Select.">
+<meta property="og:url" content="https://pradyumnasatheesh.com/iucat-case-study.html">
+<meta property="og:image" content="https://pradyumnasatheesh.com/a/og-iucat.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Caveat+Brush&family=Caveat:wght@500;600;700&family=DM+Sans:wght@400;500;600;700;800&family=Libre+Franklin:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one reading column of generous bands. Text sits in a narrow measure, product screens break out wide. */
+:root{
+  --paper:#F6F2EA; --sand:#E9E3D6; --line:#DDD6C8; --ink:#1A1A1A; --head:#333333; --body:#45413A;
+  --soft:#6A655C; --dim:#A39D90; --red:#B3263A; --red-deep:#8F1D2E; --red-tint:#F3D6DA; --white:#FFFFFF;
+  --teal:#0F766E; --teal-deep:#0F5E57; --teal-tint:#E6F2F0;
+  --sans:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --hand:Caveat,"Segoe Print","Comic Sans MS",cursive;
+  --brush:"Caveat Brush",Caveat,"Segoe Print",cursive;
+  --ui:"DM Sans",Inter,system-ui,sans-serif;
+  --band:clamp(96px,13vw,176px);
+  color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:18px;line-height:1.6;overflow-x:hidden}
+img{max-width:100%}
+a{color:var(--ink)}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px;border-radius:6px}
+h1,h2,h3,p,figure,blockquote{margin:0}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(22px,env(safe-area-inset-left,0px));padding-right:max(22px,env(safe-area-inset-right,0px))}
+.band{padding-top:var(--band)}
+.stack{display:flex;flex-direction:column;gap:40px}
+.lede{max-width:40em;color:var(--body);font-size:20px;line-height:1.6}
+.display{font-size:clamp(36px,5.2vw,64px);line-height:1.08;letter-spacing:-0.03em;font-weight:600;color:var(--head);text-wrap:balance;max-width:17em}
+.title{font-size:clamp(30px,3.8vw,46px);line-height:1.1;letter-spacing:-0.03em;font-weight:600;color:var(--head);text-wrap:balance;max-width:20em}
+.sub{font-size:clamp(24px,2.6vw,32px);line-height:1.15;letter-spacing:-0.03em;font-weight:600;color:var(--head);text-wrap:balance}
+.dim{color:var(--dim)}
+.hl{background:url(a/brush.svg) center/100% 100% no-repeat;color:var(--white);padding:0 .18em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.ul{background:url(a/underline.svg) bottom/100% .26em no-repeat;padding-bottom:.12em}
+.note{font-family:var(--hand);font-weight:600;font-size:24px;line-height:1.2;color:var(--soft)}
+.kicker{font-size:15px;font-weight:600;color:var(--soft)}
+.cap{font-size:13.5px;color:var(--soft)}
+.hb{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 22px;font:400 21px var(--brush);color:var(--ink);text-decoration:none;background:url(a/btn.svg) center/100% 100% no-repeat;border:0;cursor:pointer;white-space:nowrap;transition:transform .18s cubic-bezier(.3,1.6,.5,1)}
+.hb:hover{background-image:url(a/btn-hover.svg);transform:rotate(-1.5deg)}
+.hb.on{background-image:url(a/btn-soft.svg);color:var(--ink)}
+.tx{font:600 16px var(--sans);color:var(--soft);text-decoration:none;background:url(a/underline.svg) bottom/0% .3em no-repeat;border:0;padding:8px 2px 9px;margin:0 8px;cursor:pointer;transition:color .2s,background-size .3s}
+.tx:hover{color:var(--ink);background-size:100% .3em}
+.hb.on:hover{transform:rotate(1.5deg)}
+.nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding-block:20px}
+.logo{font-size:30px;font-weight:800;letter-spacing:-0.06em;text-decoration:none}
+.logo i{font-style:normal;color:var(--red)}
+.logo{display:inline-flex;align-items:baseline;color:var(--ink)}
+.logo .lt{display:inline-block;animation:drop .5s cubic-bezier(.3,1.5,.5,1) backwards;animation-delay:calc(var(--i)*70ms);transition:transform .28s cubic-bezier(.3,1.7,.5,1);transition-delay:calc(var(--i)*35ms)}
+.logo:hover .lt{transform:translateY(-4px) rotate(-4deg)}
+.logo .dw{display:inline-block;transition:transform .35s cubic-bezier(.3,1.9,.5,1) .18s}
+.logo:hover .dw{transform:translateY(-12px) scale(1.25)}
+.logo .dw i{display:inline-block;transform-origin:50% 85%;animation:ball 1s cubic-bezier(.3,0,.4,1) .45s backwards,idle 7s ease-in-out 4s infinite}
+@keyframes drop{from{opacity:0;transform:translateY(-14px) rotate(-8deg)}}
+@keyframes ball{0%{opacity:0;transform:translateY(-44px)}45%{opacity:1;transform:translateY(0) scale(1.3,.65)}65%{transform:translateY(-12px) scale(.94,1.1)}82%{transform:translateY(0) scale(1.12,.86)}100%{transform:none}}
+@keyframes idle{0%,86%,100%{transform:none}90%{transform:translateY(-9px) scale(.94,1.1)}94%{transform:translateY(0) scale(1.18,.78)}97%{transform:translateY(-3px)}}
+.nav nav{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.card{background:var(--white);border:1.5px solid var(--line);border-radius:22px}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.facts>div{padding:22px 24px;display:flex;flex-direction:column;gap:6px}
+.facts b{font-size:20px;font-weight:600;letter-spacing:-0.02em;line-height:1.25}
+.facts .dark{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.two{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:40px;align-items:center}
+.two.even{grid-template-columns:1fr 1fr;align-items:stretch}
+.two.wide{grid-template-columns:minmax(0,1fr) minmax(0,1.6fr)}
+.aside{display:flex;align-items:flex-end;gap:6px;max-width:720px}
+.aside img{flex:none;width:clamp(110px,14vw,150px);height:auto}
+.pnote{background:var(--white);border:1.5px solid var(--ink);border-radius:18px;padding:18px 22px;box-shadow:0 12px 28px rgba(26,26,26,.10);display:flex;flex-direction:column;gap:6px;margin-bottom:22px}
+.pnote b{font-size:13px;font-weight:700;color:var(--red)}
+.pnote p{font:600 25px/1.22 var(--hand)}
+.tier{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;padding:14px 18px;border-radius:14px;background:var(--paper)}
+.tier b{font-size:17px;letter-spacing:-0.01em}
+.tier .sees{margin-left:auto;font:600 21px/1.15 var(--hand);color:var(--teal-deep);text-align:right}
+.scroller{overflow:visible}
+.stage{border-radius:24px;padding:clamp(20px,3vw,40px);display:flex;align-items:center;justify-content:center;gap:20px}
+.node{background:var(--white);border:1.5px solid var(--ink);border-radius:14px;padding:11px 14px;font-size:15px;font-weight:600;line-height:1.25;text-align:center}
+.flow{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px}
+.quote{padding:clamp(26px,4vw,44px);display:flex;flex-direction:column;gap:18px;border-color:var(--ink)}
+.quote blockquote{font-size:clamp(22px,2.6vw,30px);font-weight:600;letter-spacing:-0.02em;line-height:1.3}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.stats>div{padding:26px}
+.stats b{display:block;font-size:clamp(40px,5vw,56px);font-weight:800;letter-spacing:-0.05em;line-height:1}
+
+
+/* ---------- IUCAT screens, rebuilt in the Rivet look. Drawn at a fixed 1180px stage and scaled to fit, like a video. ---------- */
+.frame{position:relative;overflow:hidden;background:#fff;border:1.6px solid var(--ink);border-radius:22px 18px 24px 20px/20px 24px 18px 22px;box-shadow:0 18px 44px rgba(26,26,26,.10)}
+.frame.phone{border-width:6px;border-radius:34px;max-width:300px}
+.stg{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}
+.film .stg{transition:transform .9s cubic-bezier(.4,0,.2,1)}
+.rv{font-family:"Libre Franklin","Franklin Gothic Medium",Arial,sans-serif;font-size:14px;line-height:1.4;color:#243142;background:#fff;text-align:left;position:relative;overflow:hidden;height:100%}
+.rv *{box-sizing:border-box}
+.rv svg{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.rv-hd{height:60px;display:flex;align-items:center;padding:0 80px;border-bottom:1px solid #E6E6E6;gap:12px;white-space:nowrap}
+.rv-logo{display:flex;align-items:center;gap:12px;font-weight:700;font-size:17px;letter-spacing:.01em}
+.rv-logo i{width:26px;height:30px;background:#990000;display:block}
+.rv-nav{margin-left:auto;display:flex;align-items:center;gap:22px;font-size:13.5px}
+.rv-nav span{display:inline-flex;align-items:center;gap:6px}
+.rv-nav .car::after{content:"";width:6px;height:6px;border-right:1.6px solid;border-bottom:1.6px solid;transform:rotate(45deg) translateY(-2px);margin-left:4px}
+.rv-bdg{min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:#990000;color:#fff;font-size:11px;font-weight:700;display:inline-grid;place-items:center;margin-left:-2px}
+.rv-bdg.pop{animation:rvbump .5s cubic-bezier(.3,1.7,.5,1)}
+@keyframes rvbump{40%{transform:scale(1.5)}}
+.rv-av{width:28px;height:28px;border-radius:14px;background:#990000;color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center}
+.rv-tabs{display:flex;gap:4px;padding:0 80px;border-bottom:1px solid #E6E6E6;font-size:13.5px}
+.rv-tabs span{padding:11px 12px 9px;border-bottom:3px solid transparent;position:relative}
+.rv-tabs .on{color:#990000;border-color:#990000;background:#FBF2F2}
+.rv-sb{margin:22px 80px 0;background:#990000;border-radius:4px;padding:14px 12px 12px;color:#fff;position:relative}
+.rv-sb .in{display:flex;background:#fff;border-radius:3px;color:#243142;height:34px;align-items:center}
+.rv-sb .in b{padding:0 12px;color:#006298;font-weight:600;border-right:1px solid #DDD;height:100%;display:flex;align-items:center;background:#F7F7F7;border-radius:3px 0 0 3px}
+.rv-sb .in em{flex:1;padding:0 10px;font-style:normal}
+.rv-sb .in u{width:38px;height:100%;background:#006298;border-radius:0 3px 3px 0;display:grid;place-items:center;color:#fff;text-decoration:none}
+.rv-sb .in u.h{background:#fff;color:#006298;border-left:1px solid #DDD;border-radius:0}
+.rv-sb .oo{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:13px}
+.rv-sb .oo i{width:14px;height:14px;background:#fff;border-radius:2px;display:block}
+.rv-hist{position:absolute;left:12px;right:12px;top:50px;background:#fff;color:#006298;border:1px solid #CCC;border-radius:0 0 4px 4px;box-shadow:0 10px 24px rgba(0,0,0,.18);z-index:2;padding:6px 0;font-size:13px}
+.rv-hist div{padding:5px 14px;display:flex;gap:8px;align-items:center}
+.rv-for{margin:0 80px;padding:9px 8px;background:#F7F7F7;font-size:13px;display:flex;align-items:center;gap:8px}
+.rv-for b{background:#E6E6E6;border-radius:999px;padding:2px 10px;font-weight:600;font-size:12px}
+.rv-for a{margin-left:auto;color:#006298;font-weight:600;font-size:12px;border:1px solid #CCC;border-radius:3px;padding:2px 8px;background:#fff}
+.rv-body{display:grid;grid-template-columns:230px 1fr;gap:28px;padding:0 80px}
+.rv-h1{text-align:center;font-size:21px;margin:14px 0 4px;font-weight:500}
+.rv-fac{font-size:13.5px}
+.rv-fac b{display:block;padding:10px 0 8px;font-size:13.5px}
+.rv-fac div{display:flex;justify-content:space-between;padding:7px 4px;border-top:1px solid #DDD}
+.rv-fac div::after{content:"+";font-size:17px;line-height:1}
+.rv-res{padding-top:6px}
+.rv-count{display:flex;justify-content:flex-end;gap:6px;font-size:12px;margin-bottom:4px}
+.rv-count span{background:#006298;color:#fff;font-weight:600;padding:3px 10px;border-radius:3px}
+.rv-it{display:grid;grid-template-columns:1fr auto;gap:6px 14px;padding:12px 0 14px;border-bottom:1px solid #E6E6E6;position:relative}
+.rv-ti{color:#006298;font-size:16.5px;line-height:1.3}
+.rv-ti span{color:#243142}
+.rv-act{display:flex;gap:6px;align-items:center;justify-content:flex-end}
+.rv-b{font:600 12px "Libre Franklin",Arial,sans-serif;display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border:1.5px solid #9CC8E0;border-radius:4px;background:#fff;color:#006298;cursor:pointer;white-space:nowrap;position:relative}
+.rv-b svg{width:14px;height:14px}
+.rv-b.solid{background:#006298;border-color:#006298;color:#fff}
+.rv-b.lg{font-size:13.5px;padding:8px 14px}
+.rv-b.dis{color:#8A93A0;border-color:#DDD;background:#F7F7F7}
+.rv-b.del{border-color:#F4B8A6;color:#DF3603;padding:5px 6px}
+.rv-b.plain{border-color:transparent}
+.rv-q{color:#006298;font:800 34px/20px Georgia,serif;height:22px;padding:0 4px;cursor:pointer;background:none;border:0;position:relative}
+.rv-chk{display:inline-flex;align-items:center;gap:6px;font:600 12px "Libre Franklin",Arial,sans-serif;padding:4px 8px;border:1.5px solid #9CC8E0;border-radius:4px;color:#006298;background:#fff;cursor:pointer}
+.rv-chk i{width:13px;height:13px;border:1.5px solid #006298;border-radius:2px;display:grid;place-items:center;font-style:normal;font-size:10px;line-height:1;color:#fff}
+.rv-chk.on i{background:#006298}
+.rv-sub{grid-column:1/-1;display:flex;gap:2px;font-size:13px;border-bottom:1px solid #E6E6E6}
+.rv-sub span{padding:6px 12px;color:#006298;font-weight:600;display:inline-flex;gap:6px;align-items:center}
+.rv-sub .on{color:#990000;border-bottom:2px solid #990000;background:#FBF2F2}
+.rv-sub .new{animation:rvin .4s both}
+.rv-md{display:grid;grid-template-columns:86px 1fr;gap:2px 8px;font-size:13px}
+.rv-md span:nth-child(odd){text-align:right;color:#4A5568}
+.rv-cov{width:74px;height:98px;border-radius:2px;display:flex;align-items:flex-end;padding:6px;color:#fff;font-size:8.5px;font-weight:700;line-height:1.15;justify-self:end}
+.rv-tags{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap;font-size:11.5px}
+.rv-tags b{background:#E6E6E6;border-radius:999px;padding:2px 10px;font-weight:600;display:inline-flex;gap:5px;align-items:center}
+.rv-tags svg{width:11px;height:11px}
+.rv-veil{position:absolute;inset:0;background:rgba(36,49,66,.5);z-index:5}
+.rv-veil.in{animation:rvfade .25s both}
+@keyframes rvfade{from{opacity:0}}
+@keyframes rvin{from{opacity:0;transform:translateY(10px)}}
+.rv-dlg{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:560px;background:#fff;border-radius:6px;box-shadow:0 24px 60px rgba(0,0,0,.35);z-index:6;padding:20px 22px;display:flex;flex-direction:column;gap:14px}
+.rv-dlg.in{animation:rvdlg .3s cubic-bezier(.3,1.3,.5,1) both}
+@keyframes rvdlg{from{opacity:0;transform:translate(-50%,-46%) scale(.97)}}
+.rv-dlg h4{margin:0;font-size:17px;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+.rv-x{border:0;background:none;font-size:22px;line-height:1;color:#243142;cursor:pointer;padding:2px 8px;position:relative}
+.rv-bk{display:flex;gap:12px;align-items:center;font-size:16px;font-style:italic}
+.rv-bk .rv-cov{width:34px;height:46px;font-size:0;padding:0;flex:none}
+.rv-inp{border:1px solid #8A93A0;border-radius:3px;padding:6px 10px;color:#8A93A0;font-size:13px}
+.rv-tbl{display:grid;grid-template-columns:1.5fr 1fr 1fr auto;font-size:13px;align-items:center}
+.rv-tbl>*{padding:8px 10px;border-bottom:1px solid #E6E6E6;min-height:42px;display:flex;align-items:center}
+.rv-tbl .th{font-weight:700;background:#F7F7F7;min-height:0;font-size:12px}
+.rv-tbl a{color:#006298;font-weight:600;margin-right:6px}.rv-tbl span{white-space:nowrap}
+.rv-off{position:absolute;top:0;right:0;bottom:0;width:390px;background:#fff;z-index:6;padding:18px 18px 16px;display:flex;flex-direction:column;gap:10px;box-shadow:-18px 0 50px rgba(0,0,0,.3)}
+.rv-off.in{animation:rvoff .4s cubic-bezier(.3,1,.4,1) both}
+@keyframes rvoff{from{transform:translateX(105%)}}
+.rv-dl{display:flex;align-items:center;gap:8px;font-weight:600;font-size:13px}
+.rv-dl b{background:#006298;color:#fff;padding:5px 12px;border-radius:3px;font-weight:600}
+.rv-g{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:500;margin-top:8px}
+.rv-g small{color:#6B7280;font-size:13px}
+.rv-g svg{width:18px;height:18px}
+.rv-gd{font-style:italic;font-weight:600;color:#6B7280;font-size:12px;margin:-6px 0 0 26px}
+.rv-c{display:flex;gap:10px;align-items:center;background:#F7F7F7;border-radius:4px;padding:7px 10px;font-size:12.5px;line-height:1.3}
+.rv-c.in{animation:rvin .35s both}
+.rv-c .rv-cov{width:32px;height:44px;font-size:0;padding:0;flex:none}
+.rv-c div{flex:1}
+.rv-c b{display:block;font-size:13px}
+.rv-pin{display:inline-flex;gap:4px;align-items:center}.rv-pin svg{width:12px;height:12px;color:#006298}
+.rv-bask{display:grid;grid-template-columns:1fr 330px;gap:44px;padding:20px 110px 0}
+.rv-bask h2{font-size:32px;margin:0 0 6px;font-weight:700;letter-spacing:-.01em}
+.rv-col{display:flex;flex-direction:column;gap:8px}
+.rv-al{background:#F2F5E6;border-left:4px solid #056E41;color:#056E41;padding:12px 16px;font-size:12.5px;position:relative}
+.rv-al.in{animation:rvin .45s both}
+.rv-al b{display:block;font-size:15px;font-weight:600;margin-bottom:4px}
+.rv-ap{border:1.5px solid #DDD;border-radius:6px;padding:14px;display:flex;flex-direction:column;gap:8px;align-self:start}
+.rv-ap h5{margin:0;font-size:15px;display:flex;justify-content:space-between;align-items:center}
+.rv-ap .ok{background:#F2F5E6;border-radius:4px;padding:8px;display:flex;flex-direction:column;gap:6px}
+.rv-ap .ok.in{animation:rvin .5s .15s both}
+.rv-ap .ok>i{color:#056E41;font-weight:700;font-size:12.5px}
+.rv-ap .rv-c{background:none;padding:0}
+.rv-lib{border:1.5px solid #CCC;border-radius:4px;padding:8px 12px;font-size:13px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;position:relative}
+.rv-lib b{display:block}
+.rv-lib.on{border-color:#056E41;background:#EAF5EC;box-shadow:0 0 0 1px #056E41}
+.rv-lib.on::after{content:"✓";width:18px;height:18px;border-radius:9px;border:1.5px solid #056E41;color:#056E41;display:grid;place-items:center;font-size:11px}
+.rv-tip{position:absolute;background:#fff;border:1px solid #8A93A0;border-radius:4px;padding:7px 10px;font-size:12px;line-height:1.3;box-shadow:0 8px 20px rgba(0,0,0,.2);z-index:4;width:max-content;max-width:190px;animation:rvin .3s both}
+.rv-tip::after{content:"";position:absolute;left:50%;bottom:-6px;width:10px;height:10px;background:#fff;border-right:1px solid #8A93A0;border-bottom:1px solid #8A93A0;transform:translateX(-50%) rotate(45deg)}
+.rv-home{margin:26px 80px 0;background:#F7F7F7;padding:30px 40px 24px;text-align:center}
+.rv-home .g{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:22px}
+.rv-home .g div{background:#fff;border:1px solid #DDD;border-radius:4px;padding:22px 18px;font-size:13.5px;display:flex;flex-direction:column;gap:12px;align-items:center}
+.rv-home svg{width:34px;height:34px;color:#006298;stroke-width:1.4}
+.rv-crumb{font-size:19px;margin:18px 0 6px}.rv-crumb a{color:#006298}
+.fcur{position:absolute;left:0;top:0;width:26px;height:26px;z-index:20;pointer-events:none;transition:transform .8s cubic-bezier(.5,0,.2,1);filter:drop-shadow(0 3px 5px rgba(0,0,0,.35))}
+.fcur svg{width:100%;height:100%;transition:transform .15s}
+.fcur.tap svg{transform:scale(.78)}
+.fcur::after{content:"";position:absolute;left:-12px;top:-12px;width:30px;height:30px;border-radius:15px;border:2.5px solid #B3263A;opacity:0}
+.fcur.tap::after{animation:ring .5s ease-out}
+@keyframes ring{from{opacity:.9;transform:scale(.3)}to{opacity:0;transform:scale(1.5)}}
+.filmrow{display:grid;grid-template-columns:minmax(0,1fr);gap:22px}
+.filmcap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 24px;align-items:end}
+.filmcap .t{font-size:clamp(22px,2.6vw,30px);font-weight:600;letter-spacing:-0.03em;line-height:1.2;color:var(--head);min-height:1.2em}
+.filmcap .note{min-height:1.2em}
+.filmctl{display:flex;align-items:center;gap:14px}
+.dots{display:flex;gap:8px;align-items:center}
+.dots button{flex:none;width:14px;height:14px;border-radius:7px;border:2px solid var(--ink);background:var(--white);padding:0;cursor:pointer;transition:width .25s,background .25s}
+.dots button[aria-current="true"]{background:var(--red);border-color:var(--red);width:30px}
+.swapin{animation:pop .4s ease both}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.97)}to{opacity:1;transform:none}}
+.rt{font:600 14px var(--ui);padding:9px 16px;border-radius:999px;border:1.5px solid var(--ink);background:var(--white);color:var(--ink);cursor:pointer}
+.rt[aria-selected="true"]{background:var(--ink);color:var(--white)}
+.tabs{display:flex;flex-wrap:wrap;gap:8px}
+
+/* process */
+.shot{display:block;border:1.5px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 14px 34px rgba(26,26,26,.08)}
+.shot img{display:block;width:100%;height:auto}
+.step{display:grid;grid-template-columns:64px minmax(0,1fr);gap:8px 20px;align-items:start}
+.step .num{font:400 54px/1 var(--brush);color:var(--red)}
+.step .stack{gap:24px;min-width:0}
+.wall{display:flex;gap:26px;overflow-x:auto;padding:18px 6px 30px;margin:0 -6px;scroll-snap-type:x proximity;scrollbar-width:thin}
+.paper{flex:none;width:300px;background:#fff;border:1.5px solid var(--ink);border-radius:5px;padding:10px 10px 12px;box-shadow:0 12px 26px rgba(26,26,26,.12);display:flex;flex-direction:column;gap:8px;scroll-snap-align:center;transition:transform .25s cubic-bezier(.3,1.5,.5,1)}
+.paper:nth-child(odd){transform:rotate(-1.4deg)}.paper:nth-child(even){transform:rotate(1.1deg);margin-top:22px}
+.paper:hover{transform:rotate(0) scale(1.03)}
+.paper img{display:block;width:100%;height:230px;object-fit:cover;object-position:top;border-radius:2px;background:#eee}
+.paper{text-decoration:none}.paper span{font:600 20px/1.15 var(--hand);color:var(--soft)}
+.paper.mine{border-color:var(--red);box-shadow:0 12px 26px rgba(179,38,58,.18)}
+.paper.mine span{color:var(--red)}
+.finds{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.finds>div{padding:20px 22px;display:flex;flex-direction:column;gap:6px}
+.finds b{font-size:18px;font-weight:600;letter-spacing:-0.02em;line-height:1.3}
+.finds p{font-size:16px;color:var(--body);line-height:1.5}
+.split{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:stretch}
+.split .card{padding:24px;display:flex;flex-direction:column;gap:8px;border-color:var(--ink)}
+.split .mid{align-self:center;font:400 28px var(--brush);color:var(--red)}
+.iter{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.iter>div{display:flex;flex-direction:column;gap:10px}
+.iter .pair{display:grid;grid-template-columns:1fr;gap:8px}
+.iter b{font-size:17px;font-weight:600;letter-spacing:-0.02em}
+.iter p{font-size:15.5px;color:var(--body);line-height:1.5}
+.iter .cap{display:flex;gap:6px;align-items:center}
+.fpanel{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.1fr);gap:36px;align-items:start}
+.fpanel ul{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px}
+.fpanel li{padding-left:18px;position:relative;font-size:17px;color:var(--body);line-height:1.5}
+.fpanel li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:8px;border-radius:4px;background:var(--red)}
+.fshots{display:flex;flex-direction:column;gap:18px}
+.fshots.duo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,3fr);align-items:start}
+.calls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.calls>div{padding:22px 24px;display:flex;flex-direction:column;gap:8px}
+.calls b{font-size:19px;font-weight:600;letter-spacing:-0.02em;line-height:1.25}
+.calls p{font-size:16px;color:var(--body);line-height:1.5}
+footer{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;margin-top:var(--band);padding-block:26px;border-top:1.5px solid var(--line);font-size:15px;color:var(--soft)}
+
+
+@media (max-width:860px){
+  body{font-size:17px}
+  .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .two,.two.even,.two.wide,.fpanel,.finds,.calls,.split,.iter{grid-template-columns:1fr}
+  .split .mid{justify-self:center}
+  .step{grid-template-columns:minmax(0,1fr)}.step .num{font-size:44px}
+  .filmcap{grid-template-columns:1fr}
+  .paper{width:250px}
+  .fshots.duo{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+/* ===== open layout: paper objects instead of UI cards. ticket, stickies, index cards, tags, taped notes ===== */
+.card{background:none;border:0;border-radius:0;box-shadow:none}
+/* 1. ticket strip: project facts */
+.facts{gap:0;background:#fff;border:1.5px solid var(--ink);border-radius:14px;overflow:hidden;transform:rotate(-.35deg);box-shadow:0 12px 26px rgba(26,26,26,.10)}
+.facts>div{padding:20px 22px 22px;position:relative}
+.facts>div+div{border-left:2px dashed var(--dim)}
+.facts>div+div::before,.facts>div+div::after{content:"";position:absolute;left:-10px;width:18px;height:18px;border-radius:50%;background:var(--paper);border:1.5px solid var(--ink)}
+.facts>div+div::before{top:-10px}.facts>div+div::after{bottom:-10px}
+.facts .dark{background:var(--red-tint);color:var(--ink)}
+.facts .dark .kicker{color:var(--red-deep)!important}.facts .dark .note{color:var(--red-deep)!important}
+/* 2. sticky notes: numbers */
+.stats,.nums{gap:clamp(16px,2.4vw,28px);align-items:start}
+.stats>div,.nums>div{padding:26px 22px 22px!important;background:#FBE48B;box-shadow:0 2px 2px rgba(26,26,26,.10),0 14px 22px rgba(26,26,26,.13);transform:rotate(-1.6deg);position:relative;min-height:150px;color:var(--ink)}
+.stats>div:nth-child(4n+2),.nums>div:nth-child(4n+2){background:#F7CBD2;transform:rotate(1.3deg) translateY(10px)}
+.stats>div:nth-child(4n+3),.nums>div:nth-child(4n+3){background:#CFE4F4;transform:rotate(-.6deg)}
+.stats>div:nth-child(4n+4),.nums>div:nth-child(4n+4){background:#CFEAD9;transform:rotate(1.9deg) translateY(6px)}
+.stats>div::before,.nums>div::before{content:"";position:absolute;left:50%;top:-9px;width:64px;height:20px;margin-left:-32px;background:rgba(232,223,201,.85);transform:rotate(-3deg)}
+.stats span,.nums span{color:#2b2925}
+.nums .note{color:var(--ink)!important;font-size:19px!important}
+/* 3. taped torn note: quotes */
+.quote{position:relative;isolation:isolate;padding:clamp(34px,4.4vw,54px) clamp(24px,4vw,52px) clamp(40px,5vw,60px)!important;filter:drop-shadow(0 12px 18px rgba(26,26,26,.13));transform:rotate(.35deg);max-width:980px}
+.quote::before{content:"";position:absolute;inset:0;z-index:-1;background:#fff;clip-path:polygon(0 0,100% 0,100% calc(100% - 9px),96% 100%,91% calc(100% - 8px),86% 100%,80% calc(100% - 10px),74% calc(100% - 2px),68% calc(100% - 11px),61% calc(100% - 1px),55% calc(100% - 9px),48% 100%,42% calc(100% - 10px),35% calc(100% - 2px),29% calc(100% - 11px),22% calc(100% - 1px),15% calc(100% - 9px),9% 100%,4% calc(100% - 8px),0 100%)}
+.quote::after{content:"";position:absolute;left:50%;top:-12px;width:110px;height:26px;margin-left:-55px;background:rgba(232,223,201,.9);transform:rotate(-2deg)}
+.quote blockquote::before{content:"\201C";display:block;font:400 84px/.6 var(--brush);color:var(--red);margin-bottom:6px}
+/* 4. thinking notes: bubble, sketchnote, notebook scrap. they play when they scroll into view */
+@font-face{font-family:"Voice";font-weight:400;font-display:swap;size-adjust:80%;src:url(a/voice-400.woff2) format("woff2")}@font-face{font-family:"Voice";font-weight:500 800;font-display:swap;size-adjust:80%;src:url(a/voice-600.woff2) format("woff2")}
+:root{--hand:"Voice",Caveat,"Segoe Print","Comic Sans MS",cursive}
+.aside{max-width:min(860px,100%);gap:14px;align-items:flex-end}.aside>*{min-width:0}
+.aside img{width:clamp(170px,21vw,250px)}
+.pnote{background:none;border:0;border-radius:0;box-shadow:none;padding:0;position:relative;transform:none;max-width:520px;margin-bottom:22px}
+.pnote b{color:var(--red-deep)}
+.pnote p{font:600 24px/1.32 var(--hand)}
+.pn-a,.pn-e{isolation:isolate}
+.pn-a{padding:30px 36px 66px;margin-bottom:70px}
+.pn-a::before{content:"";position:absolute;inset:0;z-index:-1;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 520 210' preserveAspectRatio='none'%3E%3Cpath d='M40.18608461675991 14.532563617870354 C126.97081091167531 18.001855346519633, 216.79928818978888 16.398698565730868, 480.02081495152106 15.274942472415672 M40.4917798665063 13.55999652540637 C175.10236795911032 13.591035340674958, 310.22906662996695 13.039663310658518, 479.41385156994835 13.846669376842645 M480 14 C495.09867460609723 13.588577586598694, 505.0286827055737 24.609547416555387, 505.67529982011763 39.19761689919979 M477.5966778783128 15.23786403555423 C496.81490519149537 15.255165340816603, 504.7261665582005 19.812597562686232, 505.6950892739836 38.43434446296655 M505.2184718014672 40.85232862513512 C506.36025439559484 67.46167303547263, 505.3843588894513 94.18197001386434, 504.1946854295209 152.4603684036061 M505.372657047119 39.72832148084417 C505.4431532859337 80.72052824562415, 506.52550015742895 119.63840649249033, 507.05900735398757 150.74398433277383 M506 150 C504.8576459912583 165.56297736385218, 497.2803305077677 175.90060712117702, 478.1354546515271 174.1314838649705 M507.8063463358209 150.54397640842944 C505.06394550525584 167.92681753766104, 495.2293604351425 173.46423142991028, 478.02799299233595 174.88973304769956 M479.1429754307842 177.62151298252414 C364.21779848179204 175.8124371108215, 252.15830264792552 175.83496204172076, 121.63191436850302 176.19957080943826 M480.1677028099045 176.77399929955774 C345.70830765047805 174.9669823886853, 211.92328142975649 174.94518618404584, 120.52215508111969 175.65849192878514 M121.54342852253467 178.43821127098053 C100.13980986520276 184.47903562419302, 81.96504510517792 194.17672107935135, 66.86373223084956 203.6185153393075 M118.81322400709614 174.93604653785005 C106.81614331866055 184.19112565977312, 93.5172052784115 191.00004024779238, 67.12878202041611 203.23690750608222 M67.29988254327327 202.23024634402245 C67.83593234885112 198.4385660600904, 73.61626640483364 194.03404256934857, 85.68835050482303 174.76721831243486 M67.28815933307632 203.13916692743078 C72.49769184550644 194.43394351074286, 77.914972578533 185.20383628265745, 83.96815053960309 175.1946971804835 M85.7171201409772 175.10632511060686 C72.00292477887123 176.14745141322538, 56.28042272273451 177.4068751519434, 37.95669302958995 177.12923133652657 M83.21990227242932 175.70259243557229 C76.02648824630306 176.7677048806101, 64.73559640264139 175.7668627832085, 40.3126512571238 174.98883262285963 M40 176 C22.991200149866444 173.95576753634958, 12.054747131280601 169.6321073792254, 13.479076114110649 151.6831042351201 M41.321969255618754 174.3779379727319 C23.02298975024062 177.5915671982523, 15.480226837033406 170.32298377286955, 11.520464002126829 150.0178466641065 M12.520788055844605 148.16024367492645 C11.888198991501705 126.61009165383875, 14.317168940985576 99.89543443713337, 14.950074613280595 42.251657667569816 M13.527858830895275 150.8736261458136 C11.514570409217848 119.01875791205093, 11.517090448895468 88.14052246408536, 15.253927861060948 40.35178127298131 M14 40 C13.948937734775246 22.64006200252722, 22.8329239912952 15.80731714386493, 40.467656162194906 15.030605310387909 M14.605851504020393 40.257950568385425 C12.496614611679687 20.050587056890752, 21.54782317343789 11.68573835364543, 37.161669512623924 12.729043869292363 M40 14 C40 14, 40 14, 40 14 M40 14 C40 14, 40 14, 40 14' stroke='%231A1A1A' stroke-width='2.4' fill='%23fff' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") center/100% 100% no-repeat;transform-origin:8% 100%}
+.pn-a.pn-flip::before{transform:scale(-1,1);transform-origin:50% 100%}
+.aside:has(.pn-d){flex-wrap:wrap}
+.pn-d{flex:1 1 280px;min-width:min(280px,100%);padding:0 46px 0 0;margin-bottom:30px}
+.pn-d b{display:block;font:600 19px var(--hand);color:var(--soft);margin-bottom:6px}
+.pn-d p{font:400 clamp(30px,3.4vw,46px)/1 var(--brush);transform:rotate(-2.5deg);color:var(--ink);padding:4px 0}
+.pn-d p em{font-style:normal;color:var(--red);display:block}
+.pn-d::after{content:"";position:absolute;right:0;top:-18px;width:38px;height:38px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60' preserveAspectRatio='xMidYMid meet'%3E%3Cg transform='rotate(0 30 30)'%3E%3Cpath d='M30.857263447716832 6.963884739205241 C29.281877326890825 16.763387047871948, 29.04150747053325 23.470266599580647, 29.20640534348786 54.3923355024308 M29.351334436796606 6.26459860894829 C30.329875513724982 17.438590263761583, 29.97681529801339 27.493808458186688, 29.41962571348995 54.752815873362124' stroke='%231A1A1A' stroke-width='2.4' fill='none' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3C/g%3E%3Cg transform='rotate(45 30 30)'%3E%3Cpath d='M29.714526895433664 5.927769478410482 C31.04375465378165 15.926774095743895, 30.563014941066502 23.74053319916129, 30.412810686975718 52.78467100486159 M29.70266887359321 5.529197217896581 C30.139751027449964 18.27718052752316, 29.433630596026777 28.787616916373373, 29.8392514269799 54.50563174672425' stroke='%231A1A1A' stroke-width='2.4' fill='none' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3C/g%3E%3Cg transform='rotate(90 30 30)'%3E%3Cpath d='M28.571790343150496 4.891654217615724 C28.80563198067248 15.090161143615843, 28.084522411599757 24.01079979874194, 31.619216030463576 55.17700650729239 M30.054003310389817 6.793795826844871 C28.98962654117495 19.115770791284742, 29.93044589404017 32.08142537456006, 30.25887714046985 54.25844762008637' stroke='%231A1A1A' stroke-width='2.4' fill='none' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3C/g%3E%3Cg transform='rotate(135 30 30)'%3E%3Cpath d='M31.42905379086733 7.855538956820965 C30.567509307563306 14.25354819148779, 29.606029882133008 24.281066398322583, 28.825621373951435 53.56934200972319 M30.405337747186422 6.058394435793161 C30.799502054899932 19.95436105504632, 29.387261192053558 33.375233832746744, 30.6785028539598 54.011263493448496' stroke='%231A1A1A' stroke-width='2.4' fill='none' stroke-linecap='round' stroke-linejoin='round' vector-effect='non-scaling-stroke'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat}
+.pn-e{filter:drop-shadow(0 10px 14px rgba(26,26,26,.15));transform:rotate(1.4deg);padding:28px 30px 42px 46px;margin-bottom:34px}
+.pn-e::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(rgba(44,86,201,.14) 1px,transparent 1px) 0 0/18px 18px,linear-gradient(90deg,rgba(44,86,201,.14) 1px,transparent 1px) 0 0/18px 18px,#fff;clip-path:polygon(0 0,100% 0,100% 100%,94% calc(100% - 9px),88% 100%,80% calc(100% - 11px),72% 100%,64% calc(100% - 8px),55% 100%,46% calc(100% - 11px),38% 100%,29% calc(100% - 8px),20% 100%,11% calc(100% - 10px),0 100%)}
+.pn-e::after{content:"";position:absolute;left:16px;top:-16px;width:16px;height:56px;border:3px solid #8a8f98;border-bottom-color:transparent;border-radius:10px}
+/* motion */
+.pn-js .pnote .w1{display:inline-block;opacity:0;transform:translateY(8px)}
+.pn-js .play .w1{animation:pnw .32s cubic-bezier(.2,.9,.3,1.2) forwards;animation-delay:calc(var(--d,.45s) + var(--i)*65ms)}
+@keyframes pnw{to{opacity:1;transform:none}}
+.pn-js .pn-a::before{transform:scale(.2);opacity:0}
+.pn-js .pn-a.pn-flip::before{transform:scale(-.2,.2)}
+.pn-js .play .pn-a::before{animation:pnpop .5s cubic-bezier(.3,1.5,.5,1) forwards,pnwob 4.2s .7s ease-in-out infinite}
+.pn-js .play .pn-a.pn-flip::before{animation-name:pnpopf,pnwob}
+@keyframes pnpop{to{transform:none;opacity:1}}
+@keyframes pnpopf{to{transform:scale(-1,1);opacity:1}}
+@keyframes pnwob{50%{rotate:.7deg;translate:0 -2px}}
+.pn-js .play>img{animation:pnhop .55s ease 2,pnbob 3.8s 1.2s ease-in-out infinite;transform-origin:50% 100%}
+@keyframes pnhop{50%{rotate:-2.5deg;translate:0 -6px}}
+@keyframes pnbob{50%{translate:0 -4px;rotate:.8deg}}
+.pn-js .pn-d p{clip-path:inset(-10% 100% -10% 0)}
+.pn-js .play .pn-d p{animation:pnwipe 1.1s cubic-bezier(.6,0,.2,1) .2s forwards}
+@keyframes pnwipe{to{clip-path:inset(-10% -6% -10% 0)}}
+.pn-js .pn-d::after{scale:0}
+.pn-js .play .pn-d::after{animation:pnstar .5s cubic-bezier(.3,1.6,.5,1) 1.1s forwards,pnspin 9s 1.6s linear infinite}
+@keyframes pnstar{to{scale:1}}@keyframes pnspin{to{rotate:360deg}}
+.pn-js .pn-e{opacity:0;transform:translateY(-40px) rotate(-7deg)}
+.pn-js .play .pn-e{animation:pndrop .65s cubic-bezier(.3,1.4,.5,1) forwards,pnsway 5s .9s ease-in-out infinite}
+@keyframes pndrop{to{transform:rotate(1.4deg);opacity:1}}
+@keyframes pnsway{50%{rotate:-1.1deg}}
+@media (max-width:700px){.aside{flex-wrap:wrap}.aside img{width:150px}.pn-a{padding:26px 26px 60px}.pnote p{font-size:21px}}
+@media (prefers-reduced-motion:reduce){.pn-js .pnote .w1,.pn-js .pn-e,.pn-js .pn-d::after{opacity:1!important;transform:none!important;scale:1!important;animation:none!important}.pn-js .pn-a::before{opacity:1!important;animation:none!important;transform:none}.pn-js .pn-a.pn-flip::before{transform:scale(-1,1)!important}.pn-js .pn-d p{clip-path:none!important;animation:none!important}.pn-js .play>img{animation:none!important}}
+/* 5. index cards: findings, comparisons */
+.finds{gap:22px 26px}
+.finds>div,.two>.card,.two.even>.card{background:linear-gradient(to bottom,transparent 45px,rgba(179,38,58,.5) 45px,rgba(179,38,58,.5) 46.5px,transparent 46.5px),repeating-linear-gradient(to bottom,#fff 0,#fff 27px,rgba(44,86,201,.13) 27px,rgba(44,86,201,.13) 28px);border-radius:5px;padding:13px 22px 24px!important;box-shadow:0 1px 0 rgba(26,26,26,.10),0 12px 22px rgba(26,26,26,.11);transform:rotate(-.6deg);gap:14px!important}
+.finds>div:nth-child(even),.two>.card:nth-child(even){transform:rotate(.7deg)}
+.finds>div:nth-child(3n){transform:rotate(-1.1deg)}
+.finds>div{gap:0!important;padding-top:6px!important}.finds b{height:40px;display:flex!important;align-items:center}.finds p{line-height:28px!important;font-size:15.5px!important;padding-top:3px}
+.finds b,.two>.card>.kicker,.two>.card>b,.two>.card>.sub{display:block;min-height:26px;color:var(--ink)}
+.card[style*="border-color:var(--red)"]{outline:2px solid var(--red);outline-offset:-2px}
+/* plain taped sheet: any other framed block */
+.card[style*="padding"]:not(.quote){background:#fff;border-radius:4px;padding:clamp(22px,3vw,36px)!important;box-shadow:0 1px 0 rgba(26,26,26,.10),0 12px 24px rgba(26,26,26,.10)}
+/* 6. hang tags: levers */
+.levers{gap:20px;filter:drop-shadow(0 10px 14px rgba(26,26,26,.13));align-items:start}
+.levers .card{background:#fff;padding:54px 20px 24px;clip-path:polygon(26px 0,calc(100% - 26px) 0,100% 26px,100% 100%,0 100%,0 26px);position:relative;transform:rotate(-1.4deg)}
+.levers .card:nth-child(even){transform:rotate(1.2deg) translateY(8px)}
+.levers .card::before{content:"";position:absolute;left:50%;top:16px;width:18px;height:18px;margin-left:-9px;border-radius:50%;background:var(--paper);border:1.5px solid var(--ink)}
+.levers .card.on{background:var(--red-tint)}
+.levers .card.on b{width:fit-content;padding:8px 16px;margin:-4px 0 -4px -16px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 70' preserveAspectRatio='none'%3E%3Cpath d='M179.45585980957085 19.469787889383603 C189.2170177786241 21.691780279498992, 196.5529505667874 23.407366233043145, 199.9710436577942 26.901161006318333 C203.38913674880104 30.39495577959352, 202.49350389542485 36.797909959021574, 199.96441835561177 40.432556529034734 C197.4353328157987 44.067203099047894, 192.53715474772542 45.68896301824938, 184.7965304189157 48.70904042639728 C177.05590609010596 51.72911783454518, 165.1518440624892 56.503848889553744, 153.5206723827534 58.55302097792213 C141.88950070301757 60.60219306629052, 128.479013993825 60.95643554278815, 115.00950034050085 61.004072956607615 C101.53998668717671 61.05171037042708, 85.23436607471126 60.6874170731984, 72.70359046280853 58.83884546083894 C60.17281485090581 56.99027384847948, 48.71476975224403 52.86918561905282, 39.82484666908448 49.912643282450865 C30.934923585924928 46.95610094584891, 22.742030222933618 44.210334389932676, 19.36405196385124 41.09959144122719 C15.986073704768858 37.988848492521704, 16.99993443735137 34.697184815641876, 19.556977114590197 31.24818559021795 C22.114019791829023 27.799186364794025, 26.91604636492242 23.915278939514444, 34.706308027284194 20.40559608868364 C42.496569689645966 16.895913237852838, 54.54503248872169 12.15748794418157, 66.29854708876084 10.190088485233144 C78.0520616888 8.222689026284717, 92.04462057651531 8.141242687914724, 105.2273956275191 8.601199334993083 C118.41017067852289 9.061155982071442, 130.1897401573253 9.859806840009167, 145.39519739478357 12.949828367703294 C160.60065463224183 16.03984989539742, 187.45763479812223 23.540087512056587, 196.4601390522687 27.141328501157847 C205.46264330641515 30.742569490259108, 200.57241491609514 34.54661971675405, 199.41022291966235 34.55727430231086 M50.52604337942991 16.27559244910907 C59.52961051295267 13.635414245710358, 74.15800938323608 9.491817598683184, 86.34532361035076 7.893554827560063 C98.53263783746544 6.295292056436941, 110.995400337416 5.225359624526875, 123.64992874211801 6.68601582237034 C136.30445714682003 8.146672020213805, 150.8020602355543 14.057865946614703, 162.2724940385628 16.657492014620853 C173.7429278415713 19.257118082627002, 185.472415991075 19.452777895467733, 192.47253156016902 22.283772230407244 C199.47264712926304 25.114766565346756, 203.6206425122326 29.704910676380894, 204.27318745312698 33.643458024257924 C204.92573239402137 37.58200537213496, 201.87990489295254 42.893406985514446, 196.38780120553537 45.91505631766943 C190.8956975181182 48.93670564982442, 181.32694036157122 49.359339999665735, 171.32056532862393 51.77335401718784 C161.31419029567664 54.18736803470995, 148.69589498102198 58.4257495016927, 136.3495510078517 60.39914042280209 C124.0032070346814 62.37253134391148, 110.28610190720553 64.56949050063692, 97.24250148960222 63.61369954384418 C84.1989010719989 62.65790858705144, 69.70833154592484 57.46381783199911, 58.08794850223182 54.66439468204563 C46.46756545853881 51.864971532092156, 34.12526147594339 49.4362325480707, 27.520203227444142 46.81716064412331 C20.915144978944895 44.198088740175926, 19.402477531194148 42.222705576369265, 18.45759901123634 38.949963258361315 C17.512720491278532 35.677220940353365, 17.084231609939245 30.939724103547054, 21.850932107697304 27.1807067360756 C26.617632605455363 23.421689368604145, 42.51107890964464 17.92000887355917, 47.057801997784686 16.395859053532593 C51.604525085924735 14.871709233506017, 48.12800942891812 17.451315215185016, 49.131270636537614 18.035807815916147' stroke='%23B3263A' stroke-width='2.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") center/100% 100% no-repeat}
+/* 7. numbered stamps: a chain of steps */
+.trust{counter-reset:st;align-items:flex-start}
+.trust .node{counter-increment:st;background:none!important;border:0!important;padding:66px 6px 0;text-align:center;align-items:center}
+.trust .node::before{content:counter(st);position:absolute;left:50%;top:0;width:54px;height:54px;margin-left:-27px;display:grid;place-items:center;font:400 26px var(--brush);background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60' preserveAspectRatio='none'%3E%3Cpath d='M45.757008244095175 10.198828709055451 C49.597918563001706 13.498894267884983, 51.40694838832857 20.92571768945135, 52.31543636271036 26.09792744174704 C53.22392433709214 31.27013719404273, 53.4458352473501 36.624381633105, 51.207936090385886 41.232087222829584 C48.970036933421675 45.839792812554165, 43.91986412027161 51.43065626409575, 38.88804142092508 53.74416098009452 C33.85621872157854 56.05766569609329, 25.92241156451984 56.95875820413529, 21.016999894306682 55.113115518822184 C16.111588224093524 53.267472833509075, 11.488460708769614 47.447116724176496, 9.455571399646129 42.67030486821587 C7.422682090522644 37.89349301225525, 8.160348720360371 31.70309652577646, 8.819664039565776 26.452244383058435 C9.47897935877118 21.20139224034041, 10.118932497261705 14.640383371899755, 13.411463314878558 11.165192011907735 C16.70399413249541 7.690000651915714, 22.380464247194254 3.746474428180239, 28.574848945266897 5.601096223106307 C34.76923364333954 7.455718018032375, 46.888287682755575 17.096850279810393, 50.57777150331441 22.292922781464142 C54.26725532387324 27.48899528311789, 50.80681413909209 36.53313396808721, 50.71175186861989 36.7775312330288 M38.8434403805756 7.491374244831604 C43.13084440002751 9.52539673226008, 46.899936650266305 15.93352794701904, 49.48971617985876 20.89757477686129 C52.079495709451216 25.86162160670354, 55.82416072872492 32.52692897163603, 54.382117558130346 37.27565522388511 C52.94007438753577 42.02438147613419, 45.184464434621965 46.4102332052602, 40.83745715629131 49.38993229035577 C36.49044987796065 52.36963137545135, 32.75159149146982 55.75958949363083, 28.300073888146407 55.15384973445855 C23.848556284823 54.548109975286266, 17.30240699333964 49.947041282400285, 14.128351536350866 45.75549373532211 C10.954296079362093 41.56394618824394, 9.662361077622206 35.487529198328176, 9.255741146213765 30.00456445198952 C8.849121214805324 24.52159970565086, 9.082490225792801 16.907501547625667, 11.688631947900216 12.857705257290165 C14.29477367000763 8.807908966954663, 20.15261532594532 6.5709402305160705, 24.892591478858254 5.705786709976508 C29.632567631771188 4.840633189436945, 37.889656278329284 7.771868468979352, 40.12848886537783 7.6667841340527865 C42.36732145242638 7.561699799126221, 38.87240095421943 4.8612887281518455, 38.32558700114955 5.075280700417114' stroke='%231A1A1A' stroke-width='2.2' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") center/100% 100% no-repeat}
+.trust .node{position:relative}
+.trust .node.red::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60' preserveAspectRatio='none'%3E%3Ccircle cx='30' cy='30' r='24' fill='%23B3263A'/%3E%3Cpath d='M23.00516777617827 7.681346792028922 C27.23410965744333 6.429957622271738, 34.93774498411214 5.6012173688586895, 39.72943660211986 7.6609807900054925 C44.52112822012758 9.720744211152295, 49.89169143560116 15.147279199904215, 51.75531748422458 20.039927318909744 C53.61894353284799 24.932575437915272, 52.175843780164335 32.18082310337495, 50.911192893860346 37.01686950403867 C49.646542007556356 41.852915904702385, 48.01319552267892 46.10113382022822, 44.167412166400624 49.05620572289204 C40.32162881012233 52.011277625555856, 32.955262377946475 54.868351743238144, 27.836492756190562 54.74730092002159 C22.717723134434646 54.62625009680503, 17.17042597628873 52.40261325540189, 13.454794435865132 48.329900783592706 C9.739162895441535 44.25718831178352, 5.775385254363227 35.76846548983944, 5.5427035136489735 30.311026089166482 C5.31002177293472 24.853586688493525, 8.70085571206525 19.447621222015854, 12.058703991579609 15.585264379554953 C15.416552271093968 11.722907537094052, 22.882679112381282 8.84038208274291, 25.689793190735124 7.136885034401072 C28.496907269088965 5.433387986059233, 28.903997399087867 5.332461529290064, 28.901388461702645 5.364282089503924 M42.914877444358645 12.57512322209039 C46.117533702801325 15.04899699214336, 49.37347318748749 19.069929382007242, 50.88289320054788 24.316329243148605 C52.392313213608276 29.562729104289968, 53.641399357413974 39.59450943753677, 51.971397522720984 44.05352238893856 C50.301395688027995 48.51253534034035, 45.419680776384574 49.54841582372242, 40.862882192389925 51.07040695155935 C36.30608360839528 52.592398079396276, 30.142254392343165 54.224098092624324, 24.630606018753078 53.1854691559601 C19.11895764516299 52.146840219295875, 10.422468325547149 49.09479013550821, 7.7929919508493875 44.83863333157399 C5.163515576151626 40.58247652763976, 8.021805741622616 33.05904208214339, 8.85374777056651 27.64852833235477 C9.685689799510405 22.23801458256614, 9.56687108124189 16.42594115853587, 12.784644124512756 12.375550832842226 C16.00241716778362 8.325160507148581, 22.942023942808316 3.7053679434175115, 28.1603860301917 3.3461863781929075 C33.37874811757508 2.9870048129683036, 41.338419900559735 9.112465929031288, 44.09481664881305 10.220461441494603 C46.85121339706637 11.328456953957918, 45.01412905973627 9.334762427201852, 44.6987665197116 9.994159452972795' stroke='%23B3263A' stroke-width='2' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");color:#fff}
+.trust i{align-self:flex-start;margin-top:27px}
+/* 8. hand-drawn frames: flow words and the next link */
+.node{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 120' preserveAspectRatio='none'%3E%3Cpath d='M2.9027652874323597 6.2536456474449285 C64.37673794018815 5.513312278874491, 121.30401647475472 4.715288699802278, 294.30127322785756 6.2509851113757495 M5.396904220532364 5.5344229177438855 C76.2229909766469 8.454671663818567, 148.87100342064633 8.4933885559542, 294.8027569766063 5.799600161741114 M295.37910477630794 4.96665716059506 C294.2590912487328 48.26481988057494, 297.79024641774294 87.55121387802065, 296.6821039747447 116.4409649003297 M295.35172466579826 4.901342747174203 C294.8237462150142 31.43411577958614, 296.9155713366553 57.84613437931985, 295.7621792787686 113.15596543904394 M293.01437613042833 113.49367030627009 C201.2754760994202 116.77338721599496, 104.78596772185364 117.38863679216415, 3.493944312331485 113.5023325531126 M295.19743423201817 115.0306569483712 C209.85475335489875 114.99206038345076, 125.13480050523941 115.30625493645447, 4.703856290363342 114.9226209288789 M6.214238877221942 111.32484238035977 C4.244710341274739 89.78207073360682, 3.711169007599354 65.52482040338217, 5.598929817602039 4.1412254679948095 M5.807933288253844 115.34775730129331 C2.924098346875608 88.55230963919311, 3.8020986241564154 61.081798462383446, 3.957772743143141 7.048084262572229' stroke='%231A1A1A' stroke-width='2' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") center/100% 100% no-repeat;border:0!important;border-radius:4px 10px 5px 11px;padding:12px 18px}
+.node[style*="background"]{background-image:none;padding:9px 14px}
+a.card{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 260' preserveAspectRatio='none'%3E%3Cpath d='M6.186932776179356 6.876233513696057 C84.59200272088138 4.408137793780632, 162.29331061680847 4.7436200970168905, 395.1688397772041 7.611123659598679 M6.383318130348334 7.472184204429412 C124.51350972915739 6.994118281798245, 242.9283430071751 6.478415180417142, 394.54696824590434 7.543919489279023 M392.8328586298823 5.432077609358032 C395.769186687164 100.42575967537607, 394.7011615195304 194.44640040578628, 395.70990066053855 252.37628005717877 M393.84003328724464 6.659442907025898 C394.76664043405344 69.88908427665227, 394.56426661194445 134.28973478108634, 393.4810152254476 252.65952142069318 M393.1885337463658 253.61719146373215 C269.64172523322765 255.50646216298043, 148.14405890286244 254.25700262657023, 6.389145849887049 252.15063797772666 M394.5594058347634 252.5204581857032 C313.83465328458414 252.95343134755097, 235.00186700936288 252.3350464602399, 6.635817847639328 252.60048515799735 M6.199296892337967 251.83314636600906 C7.555582530637496 189.29785227192107, 6.495720841127191 124.52072647849972, 5.5738198806454315 7.180523755609727 M5.268773511984282 253.85252531325602 C5.756104814326074 203.12582563106514, 4.578599557470565 152.7479142655057, 6.493060823057162 7.5479001922479245' stroke='%231A1A1A' stroke-width='2' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") center/100% 100% no-repeat!important;padding:32px 34px!important;box-shadow:none!important}
+a.card:hover{transform:rotate(-.5deg)}
+.tabsmap{border:0;border-radius:0;background:none;border-top:2px solid var(--ink)}
+.tabsmap div{padding:12px 0;border-top:1.5px solid var(--line)}
+.tabsmap div:first-child{border-top:0}
+.rungs{background:none;border:0;border-radius:0;padding:0}
+.rungs li{border-radius:3px 9px 4px 10px}
+.verdict{padding:0!important;margin-top:16px;background:none!important;box-shadow:none!important}
+.rt{background:none;border:0;border-radius:0;padding:5px 0 9px;font-size:15.5px}
+.rt[aria-selected="true"],.rt[aria-pressed="true"]{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 8' preserveAspectRatio='none'%3E%3Cpath d='M1.6630169686370553 4.799113879289561 C62.540609830724264 3.42106221525946, 119.1913391851247 5.741549604183677, 299.01540209741313 3.4447562282106508 M2.1918097009281023 4.451539100418191 C118.02824897270902 4.00175167264014, 235.08342814213216 5.035266101758658, 298.9194833896703 4.917957813262028' stroke='%231A1A1A' stroke-width='2.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") left bottom/100% 7px no-repeat;color:var(--ink);font-weight:700}
+.rt:hover{color:var(--red-deep)}
+.lede{max-width:34em}
+.li{display:inline-flex;align-items:center;min-height:42px;padding:0 20px;border-radius:999px;background:#0A66C2;color:#fff;font:600 15px var(--sans,Inter,sans-serif);text-decoration:none}
+.li:hover{background:#004182}
+.li:focus-visible{outline:2px solid #0A66C2;outline-offset:3px}
+@media (max-width:900px){.facts>div+div::before,.facts>div+div::after{display:none}.facts>div:nth-child(odd){border-left:0}.facts>div:nth-child(n+3){border-top:2px dashed var(--dim)}.levers .card.on b{margin-left:-10px;padding:6px 12px}.trust .node{padding:0 0 0 70px;text-align:left;align-items:flex-start;min-height:56px;justify-content:center}.trust .node::before{left:0;margin-left:0}.trust i{margin:0 0 0 26px}}
+@media (prefers-reduced-motion:reduce){a.card:hover{transform:none}}
+</style>
+</head>
+<body>
+
+<header class="wrap nav">
+  <a class="logo" href="index.html" aria-label="Prady, home"><span class="lt" style="--i:0">p</span><span class="lt" style="--i:1">r</span><span class="lt" style="--i:2">a</span><span class="lt" style="--i:3">d</span><span class="lt" style="--i:4">y</span><span class="dw"><i>.</i></span></a>
+  <nav aria-label="Primary">
+    <a class="tx" href="index.html#work">My work</a>
+    <a class="tx" href="index.html#how">How I work</a>
+    <a class="tx" href="index.html#about">About</a>
+    <a class="hb on" href="resume.html">Resume</a>
+  </nav>
+</header>
+
+
+<main>
+  <section class="wrap stack" style="padding-top:clamp(40px,6vw,80px)">
+    <span class="kicker">Case study, IUCAT for Indiana University Libraries</span>
+    <h1 class="display">The library catalog had a save button. <span class="dim">It was a checkbox called</span> <span class="hl">“Select”.</span></h1>
+    <p class="lede">IUCAT is how Indiana University finds, saves and requests books. In a team of eight we redesigned saving and requesting. The Basket was my idea.</p>
+
+    <div class="filmrow" style="margin-top:8px">
+      <div class="frame film" id="film" role="img" aria-label="Animated walkthrough of the redesigned IUCAT: saving a book to a folder, adding two books to the Basket, and requesting them together"></div>
+      <div class="filmcap">
+        <div class="stack" style="gap:4px"><span class="kicker" id="fN">1 of 7</span><span class="t" id="fT"></span><span class="note" id="fS"></span></div>
+        <div class="filmctl"><div class="dots" id="fDots"></div><button class="tx" type="button" id="fPlay" style="margin:0">Pause</button></div>
+      </div>
+      <span class="cap">The final design, rebuilt here in code in the style of Rivet, IU's design system, with sample books. It plays on a loop. Use the dots to jump to a step.</span>
+    </div>
+
+    <div class="facts">
+      <div class="card"><span class="kicker">My role</span><b>Designer and researcher</b><span class="note">the Basket was my idea</span></div>
+      <div class="card"><span class="kicker">Team and sponsor</span><b>8 designers, IU Libraries</b><span class="note">we met the sponsor every week</span></div>
+      <div class="card"><span class="kicker">Time</span><b>One semester</b><span class="note">research to handoff</span></div>
+      <div class="card dark"><span class="kicker" style="color:#D9D2C3">Handed off</span><b>5 feature sets</b><span class="note" style="color:#D9D2C3">with notes for developers</span></div>
+    </div>
+  </section>
+
+  <section class="wrap band stack">
+    <h2 class="title">Nobody could find <span class="ul">how to save a book</span></h2>
+    <p class="lede">To save an item you tick a box labelled Select. It lands in a Selections tab, and only from there can you file it. Requesting is a different button on a different page.</p>
+    <div class="stack" style="gap:14px">
+      <span class="note" id="bNote">try it yourself: tick “Select” on a book</span>
+      <div class="frame" id="beforeDemo" data-h="600"></div>
+      <span class="cap">The catalog as it works today, rebuilt so you can try it. The only response to saving is a number changing in the top bar.</span>
+    </div>
+    <div class="two wide" style="align-items:start;margin-top:12px">
+      <div class="stack" style="gap:12px"><a class="shot" href="a/iu-select.jpg"><img src="a/iu-select.jpg" alt="A search result in the current IUCAT with a small Select checkbox on the right" loading="lazy" width="1200" height="394"></a><span class="cap">The real thing: a screenshot of today's Select checkbox.</span></div>
+      <div class="stack" style="gap:12px"><a class="shot" href="a/iu-before.jpg"><img src="a/iu-before.jpg" alt="The current IUCAT search page with the Select checkbox and the Selections tab circled in red" loading="lazy" width="1500" height="749"></a><span class="cap">The two red circles are everything the system shows you after you save.</span></div>
+    </div>
+  </section>
+
+  <section class="wrap band stack" style="gap:clamp(72px,9vw,120px)">
+    <div class="stack"><h2 class="title">How we got from that checkbox <span class="hl">to the Basket</span></h2><p class="lede">Five steps, in the order they happened.</p></div>
+
+    <div class="step"><span class="num">1</span><div class="stack">
+      <span class="sub">We watched people try, without telling them which tool to use</span>
+      <p class="lede">Students saved a list of items while thinking aloud. We never said Selections or Folders. Before that we interviewed three IU librarians and compared catalogs on the same framework, including Stanford and Harvard.</p>
+      <div class="finds">
+        <div class="card"><b>They looked for a button that said Save</b><p>Most people paused at the Select checkbox or missed it completely.</p></div>
+        <div class="card"><b>A checkbox reads as step one of something</b><p>Like ticking emails before deleting them. People waited for a second step that never came.</p></div>
+        <div class="card"><b>Nothing confirmed the save</b><p>Most could not find the Selections tab where their items had gone.</p></div>
+        <div class="card"><b>Some thought Select meant request</b><p>They ticked several books expecting to check them out together. Request is on each item's own page, one book at a time.</p></div>
+      </div>
+      <div class="aside"><div class="pnote pn-e"><b>From the librarians</b><p>they answer the same questions again and again, mostly about what the catalog's words mean</p></div><img src="a/thinking.png" alt="Line drawing of Prady thinking"></div>
+    </div></div>
+
+    <div class="step"><span class="num">2</span><div class="stack">
+      <span class="sub">We sketched wide before narrowing</span>
+      <p class="lede">Everyone drew alone first, then we put the sheets side by side. The aim was to imagine new features, not only tidy the old ones.</p>
+      <div class="wall" tabindex="0" aria-label="Sketches, scroll sideways"><a class="paper" href="a/iu-sk-icons.jpg"><img src="a/iu-sk-icons.jpg" alt="Hand sketches of possible save icons: bookmark, heart, plus, star, pin, and an Add to Folder menu" loading="lazy"><span>which icon says “save”?</span></a><a class="paper" href="a/iu-sk-variations.jpg"><img src="a/iu-sk-variations.jpg" alt="Notes comparing bookmark, Pinterest-style add and pin for the selections feature" loading="lazy"><span>bookmark, plus or pin</span></a><a class="paper" href="a/iu-sk-overlay.jpg"><img src="a/iu-sk-overlay.jpg" alt="A paper sketch of a folder picker laid over a screenshot of IUCAT" loading="lazy"><span>a folder picker, drawn over the real page</span></a><a class="paper" href="a/iu-sk-create.jpg"><img src="a/iu-sk-create.jpg" alt="Sketch of a folder list with a Create folder button" loading="lazy"><span>make a folder on the spot</span></a><a class="paper" href="a/iu-sk-flow.jpg"><img src="a/iu-sk-flow.jpg" alt="Two sketched screens and a flow chart of saving from search into a folder" loading="lazy"><span>the whole save flow on one sheet</span></a><a class="paper" href="a/iu-sk-actions.jpg"><img src="a/iu-sk-actions.jpg" alt="Annotated sketch of the search page and folder page with numbered actions" loading="lazy"><span>numbering every action</span></a><a class="paper" href="a/iu-sk-folder.jpg"><img src="a/iu-sk-folder.jpg" alt="Sketch of a folder screen with sort, filter, select, remove and request now" loading="lazy"><span>what a folder page needs</span></a><a class="paper" href="a/iu-sk-tips.jpg"><img src="a/iu-sk-tips.jpg" alt="Sketch of instruction bubbles explaining Basic Search, Browse and Call Number" loading="lazy"><span>bubbles for the library’s jargon</span></a><a class="paper" href="a/iu-sk-results.jpg"><img src="a/iu-sk-results.jpg" alt="Sketch of browse results with thumbnails" loading="lazy"><span>browse results with covers</span></a></div>
+      <span class="cap">Sketches from the whole team. Scroll sideways, and open any one to see it full size.</span>
+    </div></div>
+
+    <div class="step"><span class="num">3</span><div class="stack">
+      <span class="sub">One checkbox was doing two jobs, so I proposed a Basket</span>
+      <p class="lede">Our early ideas put everything in one cart. The sketches showed why that fails: keeping a book for later and asking for it now are different intentions. So I proposed a Basket: collect while you search, check out once.</p>
+      <div class="split">
+        <div class="card"><span class="kicker">Keep it for later</span><span class="sub">Folders</span><p style="color:var(--body);font-size:17px">A named Save to Folder button on every search result.</p></div>
+        <span class="mid">not the same as</span>
+        <div class="card" style="border-color:var(--red)"><span class="kicker">Get it now</span><span class="sub">Basket</span><p style="color:var(--body);font-size:17px">Collect from search, see what is available where, request it all together.</p></div>
+      </div>
+      <div class="wall" tabindex="0" aria-label="Basket sketches, scroll sideways"><a class="paper" href="a/iu-sk-cart.jpg"><img src="a/iu-sk-cart.jpg" alt="Notebook sketch of search results with the words Bookshelf, Cart and Storage questioned" loading="lazy"><span>bookshelf? cart? storage?</span></a><a class="paper" href="a/iu-sk-bag.jpg"><img src="a/iu-sk-bag.jpg" alt="Sketch of an account menu and a bag icon that shows how many items it holds" loading="lazy"><span>a bag that counts what is in it</span></a><a class="paper" href="a/iu-sk-requestall.jpg"><img src="a/iu-sk-requestall.jpg" alt="Sketch asking how to request several books at once, with a Request All button" loading="lazy"><span>select all, or request all?</span></a><a class="paper mine" href="a/iu-sk-basket.jpg"><img src="a/iu-sk-basket.jpg" alt="Early sketch of a Basket page grouped by e-book, physical and restricted items" loading="lazy"><span>the first Basket page</span></a></div>
+    </div></div>
+
+    <div class="step"><span class="num">4</span><div class="stack">
+      <span class="sub">We made it fit Rivet, and iterated in the open</span>
+      <p class="lede">IUCAT is built with Rivet, IU's design system, so every idea had to be rebuilt from its parts. Three places took the most rounds.</p>
+      <div class="iter">
+        <div><a class="shot" href="a/iu-it-modal1.jpg"><img src="a/iu-it-modal1.jpg" alt="An intermediate Saved in modal listing folders" loading="lazy"></a><a class="shot" href="a/iu-it-modal2.jpg"><img src="a/iu-it-modal2.jpg" alt="The final Saved in modal with Save to Folder and Create a New Folder" loading="lazy"></a><b>The folder modal</b><p>Rivet's ready-made modal said nothing about the folders themselves. Ours shows what each holds, when it changed, and lets you create one in place.</p></div>
+        <div><a class="shot" href="a/iu-it-colors.jpg"><img src="a/iu-it-colors.jpg" alt="Four sets of button colour tests for Add to Basket, Edit and Delete" loading="lazy"></a><a class="shot" href="a/iu-it-folder2.jpg"><img src="a/iu-it-folder2.jpg" alt="The final folders list with quiet icon actions" loading="lazy"></a><b>Button colour</b><p>We tried green, blue and gold for Add to Basket. The rule we kept: blue and white for actions, red only for destructive ones.</p></div>
+        <div><a class="shot" href="a/iu-it-preview.jpg"><img src="a/iu-it-preview.jpg" alt="A preliminary Basket preview panel grouped by availability" loading="lazy"></a><a class="shot" href="a/iu-it-tags2.jpg"><img src="a/iu-it-tags2.jpg" alt="The final search result with Save to Folder, Add to Basket and a Folders tab" loading="lazy"></a><b>The Basket preview</b><p>An early version opened a full page. We changed it to a panel that slides over search, so adding a book never costs you your place.</p></div>
+      </div>
+      <span class="cap">Working screens from the team's design file.</span>
+    </div></div>
+
+    <div class="step"><span class="num">5</span><div class="stack">
+      <span class="sub">The library's own UX designers pushed back, and it got better</span>
+      <div class="calls">
+        <div class="card"><b>Basket and Folders stay separate</b><p>They asked whether items should move from Basket back into Folders. We kept the two apart on purpose, so Basket is only ever about requesting.</p></div>
+        <div class="card"><b>A step we had missed</b><p>Restricted items need a reading-room appointment on another site. We added a notice saying where you are sent and why.</p></div>
+      </div>
+    </div></div>
+  </section>
+
+  <section class="wrap band stack">
+    <h2 class="title">What we handed over</h2>
+    <p class="lede">Every screen here is rebuilt in code from the final design.</p>
+    <div class="tabs" role="tablist" aria-label="Feature sets" id="ftabs"></div>
+    <div class="fpanel" id="fpanel" role="tabpanel"></div>
+  </section>
+
+  <section class="wrap band stack">
+    <h2 class="title">Where it stands</h2>
+    <div class="two even">
+      <div class="card" style="padding:26px;display:flex;flex-direction:column;gap:10px"><span class="sub">Built so it can be built</span><p style="color:var(--body)">Notes for developers: building the slide-in Basket from Rivet's dialog, keyboard behaviour, and two ways to store a Basket.</p></div>
+      <div class="card" style="padding:26px;display:flex;flex-direction:column;gap:10px"><span class="sub">No usage numbers yet</span><p style="color:var(--body)">This was a design handoff. Nothing is measured yet, and I would rather say that than invent a number.</p></div>
+    </div>
+    <figure class="card quote">
+      <blockquote>“Pradyumna has an extraordinary ability to see the system behind the screen. He doesn’t just solve the brief, he reframes the problem in ways that unlock better outcomes for everyone involved.”</blockquote>
+      <figcaption class="kicker">James H. Smith, Discovery &amp; UX Librarian, Indiana University</figcaption>
+    </figure>
+  </section>
+
+  <section class="wrap band stack">
+    <span class="kicker">What I took away</span>
+    <p class="display">Name the job <span class="hl">before</span> <span class="dim">you design the button.</span></p>
+    <p class="lede">Most of the confusion was not about layout. It was one word standing in for two intentions.</p>
+    <div class="two" style="margin-top:32px;align-items:end">
+      <div class="aside"><div class="pnote pn-d"><b>What's next</b><p>before this:<em>a platform for 2,000+ volunteers.</em></p></div><img src="a/excited.png" alt="Line drawing of Prady looking excited about the next project"></div>
+      <a href="highlight-case-study.html" class="card" style="padding:28px;display:flex;flex-direction:column;gap:14px;text-decoration:none;border-color:var(--ink)">
+        <span class="kicker">Next case study</span>
+        <span class="sub">I led one platform where an NGO's volunteer stories meet its program data</span>
+        <span class="hb on" style="align-self:flex-start">Read it</span>
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <span>© 2026 Pradyumna Satheesh. MS HCI, Indiana University Bloomington.</span>
+  <span style="display:flex;gap:8px;flex-wrap:wrap"><a class="tx" href="index.html">Back home</a><a class="li" href="https://www.linkedin.com/in/pradyumnasatheesh" target="_blank" rel="noopener">LinkedIn</a><a class="hb on" href="mailto:pradyumnasatheesh@gmail.com?subject=Hello%20Prady">Say hi</a></span>
+</footer>
+<script>
+(function () {
+  var W = 1180, H = 740;
+  var I = {
+    folder: '<svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>',
+    basket: '<svg viewBox="0 0 24 24"><path d="M3 10h18l-1.6 9H4.6zM8 10l3-6M16 10l-3-6M9 13.5v3M12 13.5v3M15 13.5v3"/></svg>',
+    search: '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>',
+    clock: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>',
+    trash: '<svg viewBox="0 0 24 24"><path d="M5 7h14M10 7V4.5h4V7M7 7l1 12.5h8L17 7M10.5 10.5v6M13.5 10.5v6"/></svg>',
+    pin: '<svg viewBox="0 0 24 24"><path d="M12 21s6.5-5.6 6.5-10.5a6.5 6.5 0 0 0-13 0C5.500 15.400 12 21 12 21z"/><circle cx="12" cy="10.500" r="2.200"/></svg>',
+    ok: '<svg viewBox="0 0 24 24" style="color:#056E41"><circle cx="12" cy="12" r="9" fill="#056E41"/><path d="M8 12.300l2.700 2.700L16 9.500" stroke="#fff" stroke-width="2.2"/></svg>',
+    people: '<svg viewBox="0 0 24 24" style="color:#59264D"><circle cx="9" cy="8" r="3.200" fill="#59264D"/><path d="M3 19c0-3.300 2.700-5.500 6-5.500s6 2.200 6 5.500z" fill="#59264D"/><circle cx="17" cy="9" r="2.500" fill="#59264D"/><path d="M16 13.600c2.900 0 5 1.900 5 4.900h-4" fill="#59264D"/></svg>',
+    cal: '<svg viewBox="0 0 24 24" style="color:#006298"><rect x="4" y="5.500" width="16" height="14.500" rx="1.500"/><path d="M4 10h16M8.500 3.500v4M15.500 3.500v4M8 14h2M14 14h2"/></svg>',
+    no: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="#990000" stroke="#990000"/><path d="M7.500 12h9" stroke="#fff" stroke-width="2.400"/></svg>',
+    user: '<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.500"/><path d="M5 20c0-3.900 3.100-6 7-6s7 2.100 7 6"/></svg>',
+    doc: '<svg viewBox="0 0 24 24"><path d="M7 3.500h7l4 4V20.500H7zM14 3.500v4h4M10 12h5M10 15.500h5"/></svg>',
+    mark: '<svg viewBox="0 0 24 24"><path d="M7 4h10v16l-5-4-5 4z"/></svg>',
+    help: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.500"/><path d="M9.700 9.500a2.400 2.400 0 1 1 3.400 2.200c-.8.400-1.100.9-1.100 1.800M12 16.600v.2"/></svg>'
+  };
+  var B = [
+    { t: 'Sustainable design : a critical guide', s: 'Sustainable design', au: 'Bergman, David, 1956-', pub: 'New York : Princeton Architectural Press, c2012', fmt: 'Book', at: 'Bloomington', c: '#5E8FA3', ed: '1st ed.' },
+    { t: 'Sustainable design : ecology, architecture, and planning', s: 'Sustainable design : ecology, architecture…', au: 'Williams, Daniel Edward', pub: 'Hoboken : Wiley, c2007', fmt: 'Book', at: 'Bloomington, Indianapolis', c: '#6C8F4E', ed: '1st ed.' },
+    { t: 'Sustainable design : a critical guide', s: 'Sustainable design', au: 'Bergman, David, 1956-', pub: 'New York : Princeton Architectural Press, c2012', fmt: 'E-Book', at: 'Online', c: '#5E8FA3', online: true }
+  ];
+  var EXTRA = [
+    { g: 'person', s: 'Sustainable Design : HCI, Usability and Environmental Concerns', au: 'Issa, Tomayess', ed: '1st ed. 2015.', at: 'Bloomington, Indianapolis', c: '#1F6F5C' },
+    { g: 'appt', s: 'Cradle to cradle : remaking the way we make things', au: 'McDonough, William', ed: '1st ed. 2002.', at: 'Bloomington', c: '#B5673A', btn: 'Make Appointment' },
+    { g: 'none', s: 'Design for the real world : human ecology and social change', au: 'Papanek, Victor', ed: '2nd ed. 1984.', at: 'Status: Missing', c: '#7A5C8E', btn: 'More Options', miss: true }
+  ];
+  var LIBS = [['Wells Library', '1320 E Tenth St.'], ['Lilly Library', '1200 E Seventh St.'], ['Music Library', '200 S Eagleson Ave.'], ['Neal-Marshall Black Culture Center Library', '275 N Eagleson Ave.'], ['Business/SPEA Library', '1315 E Tenth St.']];
+  var FOLDERS = [['HCI reading list', 3, '2 days ago'], ['Thesis sources', 5, '5 days ago'], ['Capstone', 2, '12 days ago']];
+  function cov(b) { return '<span class="rv-cov" style="background:linear-gradient(160deg,' + b.c + ',#243142)">' + (b.s || '') + '</span>'; }
+  function fresh(S, k) { return S.fresh === k ? ' in' : ''; }
+
+  function head(S) {
+    var nav = '<span class="car">Campus</span><span class="car">Help</span><span>History</span>';
+    if (S.before) nav += '<span>Selections [' + S.sel.length + ']</span><span style="font-weight:600">Clear Selections</span>';
+    else nav += '<span>' + I.folder + 'Folders</span><span>' + I.basket + 'Basket <b class="rv-bdg' + (S.fresh === 'badge' || S.fresh === 'off' ? ' pop' : '') + '">' + S.basket.length + '</b></span>';
+    return '<div class="rv-hd"><span class="rv-logo"><i></i>IUCAT</span><span class="rv-nav">' + nav + '<span class="car"><b class="rv-av">PS</b></span></span></div>';
+  }
+  function tabs(S) {
+    var t = ['Basic Search', 'Advanced Search', 'Browse', 'Reserves', 'Music Search'];
+    return '<div class="rv-tabs">' + t.map(function (x, i) { return '<span class="' + (i === 0 ? 'on' : '') + '">' + x + (S.tips && i === 3 ? '<span class="rv-tip" style="left:50%;transform:translateX(-50%);bottom:44px">Search course reserve items across all IU campuses</span>' : '') + '</span>'; }).join('') + '</div>';
+  }
+  function sbox(S, q) {
+    return '<div class="rv-sb"><div class="in"><b>All Fields ▾</b><em>' + q + '</em>' + (S.before ? '' : '<u class="h">' + I.clock + '</u>') + '<u>' + I.search + '</u></div><div class="oo"><i></i>Online Only</div>' +
+      (S.hist ? '<div class="rv-hist">' + ['sustainable design', 'lean ux', 'feminism', 'hci remixed', 'design against design'].map(function (x) { return '<div>' + I.clock + x + '</div>'; }).join('') + '</div>' : '') + '</div>';
+  }
+  function item(S, b, i) {
+    var saved = S.saved[i] || [], inB = S.basket.indexOf(i) >= 0, act;
+    if (S.before) act = '<button type="button" class="rv-chk' + (S.sel.indexOf(i) >= 0 ? ' on' : '') + '" data-k="sel-' + i + '"><i>' + (S.sel.indexOf(i) >= 0 ? '✓' : '') + '</i>Select</button>';
+    else act = '<button type="button" class="rv-b' + (saved.length ? ' solid' : '') + '" data-k="save-' + i + '">' + I.folder + (saved.length ? 'Saved' : 'Save to Folder') + (S.tips && i === 0 ? '<span class="rv-tip" style="left:50%;transform:translateX(-50%);bottom:36px;color:#243142;font-weight:400">Save to folders</span>' : '') + '</button>' +
+      (b.online ? '<span class="rv-b dis">' + I.basket + 'Online Only</span>' : '<button type="button" class="rv-b' + (inB ? ' solid' : '') + '" data-k="bask-' + i + '">' + I.basket + (inB ? 'Added to Basket' : 'Add to Basket') + '</button>') +
+      '<button type="button" class="rv-q" data-k="cite-' + i + '" aria-label="Cite">”</button>';
+    var h = '<div class="rv-it"><div class="rv-ti"><span>' + (i + 1) + '.</span> ' + b.t + '</div><div class="rv-act">' + act + '</div>';
+    if (S.tags && i === 0) h += '<div class="rv-tags">' + ['Sustainable design', 'Architecture, Environmental aspects', 'Green products'].map(function (x) { return '<b>' + x + ' ' + I.search + '</b>'; }).join('') + '</div>';
+    h += '<div class="rv-sub"><span class="on">Publication Details</span><span>Availability</span>' + (!S.before && saved.length ? '<span class="' + (S.fresh === 'saved' ? 'new' : '') + '">' + I.folder + 'Folders (' + saved.length + ')</span>' : '') + '</div>';
+    h += '<div class="rv-md"><span>Author:</span><span>' + b.au + '</span><span>Published:</span><span>' + b.pub + '</span><span>Format:</span><span>' + b.fmt + '</span><span>Copies At:</span><span>' + b.at + '</span></div>' + cov(b) + '</div>';
+    return h;
+  }
+  function dlgSave(S) {
+    var b = B[S.modal.i], saved = S.saved[S.modal.i] || [];
+    return '<div class="rv-veil' + fresh(S, 'modal') + '" data-k="close"></div><div class="rv-dlg' + fresh(S, 'modal') + '"><h4>Saved in <button type="button" class="rv-x" data-k="mclose">×</button></h4><div class="rv-bk">' + cov({ c: b.c }) + b.t + '</div><div class="rv-inp">Type to search folders…</div><div class="rv-tbl"><span class="th">Name</span><span class="th">Created</span><span class="th">Updated</span><span class="th"></span>' +
+      FOLDERS.map(function (f, k) { var on = saved.indexOf(f[0]) >= 0; return '<span><a>' + f[0] + '</a> (' + (f[1] + (on ? 1 : 0)) + ' items)</span><span>' + f[2] + '</span><span>' + (on ? 'Just now' : f[2]) + '</span><span><button type="button" class="rv-b' + (on ? '' : ' solid') + '" data-k="fold-' + k + '">' + (on ? 'Remove from Folder' : 'Save to Folder') + '</button></span>'; }).join('') +
+      '</div><div><span class="rv-b">Create a New Folder</span></div></div>';
+  }
+  function dlgCite(S) {
+    return '<div class="rv-veil' + fresh(S, 'modal') + '" data-k="close"></div><div class="rv-dlg' + fresh(S, 'modal') + '" style="width:600px"><h4>Export Citations <button type="button" class="rv-x" data-k="mclose">×</button></h4><div class="rv-inp" style="color:#243142;width:300px;display:flex;justify-content:space-between">Chicago <span>▾</span></div><div class="rv-inp" style="color:#243142;min-height:110px;padding:12px">Bergman, David. <i>Sustainable Design: A Critical Guide</i>. New York: Princeton Architectural Press, 2012.</div><div style="display:flex;justify-content:flex-end;gap:8px"><span class="rv-b solid lg">Export</span><span class="rv-b solid lg">Copy to Clipboard</span></div></div>';
+  }
+  function card(b, extra, isNew) {
+    return '<div class="rv-c' + (isNew ? ' in' : '') + '">' + cov({ c: b.c }) + '<div><b>' + (b.s2 || b.t || b.s) + '</b>Author: ' + b.au + '<br>Edition: ' + (b.ed || '1st ed.') + '<br>' + (b.miss ? '<b style="font-size:12.5px">Status: Missing</b>' : '<span class="rv-pin">' + I.pin + b.at + '</span>') + '</div>' + (extra || '') + '<span class="rv-b del">' + I.trash + '</span></div>';
+  }
+  function offc(S) {
+    return '<div class="rv-veil' + fresh(S, 'off') + '" data-k="close"></div><div class="rv-off' + fresh(S, 'off') + '"><h4 style="margin:0;font-size:16px;display:flex;align-items:center;gap:8px">Basket Preview <span class="rv-b" style="margin-left:auto">' + I.basket + 'Go to Basket</span><button type="button" class="rv-x" data-k="offclose">×</button></h4><div class="rv-dl">Deliver to <b>Bloomington ▾</b></div><div class="rv-g">' + I.ok + 'Available Now <small>(' + S.basket.length + ')</small></div><div class="rv-gd">These items are available to be requested.</div>' +
+      S.basket.map(function (i, k) { return card(B[i], '', k === S.basket.length - 1 && S.fresh === 'off'); }).join('') +
+      '<div class="rv-g">' + I.people + 'In-Person Only <small>(1)</small></div>' + card(EXTRA[0]) +
+      '<button type="button" class="rv-b solid lg" style="margin-top:auto;justify-content:center" data-k="gobasket">' + I.basket + 'Go to Basket</button></div>';
+  }
+  function search(S) {
+    var q = S.q || 'sustainable design';
+    var h = head(S) + tabs(S) + sbox(S, q) + '<div class="rv-for">You searched for: <b>' + q + ' ×</b><a>Reset</a></div>';
+    if (S.none) return h + '<div class="rv-home" style="background:#fff;border:1px solid #DDD;margin-top:20px"><div style="font-size:22px;margin:10px 0 26px">No results found</div><div style="color:#006298;font-weight:600;margin-bottom:12px">Try related searches ›</div><div class="rv-tags" style="justify-content:center">' + ['Labubu', 'Doll', 'Hong Kong', 'Doll Object', 'Roman Doll', 'Perfect Doll'].map(function (x) { return '<b>' + x + '</b>'; }).join('') + '</div></div>';
+    h += '<div class="rv-h1">Search Results</div><div class="rv-body"><div class="rv-fac"><div style="border:0;padding:4px 0">1 - 25 of 11,385 Results</div><b>Refine your search</b>' + ['Newly Added Titles', 'Format', 'Publication Year', 'Author', 'Subject', 'Language', 'Call Number', 'Campus', 'Library'].map(function (x) { return '<div>' + x + '</div>'; }).join('') + '</div><div class="rv-res"><div class="rv-count"><span>Sort by Relevance ▾</span><span>25 per page ▾</span></div>' + B.map(function (b, i) { return item(S, b, i); }).join('') + '</div></div>';
+    if (S.modal && S.modal.k === 'save') h += dlgSave(S);
+    if (S.modal && S.modal.k === 'cite') h += dlgCite(S);
+    if (S.off) h += offc(S);
+    return h;
+  }
+  function basket(S) {
+    var n = S.basket.length, h = head(S) + '<div class="rv-bask"><div class="rv-col"><h2>Basket</h2><div class="rv-dl">Deliver to <b>Bloomington ▾</b></div>';
+    if (S.done) h += '<div class="rv-al' + fresh(S, 'done') + '"><b>' + S.done + ' Items Requested</b><i>Sustainable design…</i> + ' + (S.done - 1) + ' other was successfully requested. You can cancel a request from the My Account page.</div>';
+    if (n) h += '<div class="rv-g">' + I.ok + 'Available Now <small>(' + n + ')</small></div><div class="rv-gd">These items are available to be requested. Some titles may require extra time to be delivered to your preferred library.</div>' + S.basket.map(function (i) { return card(B[i], '<span class="rv-b">Request</span>'); }).join('') + '<div style="display:flex;justify-content:flex-end"><button type="button" class="rv-b solid" data-k="reqall">Request All (' + n + ')</button></div>';
+    var G = { person: [I.people, 'In-Person Only', 'These items are only available for checkout by visiting the specified library in-person.'], appt: [I.cal, 'Appointment Only', 'These items require in-person appointments for viewing.'], none: [I.no, 'Unavailable', 'These items are unavailable for checkout.'] };
+    EXTRA.forEach(function (e) { var g = G[e.g]; h += '<div class="rv-g">' + g[0] + g[1] + ' <small>(1)</small></div><div class="rv-gd">' + g[2] + '</div>' + card(e, e.btn ? '<span class="rv-b">' + e.btn + '</span>' : ''); });
+    h += '</div><div class="rv-ap"><h5>Account Preview <span class="rv-b">' + I.user + 'Go to Account</span></h5><b>Checkouts</b>' +
+      '<div class="rv-c">' + cov({ c: '#1F6F5C' }) + '<div><b>Lean UX : applying lean principles to improve user experience</b>Due 12/8/2026 (21 days)<br><span class="rv-pin">' + I.pin + 'Bloomington</span></div></div><a style="color:#006298;font-weight:600;font-size:13px;text-align:right">See All Checkouts (1) →</a><b>Requests</b>' +
+      (S.done ? '<div class="ok' + fresh(S, 'done') + '"><i>' + S.done + ' title(s) just requested</i>' + S.reqd.map(function (i) { return '<div class="rv-c">' + cov({ c: B[i].c }) + '<div><b>' + B[i].s + '</b>Pickup: Wells Library<br><span class="rv-pin">' + I.pin + 'Bloomington</span></div></div>'; }).join('') + '</div><a style="color:#006298;font-weight:600;font-size:13px;text-align:right">See All Requests (' + S.done + ') →</a>' : '<i style="font-size:12.5px;color:#6B7280">0 item(s) have been requested for delivery.</i>') + '</div></div>';
+    if (S.req) h += '<div class="rv-veil' + fresh(S, 'req') + '" data-k="close"></div><div class="rv-dlg' + fresh(S, 'req') + '" style="width:520px;gap:10px"><h4>Request ' + n + ' Item(s) <button type="button" class="rv-x" data-k="mclose">×</button></h4><div class="rv-bk" style="font-size:15px">' + cov({ c: B[0].c }) + '<span>Sustainable design… + ' + (n - 1) + ' other<br><small style="font-style:normal;font-size:12px;color:#4A5568">Select a location to have item(s) delivered to the IU library of your choice. Delivery usually takes 4-7 working days.</small></span></div><b style="font-size:13px">Select a Bloomington library for pickup:</b>' +
+      LIBS.map(function (l, k) { return '<div class="rv-lib' + (S.lib === k ? ' on' : '') + '" data-k="lib-' + k + '"><span><b>' + l[0] + '</b><span class="rv-pin">' + I.pin + l[1] + '</span></span></div>'; }).join('') +
+      '<div style="display:flex;justify-content:flex-end;gap:8px;margin-top:4px"><span class="rv-b plain lg">Cancel</span><button type="button" class="rv-b solid lg' + (S.lib == null ? ' dis' : '') + '" data-k="reqgo">Request ' + n + ' Item(s)</button></div></div>';
+    return h;
+  }
+  function folder(S) {
+    return head(S) + tabs(S) + sbox(S, '<span style="color:#8A93A0">Search the library catalog</span>') + '<div style="padding:0 190px"><div class="rv-crumb"><a>Folders</a> / HCI reading list</div><div style="display:flex;justify-content:space-between;align-items:flex-start"><div class="rv-md" style="grid-template-columns:70px 1fr;font-size:12.5px"><span>Owner:</span><span>Pradyumna Satheesh</span><span>Visibility:</span><span>Only me</span><span>Created:</span><span>28 days ago</span><span>Updated:</span><span>2 days ago</span></div><div class="rv-act"><span class="rv-b"><b style="font:800 18px/10px Georgia">”</b>Export Citation</span><span class="rv-b">Copy Link</span><span class="rv-b">Email</span><span class="rv-b solid">' + I.basket + 'Add All to Basket</span></div></div>' +
+      [B[0], B[1], EXTRA[0]].map(function (b, i) { return '<div class="rv-it" style="grid-template-columns:1fr auto"><div><div class="rv-ti"><span>' + (i + 1) + '.</span> ' + (b.t || b.s) + '</div><div class="rv-md" style="margin-top:6px"><span>Author:</span><span>' + b.au + '</span><span>Format:</span><span>Book</span><span>Copies At:</span><span>' + b.at + '</span></div></div><div class="rv-act" style="align-items:flex-start"><span class="rv-b">' + I.basket + 'Add to Basket</span><span class="rv-b del">' + I.trash + '</span></div></div>'; }).join('') + '</div>';
+  }
+  function home(S) {
+    return head(S) + tabs(S) + sbox(S, '<span style="color:#8A93A0">Search the library catalog</span>') + '<div style="padding:18px 190px 0;font-size:19px">Welcome to the Indiana University Library Catalog</div><div class="rv-home" style="margin-top:14px"><div class="g"><div>' + I.search + 'Use the Search bar to find books, media, articles, and online materials.</div><div>' + I.doc + 'Tap a result to see availability, location, and request options.</div><div>' + I.mark + 'Select Request to get the item from your campus library.</div></div>Need help choosing a library or placing a request? Visit the <b style="color:#990000">Knowledge Base</b>.</div>';
+  }
+  function mobile() {
+    return '<div class="rv-hd" style="padding:0 16px"><span class="rv-logo"><i></i>IUCAT</span><span class="rv-nav"><b style="font-size:22px">≡</b></span></div><div style="padding:8px 16px;font-size:15px">' +
+      ['Basic Search', 'Advanced Search', 'Browse', 'Reserves', 'Music Search'].map(function (x, i) { return '<div style="padding:13px 6px;display:flex;gap:8px;align-items:center;' + (i === 0 ? 'color:#990000;border-bottom:3px solid #990000;background:#FBF2F2' : 'border-bottom:1px solid #E6E6E6') + '">' + x + '<span style="color:#006298;display:flex">' + I.help + '</span></div>' + (i === 0 ? '<div style="background:#F7F7F7;border:1px solid #DDD;border-radius:4px;margin:10px 0;padding:12px 14px;font-size:13px"><b>Basic Search</b><br>Search every field at once. Word-stemming is done automatically, so “design” also finds “designs”.<br><a style="color:#006298;font-weight:600">Access more help at the KB.</a></div>' : ''); }).join('') + '</div>';
+  }
+  var SCREENS = { search: search, basket: basket, folder: folder, home: home, mobile: mobile };
+  function base(o) { var S = { page: 'search', saved: {}, basket: [], sel: [], modal: null, off: false, req: false, lib: null, done: 0, reqd: [] }; for (var k in o) S[k] = o[k]; return S; }
+  function html(S) { return SCREENS[S.page](S); }
+
+  /* fit every frame to its width */
+  function fit(fr) {
+    var w = +fr.dataset.w || W, h = +fr.dataset.h || H, s = fr.clientWidth / w; fr._s = s;
+    var fh = h * s; if (fr.classList.contains('film') && fr.clientWidth < 560) fh = fr.clientWidth * 1.05;
+    if (fr.dataset.fill) fh = fr.clientHeight; else fr.style.height = fh + 'px'; fr._h = fh;
+    var st = fr.firstElementChild; st.style.width = w + 'px'; st.style.height = h + 'px';
+    if (fr._cam) fr._cam(); else st.style.transform = 'scale(' + s + ')';
+  }
+  var ro = new ResizeObserver(function (es) { es.forEach(function (e) { fit(e.target); }); });
+  function mount(fr, S) { fr.innerHTML = '<div class="stg"><div class="rv">' + html(S) + '</div></div>'; ro.observe(fr); fit(fr); }
+  window.IUrv = { mount: mount, base: base, film: makeFilm };
+
+  /* ---------- the film ---------- */
+  function makeFilm(film, o) {
+    o = o || {};
+    var S, tok = 0, playing = true, idx = 0, seen = false, minZ = o.minZoom || 1;
+    film.innerHTML = '<div class="stg"><div class="rv"></div><div class="fcur"><svg viewBox="0 0 24 24"><path d="M5 3l14 8.500-6.200 1.500L9.500 19z" fill="#1A1A1A" stroke="#fff" stroke-width="1.500" stroke-linejoin="round"/></svg></div></div>';
+    var stage = film.firstElementChild, scr = stage.firstElementChild, cur = stage.querySelector('.fcur'), focus = { x: W / 2, y: H / 2 }, cpos = { x: 640, y: 420 };
+    function draw(k) { S.fresh = k; scr.innerHTML = html(S); S.fresh = null; }
+    film._cam = function () {
+      var fw = film.clientWidth, fh = film._h || H * film._s, z = Math.min(2.3, Math.max(minZ, 640 / fw)), t = film._s * z;
+      var ox = Math.min(0, Math.max(fw - W * t, fw / 2 - focus.x * t)), oy = Math.min(0, Math.max(fh - H * t, fh / 2 - focus.y * t));
+      stage.style.transform = 'translate(' + ox + 'px,' + oy + 'px) scale(' + t + ')';
+    };
+    function place() { cur.style.transform = 'translate(' + cpos.x + 'px,' + cpos.y + 'px)'; }
+    function center(sel) { var el = scr.querySelector(sel); if (!el) return null; var r = el.getBoundingClientRect(), sr = stage.getBoundingClientRect(), k = sr.width / W; return { x: (r.left - sr.left + r.width / 2) / k, y: (r.top - sr.top + r.height / 2) / k }; }
+    function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+    var STEPS = [
+      { t: 'Search works the way it always did', n: 'nothing to relearn', acts: [] },
+      { t: 'Saving finally has a name', n: 'this used to be the “Select” checkbox', acts: [['[data-k=save-0]', function () { S.modal = { k: 'save', i: 0 }; }, 'modal']] },
+      { t: 'Pick a folder without leaving search', n: 'the result shows where it is saved', acts: [['[data-k=fold-0]', function () { S.saved[0] = ['HCI reading list']; }, ''], ['[data-k=mclose]', function () { S.modal = null; }, 'saved']] },
+      { t: 'Add to Basket, and keep searching', n: 'collect now, check out once', acts: [['[data-k=bask-0]', function () { S.basket.push(0); S.off = true; }, 'off'], ['[data-k=offclose]', function () { S.off = false; }, ''], ['[data-k=bask-1]', function () { S.basket.push(1); S.off = true; }, 'off']] },
+      { t: 'The Basket sorts by what you can get', n: 'now, in person, by appointment, or not at all', acts: [['[data-k=gobasket]', function () { S.off = false; S.page = 'basket'; }, '']] },
+      { t: 'Request everything in one go', n: 'it used to be one book, one page at a time', acts: [['[data-k=reqall]', function () { S.req = true; }, 'req'], ['[data-k=lib-0]', function () { S.lib = 0; }, ''], ['[data-k=reqgo]', function () { S.req = false; S.done = S.basket.length; S.reqd = S.basket.slice(); S.basket = []; }, 'done']] },
+      { t: 'And the catalog says it worked', n: 'the feedback “Select” never gave', acts: [], hold: 3600 }
+    ];
+    var capN = o.n, capT = o.t, capS = o.s, dots = o.dots, btn = o.btn;
+    if (dots) STEPS.forEach(function (s, i) { var b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', 'Step ' + (i + 1) + ': ' + s.t); b.onclick = function () { jump(i, true); }; dots.appendChild(b); });
+    function cap(i) {
+      if (!capT) return;
+      capN.textContent = (i + 1) + ' of ' + STEPS.length; capT.textContent = STEPS[i].t; capS.textContent = STEPS[i].n;
+      [capT, capS].forEach(function (e) { e.classList.remove('swapin'); void e.offsetWidth; e.classList.add('swapin'); });
+      [].forEach.call(dots.children, function (b, k) { b.setAttribute('aria-current', k === i); });
+    }
+    function reset(upTo) { S = base({}); for (var i = 0; i < upTo; i++) STEPS[i].acts.forEach(function (a) { a[1](); }); }
+    async function runStep(i, my) {
+      idx = i; cap(i); var st = STEPS[i];
+      if (!st.acts.length) { focus = { x: W / 2, y: i === 0 ? 300 : 260 }; film._cam(); }
+      for (var a = 0; a < st.acts.length; a++) {
+        await sleep(a ? 650 : 900); if (my !== tok) return false;
+        var c = center(st.acts[a][0]); if (c) { cpos = { x: c.x - 4, y: c.y - 2 }; focus = c; place(); film._cam(); }
+        await sleep(950); if (my !== tok) return false;
+        cur.classList.add('tap'); await sleep(200); if (my !== tok) return false;
+        st.acts[a][1](); draw(st.acts[a][2]); cur.classList.remove('tap');
+        var after = scr.querySelector('.rv-dlg,.rv-off'); if (after && (film.clientWidth < 560 || minZ > 1)) { var c2 = center('.rv-dlg,.rv-off'); if (c2) { focus = c2; film._cam(); } }
+      }
+      await sleep(st.hold || 1900); return my === tok;
+    }
+    async function play(from) {
+      var my = ++tok; var i = from;
+      while (my === tok && playing) { var ok = await runStep(i, my); if (!ok) return; i++; if (i >= STEPS.length) { i = 0; reset(0); draw(''); cpos = { x: 640, y: 420 }; place(); } }
+    }
+    function jump(i, stop) { tok++; reset(i); draw(''); cap(i); idx = i; if (stop) { playing = false; if (btn) btn.textContent = 'Play'; } else play(i); }
+    if (btn) btn.onclick = function () { playing = !playing; btn.textContent = playing ? 'Pause' : 'Play'; if (playing) jump(idx, false); else tok++; };
+    reset(0); draw(''); place(); cap(0); ro.observe(film); fit(film);
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches;
+    if (reduce) { playing = false; if (btn) btn.textContent = 'Play'; }
+    new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting && playing && !seen) { seen = true; jump(idx, false); } else if (!e.isIntersecting) { seen = false; tok++; } }); }, { threshold: .3 }).observe(film);
+  }
+  var f0 = document.getElementById('film');
+  if (f0) makeFilm(f0, { n: document.getElementById('fN'), t: document.getElementById('fT'), s: document.getElementById('fS'), dots: document.getElementById('fDots'), btn: document.getElementById('fPlay') });
+})();
+</script>
+
+<script>
+(function () {
+  var rv = window.IUrv;
+  /* the current catalog, to try */
+  var bd = document.getElementById('beforeDemo'), bn = document.getElementById('bNote'), BS = rv.base({ before: true });
+  function bdraw() { rv.mount(bd, BS); }
+  bd.addEventListener('click', function (e) {
+    var t = e.target.closest('[data-k^="sel-"]'); if (!t) return; var i = +t.dataset.k.split('-')[1], k = BS.sel.indexOf(i);
+    if (k >= 0) BS.sel.splice(k, 1); else BS.sel.push(i);
+    bn.textContent = BS.sel.length ? 'that was it. look for “Selections [' + BS.sel.length + ']” in the top bar.' : 'unticked. did you see the number change?';
+    bdraw();
+  });
+  bdraw();
+
+  var F = [
+    { n: 'Saving and folders', h: 'Save from search, into the folder you choose', li: ['“Select” becomes a labelled Save to Folder button on every result.', 'The modal shows which folders already hold the item and lets you create one on the spot.', 'A folder can be cited, shared or sent to the Basket whole.'],
+      s: [[{ modal: { k: 'save', i: 0 }, saved: { 0: ['HCI reading list'] } }, 'The Saved in modal'], [{ page: 'folder', basket: [0] }, 'Inside a folder']] },
+    { n: 'Basket and checkout', h: 'Request several books at once', li: ['Add to Basket sits next to each result. A preview slides in so you never lose your search.', 'Items are grouped as Available Now, In-Person Only, Appointment Only or Unavailable.', 'Request All opens a library picker. Unavailable items offer a recall or an interlibrary loan.'],
+      s: [[{ page: 'basket', basket: [0, 1] }, 'The Basket page'], [{ page: 'basket', basket: [0, 1], req: true, lib: 0 }, 'Choosing where to pick up'], [{ off: true, basket: [0, 1] }, 'The preview, over search']] },
+    { n: 'Search results', h: 'Small fixes where people already look', li: ['Past searches open from a clock button in the search bar. Today they sit on a separate History page.', 'Subject headings become item tags that start a new search.', 'A Folders tab on each result shows where it is already saved.'],
+      s: [[{ hist: true, tags: true, saved: { 0: ['HCI reading list', 'Capstone'] }, basket: [1] }, 'History, item tags and the Folders tab']] },
+    { n: 'Citations', h: 'Cite without leaving the catalog', li: ['A quotation-mark action on every result opens a citation in the style you choose.', 'Copy it or export it.', 'A whole folder can be exported at once for a reference list.'],
+      s: [[{ modal: { k: 'cite', i: 0 } }, 'Export Citations']] },
+    { n: 'Tooltips and guidance', h: 'Explain the library’s words where they appear', li: ['Hover tooltips for terms like Reserves and Browse, in plain language.', 'On phones, a question-mark icon opens the same help.', 'A three-step guide on the home page, and related searches when a search finds nothing.'],
+      s: [[{ tips: true }, 'Tooltips on desktop'], [{ page: 'home' }, 'Home page guide'], [{ none: true, q: 'labubu' }, 'When a search finds nothing'], [{ page: 'mobile', w: 390, h: 640, phone: true }, 'Help on a phone']] }
+  ];
+  var tabs = document.getElementById('ftabs'), panel = document.getElementById('fpanel'), cur = 0;
+  function show(i) {
+    cur = i; var f = F[i];
+    [].forEach.call(tabs.children, function (b, k) { b.setAttribute('aria-selected', k === i); b.tabIndex = k === i ? 0 : -1; });
+    panel.innerHTML = '<div><span class="sub">' + f.h + '</span><ul>' + f.li.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul></div><div class="fshots"></div>';
+    var box = panel.lastElementChild;
+    f.s.forEach(function (s) {
+      var wrap = document.createElement('div'); wrap.className = 'stack'; wrap.style.gap = '8px';
+      var fr = document.createElement('div'); fr.className = 'frame' + (s[0].phone ? ' phone' : ''); fr.dataset.w = s[0].w || 1180; fr.dataset.h = s[0].h || (s[0].page === 'basket' ? 740 : 660);
+      var c = document.createElement('span'); c.className = 'cap'; c.textContent = s[1];
+      wrap.appendChild(fr); wrap.appendChild(c); box.appendChild(wrap); rv.mount(fr, rv.base(s[0]));
+    });
+    panel.style.animation = 'none'; void panel.offsetWidth; panel.style.animation = 'pop .35s ease both';
+  }
+  F.forEach(function (f, i) { var b = document.createElement('button'); b.className = 'rt'; b.textContent = f.n; b.type = 'button'; b.setAttribute('role', 'tab'); b.onclick = function () { show(i); }; b.onkeydown = function (e) { if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { var k = (cur + (e.key === 'ArrowRight' ? 1 : F.length - 1)) % F.length; show(k); tabs.children[k].focus(); } }; tabs.appendChild(b); });
+  show(0);
+})();
+</script>
+
+<script id="pn-js">(function(){var d=document;d.documentElement.classList.add('pn-js');var hosts=[];[].forEach.call(d.querySelectorAll('.pnote'),function(n){var p=n.querySelector('p');if(p&&!n.classList.contains('pn-d')){var ws=p.textContent.split(/\s+/);p.setAttribute('aria-label',p.textContent);p.textContent='';ws.forEach(function(w,i){var s=d.createElement('span');s.className='w1';s.setAttribute('aria-hidden','true');s.style.setProperty('--i',i);s.textContent=w;p.appendChild(s);p.appendChild(d.createTextNode(' '))});if(n.classList.contains('pn-e'))p.style.setProperty('--d','.6s')}var h=n.closest('.aside')||n.parentElement;if(hosts.indexOf(h)<0)hosts.push(h)});if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('play');io.unobserve(e.target)}})},{threshold:.45});hosts.forEach(function(h){io.observe(h)})}else hosts.forEach(function(h){h.classList.add('play')})})();</script>
+</body>
+</html>
